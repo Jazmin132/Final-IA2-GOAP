@@ -1,0 +1,113 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
+using System;
+using IA2;
+
+public enum ActionJ
+{
+    Kill,
+    GetMoney,
+    NextStep,
+    FailedStep,
+    Sobornar,
+    Success
+}
+public class Julianicky : MonoBehaviour
+{
+    private EventFSM<ActionJ> _fsm;
+    private Item _target;
+
+    private Entity _ent;
+    IEnumerable<Tuple<ActionJ, Item>> _plan;
+
+    private void PerformAttack(Entity us, Item other, bool NotTired)
+    {
+        Debug.Log("PerformAttack", other.gameObject);
+        if (other != _target) return;
+        //var mace = _ent.items.FirstOrDefault(it => it.type == ItemType.Mace);
+        if (NotTired)
+        {
+            other.Kill();
+            //if (other.type == ItemType.Door)
+            //Destroy(_ent.Removeitem(mace).gameObject);Destruir Enemy
+            _fsm.Feed(ActionJ.NextStep);
+        }
+        else
+            _fsm.Feed(ActionJ.FailedStep);
+    }
+    private void GetMoney(Entity us, Item other, bool IsBroke)
+    {
+        if (other != _target) return;
+        var Mochila = other.GetComponent<Door>();
+        //Hacer el Component a mochila, cuando ya esté programado
+        if (IsBroke && Mochila)
+        {
+            _fsm.Feed(ActionJ.NextStep);
+        }
+        else
+            _fsm.Feed(ActionJ.FailedStep);
+    }
+    private void TakeTheMoney(Entity us, Item other, bool IsBroke)
+    {
+        if (other != _target) return;
+    
+        var key = _ent.items.FirstOrDefault(it => it.type == ItemType.Key);
+        var door = other.GetComponent<Door>();
+        if (door && key)
+        {
+            door.Open();
+            Destroy(_ent.Removeitem(key).gameObject);
+            _fsm.Feed(ActionJ.NextStep);
+        }
+        else
+            _fsm.Feed(ActionJ.FailedStep);
+    }
+    private void NextStep(Entity ent, Waypoint wp, bool reached)
+    {
+        _fsm.Feed(ActionJ.NextStep);
+    }
+    void Awake()
+    {
+        _ent = GetComponent<Entity>();
+
+        var any = new State<ActionJ>("any");
+        var idle = new State<ActionJ>("idle");
+
+        var bridgeStep = new State<ActionJ>("planStep");
+        var failStep = new State<ActionJ>("failStep");
+        var success = new State<ActionJ>("success");
+
+        var kill = new State<ActionJ>("kill");
+        var soborno = new State<ActionJ>("Sobornar");
+        var money = new State<ActionJ>("GetMoney");
+
+        kill.OnEnter += a => {
+            _ent.GoTo(_target.transform.position);
+            _ent.OnHit += PerformAttack;
+        }; 
+        kill.OnExit += a => _ent.OnHit -= PerformAttack;
+
+        StateConfigurer.Create(any)
+            .SetTransition(ActionJ.NextStep, bridgeStep)
+            .SetTransition(ActionJ.FailedStep, idle)
+            .Done();
+
+        StateConfigurer.Create(bridgeStep)
+            .SetTransition(ActionJ.Kill, kill)
+            .SetTransition(ActionJ.Success, success)
+            .Done();
+    }
+
+    public void ExecutePlan(List<Tuple<ActionJ, Item>> plan)
+    {
+        _plan = plan;
+        _fsm.Feed(ActionJ.NextStep);
+    }
+
+    void Update()
+    {
+        _fsm.Update();
+    }
+}
