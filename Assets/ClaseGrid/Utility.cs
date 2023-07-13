@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System;
 
-public static class Utility {
+public static class Utility 
+{
     // Transformaciones
 
     public static int Clampi(int v, int min, int max)
