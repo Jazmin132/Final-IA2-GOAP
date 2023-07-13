@@ -19,7 +19,7 @@ public class Julianicky : MonoBehaviour
     private EventFSM<ActionJ> _fsm;
     private Item _target;
 
-    private Entity _ent;
+    private NewEntity _ent;
     IEnumerable<Tuple<ActionJ, Item>> _plan;
 
     private void UsarBate(Entity us, Item other, bool NotTired)
@@ -53,13 +53,13 @@ public class Julianicky : MonoBehaviour
     {
         if (other != _target) return;
     
-        var key = _ent.items.FirstOrDefault(it => it.type == ItemType.Key);
+        // var key = _ent.items.FirstOrDefault(it => it.type == ItemType.Key);
         var door = other.GetComponent<Door>();
         //Cambiar para que le de el dinero al mafioso
         if (HasMoney && IsEnemyAlive)
         {
             door.Open();
-            Destroy(_ent.Removeitem(key).gameObject);
+            // Destroy(_ent.Removeitem(key).gameObject);
             _fsm.Feed(ActionJ.NextStep);
         }
         else
@@ -71,7 +71,7 @@ public class Julianicky : MonoBehaviour
     }
     void Awake()
     {
-        _ent = GetComponent<Entity>();
+        _ent = GetComponent<NewEntity>();
 
         var any = new State<ActionJ>("any");
         var idle = new State<ActionJ>("idle");
@@ -86,9 +86,10 @@ public class Julianicky : MonoBehaviour
 
         kill.OnEnter += a => {
             _ent.GoTo(_target.transform.position);
-            _ent.OnHit += UsarBate;
+            _ent.UsarBate += UsarBate;
         }; 
-        kill.OnExit += a => _ent.OnHit -= UsarBate;
+        kill.OnExit += a => _ent.UsarBate -= UsarBate;
+        failStep.OnEnter += a => { _ent.Stop(); Debug.Log("Plan failed"); };
 
         StateConfigurer.Create(any)
             .SetTransition(ActionJ.NextStep, bridgeStep)

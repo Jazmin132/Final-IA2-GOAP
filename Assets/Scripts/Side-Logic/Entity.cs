@@ -20,8 +20,6 @@ public class Entity : MonoBehaviour
 	public event Action<Entity, Item>		OnHitItem = delegate {};
 	public event Action<Entity, Waypoint, bool>	OnReachDestination = delegate {};
 
-    public event Action<Entity, Item, bool> OnHit = delegate { };
-
 	public List<Item> initialItems;
 	
 	List<Item> _items;
@@ -127,7 +125,6 @@ public class Entity : MonoBehaviour
             if (item && item.transform.parent != inventory)
             {
                 OnHitItem(this, item);
-                OnHit(this, item, IsTired);
             }
         }
     }
