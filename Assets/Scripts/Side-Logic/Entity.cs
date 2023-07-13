@@ -13,12 +13,14 @@ public class Entity : MonoBehaviour
 	public Transform body, inventory;
 	public string initialId;
 	public Color initialColor;
+    public bool IsTired;
 
 	public event Action<Entity>				OnHitFloor = delegate {};
 	public event Action<Entity, Transform>	OnHitWall = delegate {};
 	public event Action<Entity, Item>		OnHitItem = delegate {};
-	public event Action<Entity, Item, bool>		OnHit = delegate {};
 	public event Action<Entity, Waypoint, bool>	OnReachDestination = delegate {};
+
+    public event Action<Entity, Item, bool> OnHit = delegate { };
 
 	public List<Item> initialItems;
 	
@@ -123,7 +125,10 @@ public class Entity : MonoBehaviour
         {
             var item = col.collider.GetComponentInParent<Item>();
             if (item && item.transform.parent != inventory)
+            {
                 OnHitItem(this, item);
+                OnHit(this, item, IsTired);
+            }
         }
     }
 

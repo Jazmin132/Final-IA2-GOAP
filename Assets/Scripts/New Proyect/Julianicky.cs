@@ -49,13 +49,14 @@ public class Julianicky : MonoBehaviour
         else
             _fsm.Feed(ActionJ.FailedStep);
     }
-    private void TakeTheMoney(Entity us, Item other, bool IsBroke)
+    private void Sobornar(Entity us, Item other, bool HasMoney, bool IsEnemyAlive)
     {
         if (other != _target) return;
     
         var key = _ent.items.FirstOrDefault(it => it.type == ItemType.Key);
         var door = other.GetComponent<Door>();
-        if (door && key)
+        //Cambiar para que tome el dinero de la mochila
+        if (HasMoney && IsEnemyAlive)
         {
             door.Open();
             Destroy(_ent.Removeitem(key).gameObject);
