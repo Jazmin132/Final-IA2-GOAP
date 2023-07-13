@@ -55,7 +55,7 @@ public class Julianicky : MonoBehaviour
     
         var key = _ent.items.FirstOrDefault(it => it.type == ItemType.Key);
         var door = other.GetComponent<Door>();
-        //Cambiar para que tome el dinero de la mochila
+        //Cambiar para que le de el dinero al mafioso
         if (HasMoney && IsEnemyAlive)
         {
             door.Open();
