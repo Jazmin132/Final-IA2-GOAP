@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
 /// Esta parte transformado en utilizar Funcs, pero por ahora hay una mezcla
-/// </summary>
 public class GoapAction
 {
     public Dictionary<string, bool> preconditions { get; private set; }

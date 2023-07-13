@@ -22,7 +22,7 @@ public class Julianicky : MonoBehaviour
     private Entity _ent;
     IEnumerable<Tuple<ActionJ, Item>> _plan;
 
-    private void PerformAttack(Entity us, Item other, bool NotTired)
+    private void UsarBate(Entity us, Item other, bool NotTired)
     {
         Debug.Log("PerformAttack", other.gameObject);
         if (other != _target) return;
@@ -86,9 +86,9 @@ public class Julianicky : MonoBehaviour
 
         kill.OnEnter += a => {
             _ent.GoTo(_target.transform.position);
-            _ent.OnHit += PerformAttack;
+            _ent.OnHit += UsarBate;
         }; 
-        kill.OnExit += a => _ent.OnHit -= PerformAttack;
+        kill.OnExit += a => _ent.OnHit -= UsarBate;
 
         StateConfigurer.Create(any)
             .SetTransition(ActionJ.NextStep, bridgeStep)
