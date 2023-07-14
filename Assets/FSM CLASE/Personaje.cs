@@ -164,8 +164,6 @@ public class Personaje : MonoBehaviour
             Debug.LogWarning("F");
         };
 
-
-
         //con todo ya creado, creo la FSM y le asigno el primer estado
         _myFsm = new EventFSM<PlayerInputs>(idle);
     }
