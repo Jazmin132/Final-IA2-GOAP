@@ -24,9 +24,10 @@ public class GameManager : MonoBehaviour
         if (instance == null) instance = this;
     }
     public void SetPath()
-    { //x.GetNeighbours creo, no se que más pasarle
-        //_pathToFollow = timeSlicing.PathSlicing(x => x == _GoalNode, x => x)
+    { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias??
+        //_pathToFollow = timeSlicing.PathSlicing(_StartingNode , (x) => x == _GoalNode, x => //Que se yo que va acá);
     }
+
     public void FollowPath(Transform Entity, float Speed)
     {//Pasar la posoción de la entidad y el speed
         var col = _pathToFollow.Select(x => x.transform.position).OrderBy(x => x - Entity.position);
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
         else
             col.Skip(0);//Se saltea el índice para luego pasar al siguiente(ojalá funcione)
     }
+
     public Nodes GetNode(Vector3 pos)
     {//Obtener nodo más cercano a la entidad dependiendo de su posición actual
         Nodes currentFirstNode = _AllNodes[0];

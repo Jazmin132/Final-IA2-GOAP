@@ -11,6 +11,11 @@ public class Nodes : MonoBehaviour
     {
         GameManager.instance._AllNodes.Add(this);
 
+        
+    }
+
+    public void GetVecinos()
+    {
         foreach (var Node in GameManager.instance._AllNodes)
         {
             if (radious < Vector3.Distance(transform.position,Node.transform.position))
@@ -18,10 +23,5 @@ public class Nodes : MonoBehaviour
                 Vecinos.Add(Node);
             }
         }
-    }
-
-    public void GetNeighbours()
-    {
-        //Distancias entre los vecinos
     }
 }
