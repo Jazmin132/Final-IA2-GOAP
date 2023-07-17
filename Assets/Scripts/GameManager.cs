@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetPath()
     { //x.GetNeighbours creo, no se que más pasarle
-        //_pathToFollow = timeSlicing.PathSlicing(x => x == _GoalNode, x =>)
+        //_pathToFollow = timeSlicing.PathSlicing(x => x == _GoalNode, x => x)
     }
     public void FollowPath(Transform Entity, float Speed)
     {//Pasar la posoción de la entidad y el speed
