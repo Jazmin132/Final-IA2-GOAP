@@ -6,9 +6,9 @@ public class EntiddadEjemplo : MonoBehaviour
 {
     public enum EntityStates
     {
-        Idle,
-        Accion1,
-        Accion2
+        Accion,
+        Accion2,
+        Accion3
     }
     public EventFSM<EntityStates> _MyFSM;
 
@@ -20,16 +20,16 @@ public class EntiddadEjemplo : MonoBehaviour
         var accion2 = new State<EntityStates>("Accion2");
         //Crear las transiciones
         StateConfigurer.Create(idle)
-            .SetTransition(EntityStates.Accion1, accion1)
-            .SetTransition(EntityStates.Accion2, accion2);
+            .SetTransition(EntityStates.Accion2, accion1)
+            .SetTransition(EntityStates.Accion3, accion2).Done();
 
         StateConfigurer.Create(accion1)
-            .SetTransition(EntityStates.Idle, idle)
-            .SetTransition(EntityStates.Accion2, accion2);
+            .SetTransition(EntityStates.Accion, idle)
+            .SetTransition(EntityStates.Accion3, accion2).Done();
 
         StateConfigurer.Create(accion2)
-            .SetTransition(EntityStates.Idle, idle)
-            .SetTransition(EntityStates.Accion1, accion1);
+            .SetTransition(EntityStates.Accion, idle)
+            .SetTransition(EntityStates.Accion2, accion1).Done();
 
         //Para editar que pasa en cada estado
         idle.OnEnter += x =>
@@ -41,9 +41,9 @@ public class EntiddadEjemplo : MonoBehaviour
             bool Ejemplo = true;
 
             if (Ejemplo) //Para trancicionar de un estado a otro
-                SentToFSM(EntityStates.Accion1);
-            else
                 SentToFSM(EntityStates.Accion2);
+            else
+                SentToFSM(EntityStates.Accion3);
         };
         //Indicás en que estado arranca al poner el play
         _MyFSM = new EventFSM<EntityStates>(idle);

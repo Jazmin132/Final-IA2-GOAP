@@ -43,9 +43,16 @@ public class Bee : MonoBehaviour
 
     [Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
     [SerializeField] bool _stateMove, _stateSpawnPlant, _stateDeath;
-
+    public enum BeeStates
+    {
+        Moving,
+        Spawn,
+        DIE
+    }
+    public EventFSM<BeeStates> _MyFSM;
     void Awake()
     {
+        #region something
         //Agregarlo a una lista antes de que haga algo? -> fijarse si poner código
 
         //_firstPosToFly = _myTransform.position;
@@ -61,10 +68,82 @@ public class Bee : MonoBehaviour
         _vector3ToAddForce = Vector3.up;
 
         _myRgbd.AddForce(_vector3ToAddForce * _jumpForce * Time.fixedDeltaTime, ForceMode.Impulse);
+        #endregion
+
+        var Moving = new State<BeeStates>("Idle");
+        var SpawnPlant = new State<BeeStates>("Accion1");
+        var Death = new State<BeeStates>("Accion2");
+
+        StateConfigurer.Create(Moving)
+            .SetTransition(BeeStates.Spawn, SpawnPlant)
+            .SetTransition(BeeStates.DIE, Death).Done();
+
+        StateConfigurer.Create(SpawnPlant)
+            .SetTransition(BeeStates.Moving, Moving)
+            .SetTransition(BeeStates.DIE, Death).Done();
+
+        StateConfigurer.Create(Death).Done();
+
+        Moving.OnFixedUpdate += () =>
+        {
+            if (_life > 0)
+            {
+                CountTimerLife();
+                CountTimerSpawner();
+
+                if (_stateMove && !_stateSpawnPlant && !_stateDeath)
+                {
+                    if (_stateSpawnPlant)
+                        _stateSpawnPlant = false;
+
+                    if (_canSpawnObject)
+                        _canSpawnObject = false;
+
+                    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+                    Flying();
+                }
+                else if (_stateSpawnPlant && !_stateMove && !_stateDeath)
+                {
+                    Debug.Log("Spawner");
+                    SentToFSM(BeeStates.Spawn);
+                    SpawnPlantState();
+                }
+            }
+            else
+            {
+                _stateMove = false;
+                _stateSpawnPlant = false;
+                _stateDeath = true;
+
+                if (_stateDeath && !_stateMove && !_stateSpawnPlant)
+                    SentToFSM(BeeStates.DIE);
+            }
+        };
+        SpawnPlant.OnFixedUpdate += () =>
+         {//SPAWN PLANT
+             if (!_myRgbd.useGravity)
+                 _myRgbd.useGravity = true;
+
+             if (_canCountTimeFlying)
+                 _canCountTimeFlying = false;
+
+             if (!_canSpawnObject)
+                 _canSpawnObject = true;
+         };
+        Death.OnEnter += x =>
+        {// death
+            Debug.Log("Death");
+            Destroy(gameObject);
+        };
+
+       _MyFSM = new EventFSM<BeeStates>(Moving);
     }
 
     void FixedUpdate()
     {
+        _MyFSM.FixedUpdate();
+  #region Before
+        /*
         if (_life > 0)
         {
             CountTimerLife();
@@ -73,24 +152,12 @@ public class Bee : MonoBehaviour
 
             if (_stateMove && !_stateSpawnPlant && !_stateDeath)
             {
-                Moving();
+                //Moving();
 
                 //Flying();
             }
             else if (_stateSpawnPlant && !_stateMove && !_stateDeath)
             {
-                //if (_myRgbd.velocity != Vector3.zero)
-                //    _myRgbd.velocity = Vector3.zero;
-
-                //if (!_myRgbd.useGravity)
-                //    _myRgbd.useGravity = true;
-                //
-                //if (_canCountTimeFlying)
-                //    _canCountTimeFlying = false;
-                //
-                //if(!_canSpawnObject)
-                //    _canSpawnObject = true;
-
                 SpawnPlantState();
             }
         }
@@ -105,8 +172,9 @@ public class Bee : MonoBehaviour
             if (_stateDeath && !_stateMove && !_stateSpawnPlant)
                 Death();
         }
-
+        */
         //Agregar el flocking acá lo que va en FixedUpdate (copiar y pegar lo que se encuentra en el TP-IA2 (o en el Parcial 1 de IA1))
+        #endregion
     }
 
     #region CountTimer
@@ -205,13 +273,10 @@ public class Bee : MonoBehaviour
         }
     }
     #endregion
-
-    //void SetValueRandom(float valueToRandom, float min, float max)
-    //{
-    //    Debug.Log("SetValueRandom");
-    //
-    //    valueToRandom = Random.Range(min, max);
-    //}
+    void SentToFSM(BeeStates states)
+    {
+        _MyFSM.SendInput(states);
+    }
 
     void ChangeTransformRotationY(float value)
     {
@@ -228,20 +293,10 @@ public class Bee : MonoBehaviour
     }
 
     #region States
-    void Moving() //[STATE 1 - Inicial]
-    {
-        Debug.Log("Moving");
-
-        if(_stateSpawnPlant)
-            _stateSpawnPlant = false;
-
-        if(_canSpawnObject)
-            _canSpawnObject = false;
-
-        _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-
-        Flying();
-    }
+    //void Moving() //[STATE 1 - Inicial]
+    //{
+    //    Debug.Log("Moving");  
+    //}
 
     void Flying() //'Flying' no es un 'State', pero como funciona junto con 'Moving' lo pongo acá
     {
@@ -251,26 +306,12 @@ public class Bee : MonoBehaviour
             _myRgbd.useGravity = false;
 
         CountTimerFlying();
-
-        //_firstPosToFly = new Vector3(_myTransform.position.x, _valueY1, _myTransform.position.z);
-        //_secondPosToFly = new Vector3(_myTransform.position.x, _valueY2, _myTransform.position.z);
-
-        //_myTransform.position = Vector3.Lerp(_firstPosToFly, _secondPosToFly, _timeFlying / _timerFlying);
     }
 
     void SpawnPlantState() //[STATE 2]
     {
         //if (_myRgbd.velocity != Vector3.zero)
         //    _myRgbd.velocity = Vector3.zero;
-
-        if (!_myRgbd.useGravity)
-            _myRgbd.useGravity = true;
-
-        if (_canCountTimeFlying)
-            _canCountTimeFlying = false;
-
-        if (!_canSpawnObject)
-            _canSpawnObject = true;
     }
 
     void SpawnPlant() //'SpawnPlant' es un 'State' trucho, 'SpawnPlantState' es el 'State' verdadero
@@ -278,9 +319,6 @@ public class Bee : MonoBehaviour
         Debug.Log("SpawnPlant");
 
         SpawnObject(_objectToSpawn);
-
-        //SetValueRandom(_randomValueForAngle, 0, 361);
-
         _randomValueForAngle = Random.Range(0, 361);
 
         ChangeTransformRotationY(_randomValueForAngle);
@@ -288,21 +326,16 @@ public class Bee : MonoBehaviour
         _jumpForceOriginal = 100;
 
         _jumpForce = _jumpForceOriginal;
-
         _canCountTimeFlying = true;
-
         _canSpawnObject = false;
-
         _stateSpawnPlant = false;
-
         _stateMove = true;
+        SentToFSM(BeeStates.Moving);
     }
 
     void Death() //[STATE 3]
     {
-        Debug.Log("Death");
 
-        Destroy(gameObject);
     }
     #endregion
 
@@ -311,6 +344,31 @@ public class Bee : MonoBehaviour
         if (_canSpawnObject)
             SpawnPlant();
     }
-
     //Agregar el flocking acá lo que va afuera del FixedUpdate (copiar y pegar lo que se encuentra en el TP-IA2 (o en el Parcial 1 de IA1))
 }
+
+//if (_myRgbd.velocity != Vector3.zero)
+//    _myRgbd.velocity = Vector3.zero;
+
+//if (!_myRgbd.useGravity)
+//    _myRgbd.useGravity = true;
+//
+//if (_canCountTimeFlying)
+//    _canCountTimeFlying = false;
+//
+//if(!_canSpawnObject)
+//    _canSpawnObject = true;
+
+//Espacio
+//void SetValueRandom(float valueToRandom, float min, float max)
+//{
+//    Debug.Log("SetValueRandom");
+//
+//    valueToRandom = Random.Range(min, max);
+//}
+
+///Espacio
+//_firstPosToFly = new Vector3(_myTransform.position.x, _valueY1, _myTransform.position.z);
+//_secondPosToFly = new Vector3(_myTransform.position.x, _valueY2, _myTransform.position.z);
+
+//_myTransform.position = Vector3.Lerp(_firstPosToFly, _secondPosToFly, _timeFlying / _timerFlying);
