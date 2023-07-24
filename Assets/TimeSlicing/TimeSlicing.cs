@@ -153,7 +153,7 @@ public class TimeSlicing
 
     //AStar con Linq, pero sin pausas, se ejecuta y devuelde el path al final
     //o una colleccion vacia si no se encontro un path posible
-    static IEnumerable<T> AStar<T>(T start,
+    public static IEnumerable<T> AStar<T>(T start,
                                            Func<T, bool> targetCheck,
                                            Func<T, IEnumerable<Tuple<T, float>>> GetNeighbours,
                                            Func<T, float> GetHeuristic)

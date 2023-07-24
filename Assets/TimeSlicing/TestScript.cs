@@ -14,10 +14,10 @@ public class TestScript : MonoBehaviour
     {
         int target = 10000;
         StartCoroutine(TimeSlicing.DijkstraSlicing(target));
-        //StartCoroutine(TimeSlicing.PathSlicing(0, x => x == target,
-        //x => new Tuple<int, float>[] { Tuple.Create(x + 1, 1f),
-        //Tuple.Create(x + 2, 1f) },x=> Mathf.Abs(target - x),
-        //(m) => Debug.LogWarning(m)));
+        StartCoroutine(TimeSlicing.PathSlicing(0, x => x == target,
+        x => new Tuple<int, float>[] { Tuple.Create(x + 1, 1f),
+        Tuple.Create(x + 2, 1f) }, x=> Mathf.Abs(target - x),
+        (m) => Debug.LogWarning(m)));
     }
    
     void Update()
