@@ -28,7 +28,7 @@ public class Plant : MonoBehaviour
     [SerializeField] bool _doOnce;
 
 
-    [Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
+    //[Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
     [SerializeField] bool _stateIdle, _stateMoving, _stateDeath;
     public enum PlantStates
     {
@@ -54,34 +54,21 @@ public class Plant : MonoBehaviour
 
         StateConfigurer.Create(Death).Done();
 
-        Idle.OnEnter += x =>
-        {
-            Debug.Log("idle STATE");
-            if (!_doOnce)
-                _doOnce = true;
-        };
+        Idle.OnEnter += x => { _stateIdle = true; };
         Idle.OnFixedUpdate += () =>
         {
             if (_life > 0)
             {
                 CountTimerLife();
                 CountTimerMoving();
-
-                if (_stateMoving && !_stateIdle && !_stateDeath)
-                    SentToFSM(PlantStates.Move);
             }
             else
-            {
-                _stateIdle = false;
-                _stateMoving = false;
-                _stateDeath = true;
-
-                if (_stateDeath && !_stateMoving && !_stateMoving)
-                    SentToFSM(PlantStates.Death);
-            }
+                SentToFSM(PlantStates.Death);
         };
+        Idle.OnExit += x => { _stateIdle = true; };
         Moving.OnEnter += x =>
         {
+            _stateMoving = true;
             Debug.Log("Moving");
             DoTransformRotationYWithRandomValue();
         };
@@ -91,57 +78,23 @@ public class Plant : MonoBehaviour
             {
                 CountTimerLife();
                 CountTimerMoving();
-
-                if (_stateIdle && !_stateMoving && !_stateDeath)
-                    SentToFSM(PlantStates.Idle);
-
-                if (_stateMoving && !_stateIdle && !_stateDeath)
-                    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+                _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
             }
             else
                 SentToFSM(PlantStates.Death);
         };
+        Moving.OnExit += x => { _stateMoving = false; };
         Death.OnEnter += x =>
         {
             Debug.Log("Death");
             Destroy(gameObject);
         };
-
         _MyFSM = new EventFSM<PlantStates>(Idle);
     }
     
     void FixedUpdate()
     {
         _MyFSM.FixedUpdate();
-   #region Before
-        /*
-        if (_life > 0)
-        {
-            CountTimerLife();
-
-            CountTimerMoving();
-
-            if (_stateIdle && !_stateMoving && !_stateDeath)
-            {
-                Idle();
-            }
-            else if (_stateMoving && !_stateIdle && !_stateDeath)
-            {
-                Moving();
-            }
-        }
-        else
-        {
-            _stateIdle = false;
-
-            _stateMoving = false;
-
-            _stateDeath = true;
-
-            if (_stateDeath && !_stateMoving && !_stateMoving)
-                Death();
-        }*/
-        #endregion
     }
 
     #region CountTimer
@@ -151,14 +104,10 @@ public class Plant : MonoBehaviour
         {
             if (!_restartLifeTime)
                 _restartLifeTime = true;
-
-            return;
         }
-
         if (_timeLife != 0 && _restartLifeTime)
         {
             _timeLife = 0;
-
             _restartLifeTime = false;
         }
 
@@ -177,14 +126,11 @@ public class Plant : MonoBehaviour
         {
             if (!_restartMoveTime)
                 _restartMoveTime = true;
-
-            return;
         }
 
         if (_timeMove != 0 && _restartMoveTime)
         {
             _timeMove = 0;
-
             _restartMoveTime = false;
         }
 
@@ -193,22 +139,9 @@ public class Plant : MonoBehaviour
         if (_timeMove >= _timerMove)
         {
             if(_timeMove < _timerToMove)
-            {
-                if(_stateIdle)
-                    _stateIdle = false;
-                if(!_stateMoving)
-                    _stateMoving = true;
-
                 SentToFSM(PlantStates.Move);
-            }
             else
             {
-                if (!_stateIdle)
-                    _stateIdle = true;
-                
-                if (_stateMoving)
-                    _stateMoving = false;
-
                 SentToFSM(PlantStates.Idle);
                 _timeMove = 0;
             }
@@ -231,46 +164,13 @@ public class Plant : MonoBehaviour
 
         _myTransform.localEulerAngles = _newVector3Rotation;
     }
-
     void DoTransformRotationYWithRandomValue()
     {
-        if (!_doOnce)
-        {
-            Debug.Log("Help");
-            return;
-        }
         Debug.Log("TransformRotationY");
-
-        //SetValueRandom(_randomValueForAngle, 0, 361);
-
         _randomValueForAngle = Random.Range(0, 361);
 
         ChangeTransformRotationY(_randomValueForAngle);
-
-        _doOnce = false;
     }
-
-    #region States
-    //void Idle() //[STATE 1 - Inicial]
-    //{
-    //    Debug.Log("Idle");
-    //
-    //    if (!_doOnce)
-    //        _doOnce = true;
-    //}
-
-    void Moving() //[STATE 2]
-    {
-
-    }
-
-    void Death() //[STATE 3]
-    {
-        Debug.Log("Death");
-
-        Destroy(gameObject);
-    }
-    #endregion
     void SentToFSM(PlantStates states)
     {
         _MyFSM.SendInput(states);
