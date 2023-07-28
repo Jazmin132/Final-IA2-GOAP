@@ -6,24 +6,38 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
-
+    [Header("ASTAR Values")]
     public TimeSlicing timeSlicing;
     public Nodes _StartingNode;
     public Nodes _GoalNode;
     public List<Nodes> _AllNodes = new List<Nodes>();
     List<Nodes> _pathToFollow = new List<Nodes>();
 
+    [Header("BOID Related Values")]
+    public float boundWidth;
+    public float boundHeight;
+
+    public int spawnTimer;
+    public GameObject food;
+
+    public List<Boid> allBoids = new List<Boid>();
+    public List<Food> allFoods = new List<Food>();
+    
+    public List<Transform> foodSpawnPoints = new List<Transform>();
+    public Transform actualSpawnPoint;
+    public GameObject padreGrilla;
+    public Vector3 spawnPoint;
+    public Quaternion spawnRotation;
+
+    public static GameManager instance;
+
+    private void Awake() { if (instance == null) instance = this; }
+
     public void SetNodes(Nodes startingNode, Nodes finalNode)
     {
         _StartingNode = startingNode;
         _GoalNode = finalNode;
     }
-    private void Awake()
-    {
-        if (instance == null) instance = this;
-    }
-
     public void SetPath()
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
         _pathToFollow = TimeSlicing.AStar(_StartingNode, (x) => x == _GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
@@ -55,6 +69,54 @@ public class GameManager : MonoBehaviour
             }
         }
         return currentFirstNode;
+    }
+
+    public void AddBoid(Boid b)
+    {
+        if (!allBoids.Contains(b))
+            allBoids.Add(b);
+    }
+    public void AddFood(Food f)
+    {
+        if (!allFoods.Contains(f))
+            allFoods.Add(f);
+        //allFoods.OrderBy(x => x);
+    }
+    public Vector3 ChangeObjPosition(Vector3 pos)
+    {
+        if (pos.z > boundHeight / 2) pos.z = -boundHeight / 2;
+        if (pos.z < -boundHeight / 2) pos.z = boundHeight / 2;
+        if (pos.x < -boundWidth / 2) pos.x = boundWidth / 2;
+        if (pos.x > boundWidth / 2) pos.x = -boundWidth / 2;
+        return pos;
+    }
+    public void SpawnFood()
+    {
+        actualSpawnPoint = foodSpawnPoints[UnityEngine.Random.Range(0, foodSpawnPoints.Count)];
+        StartCoroutine(SpawnTimer());
+    }
+
+    private IEnumerator SpawnTimer()
+    {
+        yield return new WaitForSeconds(spawnTimer);
+        //Instantiate(food, padreGrilla.transform);
+        spawnPoint = new Vector3(UnityEngine.Random.Range(-boundWidth, boundWidth), 0.5f,
+            UnityEngine.Random.Range(-boundHeight, boundHeight));
+        Instantiate(food, spawnPoint, spawnRotation);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 topLeft = new Vector3(-boundWidth / 2, 0, boundHeight / 2);
+        Vector3 topRight = new Vector3(boundWidth / 2, 0, boundHeight / 2);
+        Vector3 botRight = new Vector3(boundWidth / 2, 0, -boundHeight / 2);
+        Vector3 botLeft = new Vector3(-boundWidth / 2, 0, -boundHeight / 2);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(topLeft, topRight);
+        Gizmos.DrawLine(topRight, botRight);
+        Gizmos.DrawLine(botRight, botLeft);
+        Gizmos.DrawLine(botLeft, topLeft);
     }
 }
 

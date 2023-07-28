@@ -11,8 +11,8 @@ public class Food : GridEntity
     {
         _index = 0;
 
-        GameManager2.instance.AddFood(this);
-        if(GameManager2.instance.actualSpawnPoint != null)transform.position = GameManager2.instance.actualSpawnPoint.position;
+        GameManager.instance.AddFood(this);
+        if(GameManager.instance.actualSpawnPoint != null)transform.position = GameManager.instance.actualSpawnPoint.position;
         //OnMoveTest();
         //SpatialGrid.Instance.UpdateEntity(this);
     }

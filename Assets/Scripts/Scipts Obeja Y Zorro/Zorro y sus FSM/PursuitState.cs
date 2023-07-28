@@ -40,7 +40,7 @@ public class PursuitState : IState
 
     Vector3 Pursuit()
     {
-        foreach (Boid boid in GameManager2.instance.allBoids)
+        foreach (Boid boid in GameManager.instance.allBoids)
         {
                 Vector3 futurePos = boid.transform.position + boid.GetVelocity();
                 Vector3 desired = futurePos - _agent.transform.position;

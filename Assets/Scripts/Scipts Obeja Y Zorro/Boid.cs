@@ -33,7 +33,7 @@ public class Boid : GridEntity
 
     void Start()
     {
-        GameManager2.instance.AddBoid(this);
+        GameManager.instance.AddBoid(this);
 
         Vector3 randomDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         randomDir.Normalize();
@@ -66,7 +66,7 @@ public class Boid : GridEntity
     Vector3 Separation()
     {
         Vector3 desired = Vector3.zero;
-        foreach (Boid boid in GameManager2.instance.allBoids)
+        foreach (Boid boid in GameManager.instance.allBoids)
         {
             Vector3 dist = boid.transform.position - transform.position;
             if (dist.magnitude <= separationRadius)
@@ -85,7 +85,7 @@ public class Boid : GridEntity
     {
         Vector3 desired = Vector3.zero;
         int count = 0;
-        foreach (var item in GameManager2.instance.allBoids)
+        foreach (var item in GameManager.instance.allBoids)
         {
             if (item == this) continue;
             if (Vector3.Distance(transform.position, item.transform.position) <= viewRadius)
@@ -106,7 +106,7 @@ public class Boid : GridEntity
     {
         Vector3 desired = Vector3.zero;
         int count = 0;
-        foreach (var item in GameManager2.instance.allBoids)
+        foreach (var item in GameManager.instance.allBoids)
         {
             if (item == this) continue;
 
@@ -128,8 +128,8 @@ public class Boid : GridEntity
     #region Arrive
     Vector3 Arrive()
     {
-        if (GameManager2.instance.allFoods == null) return Vector3.zero;
-        var closestFood = GameManager2.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius)
+        if (GameManager.instance.allFoods == null) return Vector3.zero;
+        var closestFood = GameManager.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius)
             .OrderBy(x => Vector3.Distance(x.transform.position, transform.position)).Take(1).ToList(); //IA 2 P1
 
         Debug.Log(closestFood);
@@ -195,7 +195,7 @@ public class Boid : GridEntity
 
     void CheckBounds()
     {
-        transform.position = GameManager2.instance.ChangeObjPosition(transform.position);
+        transform.position = GameManager.instance.ChangeObjPosition(transform.position);
     }
 
     void AddForce(Vector3 force)

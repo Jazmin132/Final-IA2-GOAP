@@ -26,7 +26,7 @@ public class PatrolState : IState
         _agent.energy -= Time.deltaTime;
         if(_agent.energy <= 0)_fsm.ChangeState(AgentStates.IDLE);
         Patrol();
-        foreach (Boid boid in GameManager2.instance.allBoids)
+        foreach (Boid boid in GameManager.instance.allBoids)
         {
             Vector3 dist = boid.transform.position - _agent.transform.position;
             if (dist.magnitude <= _agent.pursuitRadius) _fsm.ChangeState(AgentStates.PURSUIT);
