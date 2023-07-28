@@ -32,7 +32,6 @@ public class PatrolState : IState
             if (dist.magnitude <= _agent.pursuitRadius) _fsm.ChangeState(AgentStates.PURSUIT);
         }
     }
-
     void Patrol()
     {
         GameObject waypoint = _agent.allWaypoints[_currentWaypoint];

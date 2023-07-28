@@ -27,9 +27,7 @@ public class Plant : MonoBehaviour
     [SerializeField] float _timerToMove;
     [SerializeField] bool _doOnce;
 
-
-    //[Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
-    [SerializeField] bool _stateIdle, _stateMoving, _stateDeath;
+    [SerializeField] bool _stateIdle, _stateMoving;
     public enum PlantStates
     {
         Idle,
