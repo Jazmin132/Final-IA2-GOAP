@@ -63,8 +63,8 @@ public class Boid : GridEntity
 
             if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
                 SentToFSM(BoidStates.EVADE);
-
-            CheckForFood();
+            else if ((GameManager.instance.food.transform.position - transform.position).magnitude <= arriveRadius)
+                SentToFSM(BoidStates.ARRIVE);
         };
         _Alignment.OnExit += x => { _state_Alignment = false;};
 
@@ -77,23 +77,15 @@ public class Boid : GridEntity
         };
         _Evade.OnExit += x => { _state_Evade = false; };
 
-        _Arrive.OnEnter += x =>
-        {
-            _state_Arrive = true;
-            //Foods = _closestFood;
-        };
+        _Arrive.OnEnter += x => {_state_Arrive = true;};
         _Arrive.OnFixedUpdate += () =>
         {
-            AddForce(Arrive(_closestFood[0]) * arriveWeight);
+            AddForce(Arrive(GameManager.instance.food) * arriveWeight);
 
             if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
                 SentToFSM(BoidStates.EVADE);
-            else if(_closestFood.Count >= 0)
+            else if((GameManager.instance.food.transform.position - transform.position).magnitude > arriveRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
-
-            //    SentToFSM(BoidStates.ALIGNMENT);
-            //else if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
-            //    SentToFSM(BoidStates.EVADE);
         };
         _Arrive.OnExit += x => { _state_Arrive = false; };
 
@@ -133,9 +125,7 @@ public class Boid : GridEntity
         {
             Vector3 dist = boid.transform.position - transform.position;
             if (dist.magnitude <= separationRadius)
-            {
                 desired += dist;
-            }
         }
         if (desired == Vector3.zero) return desired; 
         desired *= -1;
@@ -188,77 +178,39 @@ public class Boid : GridEntity
     }
     #endregion
 
-    public void CheckForFood()
-    {
-        _closestFood = GameManager.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius)
-           .OrderBy(x => Vector3.Distance(x.transform.position, transform.position)).Take(1).ToList();
-        
-        //Debug.Log((GameManager.instance.allFoods[0].gameObject.transform.position - transform.position).magnitude <= arriveRadius);
-        //Debug.Log(_closestFood.Count);
-        if (_closestFood.Count > 0)
-            SentToFSM(BoidStates.ARRIVE);
-    }
     #region Arrive
     Vector3 Arrive(Food food)
     {
-        if (GameManager.instance.allFoods == null) return Vector3.zero;
+        Vector3 desired = food.gameObject.transform.position - transform.position;
+         float dist = desired.magnitude;
+        if (dist <= arriveRadius)
+        {
+            desired.Normalize();
+            desired *= maxSpeed * (dist / arriveRadius);
+        }
+        if ((food.gameObject.transform.position - transform.position).magnitude <= eatRadius)
+            EatFood(food);
+
+        return CalculateSteering(desired);
+    #region what
+        //if (GameManager.instance.allFoods == null) return Vector3.zero;
         //var closestFood = GameManager.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius)
         //    .OrderBy(x => Vector3.Distance(x.transform.position, transform.position)).Take(1).ToList(); //IA 2 P1
         //Debug.Log(closestFood);
         //Foods = closestFood;
         //if (closestFood.Count > 0)
         //{
-
-        Vector3 desired = food.gameObject.transform.position - transform.position;//closestFood[0]
-         float dist = desired.magnitude;
-        if (dist <= arriveRadius)
-        {
-            desired.Normalize();
-            desired *= maxSpeed * (dist / arriveRadius);
-        }//closestFood[0]
-        if ((food.gameObject.transform.position - transform.position).magnitude <= eatRadius)
-            EatFood(food);//closestFood[0] //item.OnDeath();
-
-        return CalculateSteering(desired);
-        //}
-    #region what
-        //foreach (var item in GameManager.instance.allFoods)
-        //{
-        //    if ((item.gameObject.transform.position - transform.position).magnitude <= arriveRadius) // ACA HACER QUE LO HAGA CUANDO DETECTE COMIDA EN LA CELDA DE LA GRILLA EN LA QUE ESTA POSICIONADO
-        //    {
-        //        Vector3 desired = item.gameObject.transform.position - transform.position;
-        //        float dist = desired.magnitude;
-        //        if (dist <= arriveRadius)
-        //        {
-        //            desired.Normalize();
-        //            desired *= maxSpeed * (dist / arriveRadius);
-        //        }
-        //        if ((item.gameObject.transform.position - transform.position).magnitude <= eatRadius)
-        //        {
-        //            //f.Teleportation();
-        //            EatFood(item);
-        //            //item.OnDeath();
-        //        }
-        //        return CalculateSteering(desired);
-        //    }
-        //}
-        // return Vector3.zero;
         #endregion
     }
     #endregion
 
     Vector3 Evade()
     {
-        //if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
-        //{
-        Debug.Log("Evade");
-            Vector3 futurePos = hunter.transform.position + agent.GetVelocity();
-            Vector3 desired = futurePos + hunter.transform.position;
-            desired.Normalize();
-            desired *= agent.maxSpeed;
-            return CalculateSteering(desired);
-        //}
-        //return Vector3.zero;
+        Vector3 futurePos = hunter.transform.position + agent.GetVelocity();
+        Vector3 desired = futurePos + hunter.transform.position;
+        desired.Normalize();
+        desired *= agent.maxSpeed;
+        return CalculateSteering(desired);
     }
 
     public Vector3 GetVelocity()

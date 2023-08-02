@@ -215,8 +215,6 @@ public class Bee : MonoBehaviour
 
     void ChangeTransformRotationY(float value)
     {
-        Debug.Log("ChangeTransformRotationY");
-
         _newVector3Rotation = new Vector3(_myTransform.rotation.eulerAngles.x, value, _myTransform.rotation.eulerAngles.z);
 
         _myTransform.localEulerAngles = _newVector3Rotation;

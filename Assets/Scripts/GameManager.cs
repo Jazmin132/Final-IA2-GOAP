@@ -17,17 +17,11 @@ public class GameManager : MonoBehaviour
     public float boundWidth;
     public float boundHeight;
 
-    public int spawnTimer;
-    public GameObject food;
-
+    public Food food;
+    public GameObject[] FoodPoints;
+    int IndeX = 0;
     public List<Boid> allBoids = new List<Boid>();
-    public List<Food> allFoods = new List<Food>();
-    
-    public List<Transform> foodSpawnPoints = new List<Transform>();
-    public Transform actualSpawnPoint;
     public GameObject padreGrilla;
-    public Vector3 spawnPoint;
-    public Quaternion spawnRotation;
 
     public static GameManager instance;
 
@@ -77,11 +71,11 @@ public class GameManager : MonoBehaviour
         if (!allBoids.Contains(b))
             allBoids.Add(b);
     }
-    public void AddFood(Food f)
+    public void ChangeFoodPos(Food food)
     {
-        if (!allFoods.Contains(f))
-            allFoods.Add(f);
-        //allFoods.OrderBy(x => x);
+        food.transform.position = FoodPoints[IndeX].transform.position;
+        IndeX++;
+        if (IndeX >= FoodPoints.Length) IndeX = 0;
     }
     public Vector3 ChangeObjPosition(Vector3 pos)
     {
@@ -91,12 +85,12 @@ public class GameManager : MonoBehaviour
         if (pos.x > boundWidth / 2) pos.x = -boundWidth / 2;
         return pos;
     }
+    /*
     public void SpawnFood()
     {
-        actualSpawnPoint = foodSpawnPoints[UnityEngine.Random.Range(0, foodSpawnPoints.Count)];
-        StartCoroutine(SpawnTimer());
+        //actualSpawnPoint = foodSpawnPoints[UnityEngine.Random.Range(0, foodSpawnPoints.Count)];
+        //StartCoroutine(SpawnTimer());
     }
-
     private IEnumerator SpawnTimer()
     {
         yield return new WaitForSeconds(spawnTimer);
@@ -105,7 +99,7 @@ public class GameManager : MonoBehaviour
             UnityEngine.Random.Range(-boundHeight, boundHeight));
         Instantiate(food, spawnPoint, spawnRotation);
     }
-
+    */
     private void OnDrawGizmos()
     {
         Vector3 topLeft = new Vector3(-boundWidth / 2, 0, boundHeight / 2);

@@ -1156,16 +1156,15 @@ MonoBehaviour:
   boundWidth: 90
   boundHeight: 60
   spawnTimer: 0
-  food: {fileID: 2103482230}
+  food: {fileID: 2103482232}
+  FoodPoints:
+  - {fileID: 1858077684}
+  - {fileID: 342901139}
+  - {fileID: 755194327}
+  - {fileID: 349292496}
   allBoids:
   - {fileID: 337137326}
-  allFoods:
-  - {fileID: 2103482232}
-  foodSpawnPoints: []
-  actualSpawnPoint: {fileID: 0}
   padreGrilla: {fileID: 280139271}
-  spawnPoint: {x: 0, y: 0, z: 0}
-  spawnRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &233913638
 Transform:
   m_ObjectHideFlags: 0
@@ -12260,7 +12259,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
   onGrid: 1
-  wp: []
 --- !u!1 &2117346653
 GameObject:
   m_ObjectHideFlags: 0

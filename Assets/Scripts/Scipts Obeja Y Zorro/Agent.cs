@@ -87,7 +87,7 @@ public class Agent : GridEntity
                     Vector3 dist = boid.transform.position - transform.position;
                     if (dist.magnitude <= pursuitRadius)
                     {
-                        Debug.Log("LMAOOO222");
+                        //Debug.Log("LMAOOO222");
                         SendInputToSFSM(AgentStates.PURSUIT);
                     }//Cambiar de Estado a Pursuit
                 } 
@@ -100,7 +100,7 @@ public class Agent : GridEntity
 
         Pursuit.OnEnter += x =>
         {
-            Debug.Log("OnEnter Pursuit");
+            //Debug.Log("OnEnter Pursuit");
         };
         Pursuit.OnUpdate += () =>
         {
