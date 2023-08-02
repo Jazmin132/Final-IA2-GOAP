@@ -1155,7 +1155,6 @@ MonoBehaviour:
   _AllNodes: []
   boundWidth: 90
   boundHeight: 60
-  spawnTimer: 0
   food: {fileID: 2103482232}
   FoodPoints:
   - {fileID: 1858077684}
@@ -2962,7 +2961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 598802533}
   m_Layer: 0
-  m_Name: ApplePosition
+  m_Name: ApplePos Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
