@@ -27,7 +27,7 @@ public class Plant : MonoBehaviour
     [SerializeField] float _timerToMove;
     [SerializeField] bool _doOnce;
 
-    [SerializeField] bool _stateIdle, _stateMoving;
+    //[SerializeField] bool _stateIdle, _stateMoving;
     public enum PlantStates
     {
         Idle,
@@ -52,7 +52,6 @@ public class Plant : MonoBehaviour
 
         StateConfigurer.Create(Death).Done();
 
-        Idle.OnEnter += x => { _stateIdle = true; };
         Idle.OnFixedUpdate += () =>
         {
             if (_life > 0)
@@ -63,10 +62,8 @@ public class Plant : MonoBehaviour
             else
                 SentToFSM(PlantStates.Death);
         };
-        Idle.OnExit += x => { _stateIdle = true; };
         Moving.OnEnter += x =>
         {
-            _stateMoving = true;
             Debug.Log("Moving");
             DoTransformRotationYWithRandomValue();
         };
@@ -81,7 +78,6 @@ public class Plant : MonoBehaviour
             else
                 SentToFSM(PlantStates.Death);
         };
-        Moving.OnExit += x => { _stateMoving = false; };
         Death.OnEnter += x =>
         {
             Debug.Log("Death");

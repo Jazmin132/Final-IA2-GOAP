@@ -29,7 +29,7 @@ public class Boid : GridEntity
     public float arriveWeight;
     [Range(0f, 3f)]
     public float evadeWeight;
-
+    [SerializeField] bool _state_Alignment, _state_Evade, _state_Arrive;
     public enum BoidStates
     {
         ALIGNMENT,
@@ -49,43 +49,55 @@ public class Boid : GridEntity
 
         StateConfigurer.Create(_Evade)
             .SetTransition(BoidStates.ALIGNMENT, _Alignment)
-            .SetTransition(BoidStates.ARRIVE, _Arrive).Done();
+            .Done();//.SetTransition(BoidStates.ARRIVE, _Arrive)
 
         StateConfigurer.Create(_Arrive)
             .SetTransition(BoidStates.EVADE, _Evade)
             .SetTransition(BoidStates.ALIGNMENT, _Alignment)
             .Done();
-        
+
+        _Alignment.OnEnter += x => { _state_Alignment = true; };
         _Alignment.OnFixedUpdate += () => 
         {
             AddForce(Alignment() * alignmentWeight);
 
             if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
                 SentToFSM(BoidStates.EVADE);
+
+            CheckForFood();
         };
+        _Alignment.OnExit += x => { _state_Alignment = false;};
+
+        _Evade.OnEnter += x => { _state_Evade = true; };
         _Evade.OnFixedUpdate += () => 
         {
             AddForce(Evade() * evadeWeight);
             if (Vector3.Distance(transform.position, hunter.transform.position) > viewRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
         };
+        _Evade.OnExit += x => { _state_Evade = false; };
+
         _Arrive.OnEnter += x =>
         {
-            _closestFood = GameManager.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius)
-               .OrderBy(x => Vector3.Distance(x.transform.position, transform.position)).Take(1).ToList();
+            _state_Arrive = true;
             //Foods = _closestFood;
         };
         _Arrive.OnFixedUpdate += () =>
         {
             AddForce(Arrive(_closestFood[0]) * arriveWeight);
 
-            if (_closestFood.Count <= 0)
-                SentToFSM(BoidStates.ALIGNMENT);
-            else if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
+            if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
                 SentToFSM(BoidStates.EVADE);
-        };
+            else if(_closestFood.Count >= 0)
+                SentToFSM(BoidStates.ALIGNMENT);
 
-        _MyFSM = new EventFSM<BoidStates>(_Alignment);
+            //    SentToFSM(BoidStates.ALIGNMENT);
+            //else if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
+            //    SentToFSM(BoidStates.EVADE);
+        };
+        _Arrive.OnExit += x => { _state_Arrive = false; };
+
+       _MyFSM = new EventFSM<BoidStates>(_Alignment);
     }
     void Start()
     {
@@ -176,6 +188,16 @@ public class Boid : GridEntity
     }
     #endregion
 
+    public void CheckForFood()
+    {
+        _closestFood = GameManager.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius)
+           .OrderBy(x => Vector3.Distance(x.transform.position, transform.position)).Take(1).ToList();
+        
+        //Debug.Log((GameManager.instance.allFoods[0].gameObject.transform.position - transform.position).magnitude <= arriveRadius);
+        //Debug.Log(_closestFood.Count);
+        if (_closestFood.Count > 0)
+            SentToFSM(BoidStates.ARRIVE);
+    }
     #region Arrive
     Vector3 Arrive(Food food)
     {
@@ -229,6 +251,7 @@ public class Boid : GridEntity
     {
         //if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
         //{
+        Debug.Log("Evade");
             Vector3 futurePos = hunter.transform.position + agent.GetVelocity();
             Vector3 desired = futurePos + hunter.transform.position;
             desired.Normalize();
