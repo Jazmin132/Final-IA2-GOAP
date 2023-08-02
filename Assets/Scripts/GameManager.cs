@@ -43,16 +43,17 @@ public class GameManager : MonoBehaviour
         _pathToFollow = TimeSlicing.AStar(_StartingNode, (x) => x == _GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
     }
 
-    public void FollowPath(Transform Entity, float Speed)
+    public void FollowPath(Transform EntityPos, float Speed)
     {//Pasar la posoción de la entidad y el speed
-        var col = _pathToFollow.Select(x => x.transform.position).OrderBy(x => x - Entity.position);
+        //Esto tiene que ir un el otro lado
+        var col = _pathToFollow.Select(x => x.transform.position).OrderBy(x => x - EntityPos.position);
         if (col.First().magnitude > 0.1f)
         {//Toma el primer indice
-            Entity.transform.forward = col.First();
-            Entity.transform.position += Entity.forward * Speed * Time.deltaTime;
+            EntityPos.transform.forward = col.First();
+            EntityPos.transform.position += EntityPos.forward * Speed * Time.deltaTime;
         }
         else
-            col.Skip(0);//Se saltea el índice para luego pasar al siguiente(ojalá funcione)
+            _pathToFollow.RemoveAt(0);//Se saltea el índice para luego pasar al siguiente(ojalá funcione)
     }
 
     public Nodes GetNode(Vector3 pos)
