@@ -52,7 +52,6 @@ public class Agent : GridEntity
         Idle.OnEnter += x =>
         {
             Debug.Log("OnEnter IDLE");
-            ChangeColor(Color.grey);
 
         };
         Idle.OnUpdate += () =>
@@ -73,7 +72,6 @@ public class Agent : GridEntity
         Patrol.OnEnter += x =>
         {
             Debug.Log("OnEnter Patrol");
-            ChangeColor(Color.green);
         };
         Patrol.OnUpdate += () =>
         {
@@ -103,7 +101,6 @@ public class Agent : GridEntity
         Pursuit.OnEnter += x =>
         {
             Debug.Log("OnEnter Pursuit");
-            ChangeColor(Color.magenta);
         };
         Pursuit.OnUpdate += () =>
         {

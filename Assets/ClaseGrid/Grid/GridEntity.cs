@@ -15,10 +15,10 @@ public class GridEntity : MonoBehaviour
     }
 
     void Update() {
-        if (onGrid)
-            _rend.material.color = Color.red;
-        else
-            _rend.material.color = Color.gray;
+        //if (onGrid)
+        //    _rend.material.color = Color.red;
+        //else
+        //    _rend.material.color = Color.gray;
 		//Optimization: Hacer esto solo cuando realmente se mueve y no en el update
 		transform.position += velocity * Time.deltaTime;
 	    OnMove(this);
