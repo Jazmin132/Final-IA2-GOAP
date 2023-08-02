@@ -84,6 +84,8 @@ public class Boid : GridEntity
             else if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
                 SentToFSM(BoidStates.EVADE);
         };
+
+        _MyFSM = new EventFSM<BoidStates>(_Alignment);
     }
     void Start()
     {
