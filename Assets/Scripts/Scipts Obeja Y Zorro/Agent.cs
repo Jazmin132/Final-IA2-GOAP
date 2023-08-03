@@ -97,15 +97,15 @@ public class Agent : GridEntity
                 _NodoFinal = GameManager.instance.GetNode(WhereToGo.position);
                 Debug.Log("NodoFinal : " + _NodoFinal);
                 _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
-
-                Debug.Log("pathToFollow : " + _pathToFollow.Count);
             }
+            Debug.Log(_pathToFollow.Count);
+            Debug.Log(_pathToFollow + " Path To Follow");
         };
         GotoDest.OnUpdate += () =>
         {
             if (_pathToFollow.Count != 0)
             {
-                GameManager.instance.PathToFollow(_pathToFollow, transform, 5);
+                PathToFollow();
             }
             else if (_pathToFollow.Count <= 0)
             {
@@ -131,7 +131,7 @@ public class Agent : GridEntity
         {
             if (_pathToFollow.Count != 0)
             {
-                GameManager.instance.PathToFollow(_pathToFollow, transform, speed);
+                PathToFollow();
             }
             else if (_pathToFollow.Count <= 0)
             {
@@ -247,6 +247,18 @@ public class Agent : GridEntity
     public void AlertFoxes(Agent fox)
     {
         GameManager.instance.CallFoxes(fox);
+    }
+    void PathToFollow()
+    {
+        Vector3 nextP = _pathToFollow[0].transform.position;
+        Vector3 dir = nextP - transform.position;
+        if (dir.magnitude > 0.1f)
+        {
+            transform.forward = dir;
+            transform.position += transform.forward * speed * Time.deltaTime;
+        }
+        else
+            _pathToFollow.RemoveAt(0);
     }
     Vector3 NowPursuit()//IA2-LINQ
     {
