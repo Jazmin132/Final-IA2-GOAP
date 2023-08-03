@@ -84,7 +84,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < allFoxes.Count; i++)
         {
             if (fox != allFoxes[i])
+            {
+                allFoxes[i].WhereToGo= fox.transform;
                 allFoxes[i].SendInputToSFSM(AgentStates.GOTODEST);
+            }
         }
     }
     public Vector3 ChangeObjPosition(Vector3 pos)

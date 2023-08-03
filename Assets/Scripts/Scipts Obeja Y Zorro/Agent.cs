@@ -24,6 +24,7 @@ public class Agent : GridEntity
     Vector3 _destination;
     public float pursitSpeed;
     List<Nodes> _pathToFollow = new List<Nodes>();
+    public Transform WhereToGo;
     private Nodes _NodoFinal;
     private Nodes _NodoInicial;
 
@@ -93,7 +94,7 @@ public class Agent : GridEntity
             {
                 _NodoInicial = PatrolWaypoints[0];
                 Debug.Log("NodoInicial : " + _NodoInicial);
-                _NodoFinal = GameManager.instance.GetNode(transform.position);
+                _NodoFinal = GameManager.instance.GetNode(WhereToGo.position);
                 Debug.Log("NodoFinal : " + _NodoFinal);
                 _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
 
