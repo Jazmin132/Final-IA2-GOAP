@@ -24,6 +24,9 @@ public class Agent : GridEntity
     private Vector3 _destination;
     public float pursitSpeed;
 
+    [Header("Visual Values")]
+    public ParticleSystem particle;
+
     void Awake()
     {
         energy = maxEnergy;
@@ -48,6 +51,8 @@ public class Agent : GridEntity
         #endregion
 
         #region IDLE
+        Idle.OnEnter += x =>
+        { particle.Play(); };
         Idle.OnUpdate += () =>
         {
             //OnMoveTest();
@@ -56,11 +61,14 @@ public class Agent : GridEntity
                 SendInputToSFSM(AgentStates.PATROL);
             return;
         };
+        Idle.OnExit += x =>
+        { particle.Stop(); };
+
         #endregion
 
         #region PATROL
 
-        Patrol.OnUpdate += () =>//IA2-LINQ
+       Patrol.OnUpdate += () =>//IA2-LINQ
         {
             energy -= Time.deltaTime;
             if (energy <= 0) SendInputToSFSM(AgentStates.IDLE);

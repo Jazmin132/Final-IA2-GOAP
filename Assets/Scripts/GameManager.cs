@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public Nodes _StartingNode;
     public Nodes _GoalNode;
     public List<Nodes> _AllNodes = new List<Nodes>();
-   // List<Nodes> _pathToFollow = new List<Nodes>();
 
     [Header("BOID Related Values")]
     public float boundWidth;
