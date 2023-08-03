@@ -18,6 +18,7 @@ public class Boid : GridEntity
     public float separationRadius;
     public float arriveRadius;
     public float eatRadius;
+    public ParticleSystem particleHungry;
 
     [Range(0f, 3f)]
     public float separationWeight;
@@ -73,6 +74,7 @@ public class Boid : GridEntity
                 SentToFSM(BoidStates.ALIGNMENT);
         };
 
+        _Arrive.OnEnter += x => { particleHungry.Play(); };
         _Arrive.OnFixedUpdate += () =>
         {
             AddForce(Arrive(GameManager.instance.food) * arriveWeight);
@@ -82,6 +84,7 @@ public class Boid : GridEntity
             else if((GameManager.instance.food.transform.position - transform.position).magnitude > arriveRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
         };
+        _Arrive.OnExit += x => { particleHungry.Stop(); };
 
        _MyFSM = new EventFSM<BoidStates>(_Alignment);
     }
