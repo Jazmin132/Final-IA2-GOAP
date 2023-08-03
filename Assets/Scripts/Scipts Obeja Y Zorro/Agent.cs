@@ -98,7 +98,7 @@ public class Agent : GridEntity
                 Debug.Log("NodoFinal : " + _NodoFinal);
                 _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
             }
-            Debug.Log(_pathToFollow.Count);
+            Debug.Log(_pathToFollow.Count + ": Camino");
             Debug.Log(_pathToFollow + " Path To Follow");
         };
         GotoDest.OnUpdate += () =>
