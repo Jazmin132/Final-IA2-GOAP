@@ -10,7 +10,6 @@ public class Food : GridEntity
     }
     public void OnDeath()
     {
-        Debug.Log("Teletrasportar");
         GameManager.instance.ChangeFoodPos(this);
     }
 }

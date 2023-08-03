@@ -19,33 +19,25 @@ public class GameManager : MonoBehaviour
     int IndeX = 0;
     public List<Boid> allBoids = new List<Boid>();
     public GameObject padreGrilla;
+
     [Header("FOX Related Values")]
     public List<Agent> allFoxes = new List<Agent>();
-    List<Nodes> pathToFollow = new List<Nodes>();
+    List<Nodes> _pathToFollow = new List<Nodes>();
 
     public static GameManager instance;
 
-    private void Awake() { if (instance == null) instance = this; }
+    private void Awake() 
+    { 
+        if (instance == null) 
+            instance = this; 
+    }
 
     public List<Nodes> SetPath(Nodes StartingNode, Nodes GoalNode)
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
-        return pathToFollow = TimeSlicing.AStar(StartingNode,
+        return _pathToFollow = TimeSlicing.AStar(StartingNode,
             (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
     }
 
-    public void PathToFollow(List<Nodes> pathToFollow, Transform EntityPos, float Speed)
-    {//Pasar la posoción de la entidad y el speed
-        //Esto tiene que ir un el otro lado
-        var col = pathToFollow.Select(x => x.transform.position).OrderBy(x => x - EntityPos.position);
-
-        if (col.First().magnitude > 0.1f)
-        {//Toma el primer indice
-            EntityPos.transform.forward = col.First();
-            EntityPos.transform.position += EntityPos.forward * Speed * Time.deltaTime;
-        }
-        else
-            pathToFollow.RemoveAt(0);//Se saltea el índice para luego pasar al siguiente(ojalá funcione)
-    }
 
     public Nodes GetNode(Vector3 pos)
     {//Obtener nodo más cercano a la entidad dependiendo de su posición actual
@@ -79,7 +71,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < allFoxes.Count; i++)
         {
             if (fox != allFoxes[i])
+            {
+                allFoxes[i].WhereToGo= fox.transform;
                 allFoxes[i].SendInputToSFSM(AgentStates.GOTODEST);
+            }
         }
     }
     public Vector3 ChangeObjPosition(Vector3 pos)

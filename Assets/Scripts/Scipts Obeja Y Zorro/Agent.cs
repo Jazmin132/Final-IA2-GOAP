@@ -24,6 +24,7 @@ public class Agent : GridEntity
     Vector3 _destination;
     public float pursitSpeed;
     List<Nodes> _pathToFollow = new List<Nodes>();
+    public Transform WhereToGo;
     private Nodes _NodoFinal;
     private Nodes _NodoInicial;
 
@@ -37,7 +38,6 @@ public class Agent : GridEntity
     void Awake()
     {
         energy = maxEnergy;
-        GameManager.instance.allFoxes.Add(this);
 
         var Idle = new State<AgentStates>("Idle");
         var Patrol = new State<AgentStates>("Patrol");
@@ -88,20 +88,24 @@ public class Agent : GridEntity
    #region GOTODEST
         GotoDest.OnEnter += x =>
         {
-            Debug.Log("Yenndo a mi destino");
+            Debug.Log("Yendo a mi destino");
             _GotoDest = true;
             if (_pathToFollow.Count == 0)
             {
                 _NodoInicial = PatrolWaypoints[0];
-                _NodoFinal = GameManager.instance.GetNode(transform.position);
+                Debug.Log("NodoInicial : " + _NodoInicial);
+                _NodoFinal = GameManager.instance.GetNode(WhereToGo.position);
+                Debug.Log("NodoFinal : " + _NodoFinal);
                 _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
             }
+            Debug.Log(_pathToFollow.Count);
+            Debug.Log(_pathToFollow + " Path To Follow");
         };
         GotoDest.OnUpdate += () =>
         {
             if (_pathToFollow.Count != 0)
             {
-                GameManager.instance.PathToFollow(_pathToFollow, transform, 5);
+                PathToFollow();
             }
             else if (_pathToFollow.Count <= 0)
             {
@@ -127,7 +131,7 @@ public class Agent : GridEntity
         {
             if (_pathToFollow.Count != 0)
             {
-                GameManager.instance.PathToFollow(_pathToFollow, transform, speed);
+                PathToFollow();
             }
             else if (_pathToFollow.Count <= 0)
             {
@@ -205,11 +209,14 @@ public class Agent : GridEntity
         _eventFSM = new EventFSM<AgentStates>(Idle);
     }
 
+    private void Start()
+    {
+        GameManager.instance.allFoxes.Add(this);
+    }
     public void Update()
     {
         _eventFSM.Update();
     }
-
     public IEnumerable<GridEntity> Query() //IA-P2
     {       
        //creo una "caja" con las dimensiones deseadas, y luego filtro segun distancia para formar el círculo
@@ -240,6 +247,18 @@ public class Agent : GridEntity
     public void AlertFoxes(Agent fox)
     {
         GameManager.instance.CallFoxes(fox);
+    }
+    void PathToFollow()
+    {
+        Vector3 nextP = _pathToFollow[0].transform.position;
+        Vector3 dir = nextP - transform.position;
+        if (dir.magnitude > 0.1f)
+        {
+            transform.forward = dir;
+            transform.position += transform.forward * speed * Time.deltaTime;
+        }
+        else
+            _pathToFollow.RemoveAt(0);
     }
     Vector3 NowPursuit()//IA2-LINQ
     {
