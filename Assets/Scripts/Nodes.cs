@@ -13,16 +13,17 @@ public class Nodes : MonoBehaviour
     {
         GameManager.instance._AllNodes.Add(this);
     }
-
-    public void AddVecinos()
+    /*
+    public void AddVecinos() 
     {
         foreach (var Node in GameManager.instance._AllNodes)
         {
             if (radious < Vector3.Distance(transform.position,Node.transform.position))
                 Vecinos.Add(Node);
         }
-    }
-    public Tuple<Nodes, float>[] GetNeighbours()
+    }*/
+
+    public Tuple<Nodes, float>[] GetNeighbours()//IA2-LINQ
     {// new Tuple<Nodes, float>[] { Tuple.Create(_StartingNode, 1f), Tuple.Create(_StartingNode, 1f) }
         var ListNodosDist = new List<Tuple<Nodes, float>>();
         foreach (var Node in GameManager.instance._AllNodes)

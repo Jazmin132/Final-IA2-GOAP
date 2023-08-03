@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public Nodes _StartingNode;
     public Nodes _GoalNode;
     public List<Nodes> _AllNodes = new List<Nodes>();
-    List<Nodes> _pathToFollow = new List<Nodes>();
+   // List<Nodes> _pathToFollow = new List<Nodes>();
 
     [Header("BOID Related Values")]
     public float boundWidth;
@@ -32,22 +32,24 @@ public class GameManager : MonoBehaviour
         _StartingNode = startingNode;
         _GoalNode = finalNode;
     }
-    public void SetPath()
+    public List<Nodes> SetPath(List<Nodes> pathToFollow)
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
-        _pathToFollow = TimeSlicing.AStar(_StartingNode, (x) => x == _GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
+        return pathToFollow = TimeSlicing.AStar(_StartingNode,
+            (x) => x == _GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
     }
-    
-    public void FollowPath(Transform EntityPos, float Speed)//IA2-LINQ
+
+    public void FollowPath(List<Nodes> pathToFollow, Transform EntityPos, float Speed)
     {//Pasar la posoción de la entidad y el speed
         //Esto tiene que ir un el otro lado
-        var col = _pathToFollow.Select(x => x.transform.position).OrderBy(x => x - EntityPos.position);
+        var col = pathToFollow.Select(x => x.transform.position).OrderBy(x => x - EntityPos.position);
+
         if (col.First().magnitude > 0.1f)
         {//Toma el primer indice
             EntityPos.transform.forward = col.First();
             EntityPos.transform.position += EntityPos.forward * Speed * Time.deltaTime;
         }
         else
-            _pathToFollow.RemoveAt(0);//Se saltea el índice para luego pasar al siguiente(ojalá funcione)
+            pathToFollow.RemoveAt(0);//Se saltea el índice para luego pasar al siguiente(ojalá funcione)
     }
 
     public Nodes GetNode(Vector3 pos)

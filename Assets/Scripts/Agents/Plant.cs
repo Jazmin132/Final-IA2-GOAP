@@ -83,7 +83,7 @@ public class Plant : MonoBehaviour
         };
         _MyFSM = new EventFSM<PlantStates>(Idle);
     }
-    
+
     void FixedUpdate()
     {
         _MyFSM.FixedUpdate();
@@ -130,7 +130,7 @@ public class Plant : MonoBehaviour
 
         if (_timeMove >= _timerMove)
         {
-            if(_timeMove < _timerToMove)
+            if (_timeMove < _timerToMove)
                 SentToFSM(PlantStates.Move);
             else
             {
@@ -140,13 +140,6 @@ public class Plant : MonoBehaviour
         }
     }
     #endregion
-
-    //void SetValueRandom(float valueToRandom, float min, float max)
-    //{
-    //    Debug.Log("SetValueRandom");
-    //
-    //    valueToRandom = Random.Range(min, max);
-    //}
 
     void ChangeTransformRotationY(float value)
     {
