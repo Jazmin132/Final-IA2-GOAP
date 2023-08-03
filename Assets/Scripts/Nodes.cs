@@ -13,6 +13,14 @@ public class Nodes : MonoBehaviour
     void Start()
     {
         GameManager.instance._AllNodes.Add(this);
+        GetNeighbours();
+        //foreach (var Node in GameManager.instance._AllNodes)
+        //{
+        //    if (radious < Vector3.Distance(transform.position, Node.transform.position))
+        //    {
+        //        Vecinos.Add(Node);
+        //    }
+        //}
     }
     /*
     public void AddVecinos() 
@@ -29,8 +37,9 @@ public class Nodes : MonoBehaviour
         var ListNodosDist = new List<Tuple<Nodes, float>>();
         foreach (var Node in GameManager.instance._AllNodes)
         {
-            if (radious < Vector3.Distance(transform.position, Node.transform.position))
+            if (radious > Vector3.Distance(transform.position, Node.transform.position))
             {
+                Debug.Log(" Vecinos: " + Node);
                 var Distance = Vector3.Distance(transform.position, Node.transform.position);
                 ListNodosDist.Add(Tuple.Create(Node, Distance));
             }
@@ -39,11 +48,10 @@ public class Nodes : MonoBehaviour
 
         for (int i = 0; i < ArrayTupla.Length; i++)
         {
-            Debug.Log(this + " Vecinos: " + ArrayTupla[i]);
             ArrayTupla[i] = ListNodosDist[i];
         }
 
-        Debug.Log(ArrayTupla == null);
+        Debug.Log(ArrayTupla.Length);
 
         return ArrayTupla;
     }
