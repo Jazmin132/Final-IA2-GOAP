@@ -64,7 +64,6 @@ public class Plant : MonoBehaviour
         };
         Moving.OnEnter += x =>
         {
-            Debug.Log("Moving");
             DoTransformRotationYWithRandomValue();
         };
         Moving.OnFixedUpdate += () =>
@@ -80,7 +79,6 @@ public class Plant : MonoBehaviour
         };
         Death.OnEnter += x =>
         {
-            Debug.Log("Death");
             Destroy(gameObject);
         };
         _MyFSM = new EventFSM<PlantStates>(Idle);
@@ -152,17 +150,12 @@ public class Plant : MonoBehaviour
 
     void ChangeTransformRotationY(float value)
     {
-        Debug.Log("ChangeTransformRotationY");
-
         _newVector3Rotation = new Vector3(_myTransform.rotation.eulerAngles.x, value, _myTransform.rotation.eulerAngles.z);
-
         _myTransform.localEulerAngles = _newVector3Rotation;
     }
     void DoTransformRotationYWithRandomValue()
     {
-        Debug.Log("TransformRotationY");
         _randomValueForAngle = Random.Range(0, 361);
-
         ChangeTransformRotationY(_randomValueForAngle);
     }
     void SentToFSM(PlantStates states)

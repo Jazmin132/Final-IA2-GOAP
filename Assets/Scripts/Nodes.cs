@@ -34,10 +34,10 @@ public class Nodes : MonoBehaviour
             }
         }
         var ArrayTupla = new Tuple<Nodes, float>[ListNodosDist.Count];
+
         for (int i = 0; i < ArrayTupla.Length; i++)
-        {
             ArrayTupla[i] = ListNodosDist[i];
-        }
+
         return ArrayTupla;
     }
 }

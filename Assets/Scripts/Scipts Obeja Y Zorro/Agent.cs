@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Security.Cryptography;
 using System.Linq;
 
 public enum AgentStates { IDLE, PATROL, PURSUIT }
@@ -19,11 +18,11 @@ public class Agent : GridEntity
     int _currentWaypoint;
     private Vector3 _velocity;
 
-    public SpatialGrid targetGrid;//IA2 P3
-    private EventFSM<AgentStates> _eventFSM;//IA2 P3
-    private Transform _target;//IA2 P3
-    private Vector3 _destination;//IA2 P3
-    public float pursitSpeed;//IA2 P3
+    public SpatialGrid targetGrid;
+    private EventFSM<AgentStates> _eventFSM;
+    private Transform _target;
+    private Vector3 _destination;
+    public float pursitSpeed;
 
     void Awake()
     {
@@ -33,7 +32,7 @@ public class Agent : GridEntity
         var Patrol = new State<AgentStates>("Patrol");
         var Pursuit = new State<AgentStates>("Pursuit");
 
-#region Transitions
+        #region Transitions
         StateConfigurer.Create(Idle)
             .SetTransition(AgentStates.PATROL, Patrol)
             .Done();
@@ -46,14 +45,9 @@ public class Agent : GridEntity
            .SetTransition(AgentStates.IDLE, Idle)
            .SetTransition(AgentStates.PATROL, Patrol)
            .Done();
-#endregion
+        #endregion
 
-#region IDLE
-        Idle.OnEnter += x =>
-        {
-            Debug.Log("OnEnter IDLE");
-
-        };
+        #region IDLE
         Idle.OnUpdate += () =>
         {
             //OnMoveTest();
@@ -62,62 +56,55 @@ public class Agent : GridEntity
                 SendInputToSFSM(AgentStates.PATROL);
             return;
         };
-        Idle.OnExit += x =>
-        {
-            Debug.Log("OnExit IDLE");
-        };
         #endregion
 
-#region PATROL
-        Patrol.OnEnter += x =>
+        #region PATROL
+
+        Patrol.OnUpdate += () =>//IA2-LINQ
         {
-            Debug.Log("OnEnter Patrol");
-        };
-        Patrol.OnUpdate += () =>
-        {
-            //OnMoveTest();
             energy -= Time.deltaTime;
-            if (energy <= 0)//Cambiar de Estado a IDLE
-                SendInputToSFSM(AgentStates.IDLE);
+            if (energy <= 0) SendInputToSFSM(AgentStates.IDLE);
+
             NowPatrol();
-            foreach (GridEntity boid in Query())
+
+            var Num = Query().OfType<Boid>()
+            .Select(x => x.transform)
+            .OrderBy(x => x.position - transform.position);
+
+            foreach (var boid in Num)
             {
-                if(boid != this && boid.GetComponent<Boid>())
-                {
-                    Vector3 dist = boid.transform.position - transform.position;
-                    if (dist.magnitude <= pursuitRadius)
-                    {
-                        //Debug.Log("LMAOOO222");
-                        SendInputToSFSM(AgentStates.PURSUIT);
-                    }//Cambiar de Estado a Pursuit
-                } 
+                Vector3 dist = boid.transform.position - transform.position;
+                if (dist.magnitude <= pursuitRadius)
+                    SendInputToSFSM(AgentStates.PURSUIT);
             }
             return;
         };
         #endregion
 
-#region PURSUIT
+        #region PURSUIT
 
-        Pursuit.OnEnter += x =>
+        Pursuit.OnEnter += x =>//IA2-LINQ
         {
-            //Debug.Log("OnEnter Pursuit");
+            var Num = Query()
+            .OfType<Boid>()
+            .Select(x => x.transform)
+            .OrderBy(x => x.position - transform.position).First();
+
+            _destination = Num.transform.position - transform.position;
+             if(_destination.magnitude <= pursuitRadius) 
+                _target = Num.transform;     
         };
         Pursuit.OnUpdate += () =>
         {
-            //OnMoveTest();
+
             energy -= Time.deltaTime;
             if (energy <= 0)//Cambiar a IDLE
                 SendInputToSFSM(AgentStates.IDLE);
-            foreach (GridEntity boid in Query())
-            {
-                if (boid != this && boid.GetComponent<Boid>()) 
-                {
-                    _destination = boid.transform.position - transform.position;
-                    if(_destination.magnitude <= pursuitRadius) _target = boid.transform;               
-                }
-            }
-            if(_target != null)
-                if ((_target.position - transform.position).magnitude > pursuitRadius) SendInputToSFSM(AgentStates.PATROL);
+
+            if (_target != null)
+                if ((_target.position - transform.position).magnitude > pursuitRadius)
+                    SendInputToSFSM(AgentStates.PATROL);
+
             AddForce(NowPursuit());//Al sacar AddForce hace que el vector de rotacion de 0, asi que es mejor no sacar AddForce
             //transform.position += _velocity * Time.deltaTime;
             //transform.forward = _velocity;
@@ -126,7 +113,6 @@ public class Agent : GridEntity
                 transform.LookAt(_target);
                 transform.position = Vector3.MoveTowards(transform.position, _target.position, pursitSpeed * Time.fixedDeltaTime);
             }
-            return;
         };
 #endregion
 
@@ -157,7 +143,7 @@ public class Agent : GridEntity
         Vector3 dir = waypoint.transform.position - transform.position;
         dir.y = 0;
         transform.forward = dir;
-        transform.position +=transform.forward * speed * Time.deltaTime;
+        transform.position += transform.forward * speed * Time.deltaTime;
         if (dir.magnitude <= 0.3f)
         {
             _currentWaypoint++;
@@ -175,20 +161,22 @@ public class Agent : GridEntity
     {
         GetComponent<Renderer>().material.color = color;
     }
-    Vector3 NowPursuit()
+
+    Vector3 NowPursuit()//IA2-LINQ
     {
-        var boid = Query().Where(x => x is Boid).Select(x => x as Boid);//IA2 P1 
-        //Maybe
-        foreach (var item in boid)//IA2 P3
+        var boid = Query().OfType<Boid>();
+        
+        Vector3 Steering = boid.Aggregate(new Vector3(), (x, y) =>
         {
-            Vector3 futurePos = item.transform.position + item.GetVelocity();
+            Vector3 futurePos = y.transform.position + y.GetVelocity();
             Vector3 desired = futurePos - transform.position;
             desired.Normalize();
             desired *= maxSpeed;
-            Vector3 steering = desired - _velocity;
-            steering = Vector3.ClampMagnitude(steering, maxForce);
-            return steering;
-        }
+            x = desired - _velocity;
+            x = Vector3.ClampMagnitude(x, maxForce);
+            return x;
+        });
+
         return Vector3.zero;
     }
 
@@ -197,9 +185,7 @@ public class Agent : GridEntity
         _velocity += force;
 
         if (_velocity.magnitude >= maxSpeed)
-        {
             _velocity = _velocity.normalized * maxSpeed;
-        }
     }
     public Vector3 GetVelocity()
     {

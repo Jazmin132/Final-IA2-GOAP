@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
         _pathToFollow = TimeSlicing.AStar(_StartingNode, (x) => x == _GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
     }
-
-    public void FollowPath(Transform EntityPos, float Speed)
+    
+    public void FollowPath(Transform EntityPos, float Speed)//IA2-LINQ
     {//Pasar la posoción de la entidad y el speed
         //Esto tiene que ir un el otro lado
         var col = _pathToFollow.Select(x => x.transform.position).OrderBy(x => x - EntityPos.position);
