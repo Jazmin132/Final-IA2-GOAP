@@ -38,7 +38,12 @@ public class Nodes : MonoBehaviour
         var ArrayTupla = new Tuple<Nodes, float>[ListNodosDist.Count];
 
         for (int i = 0; i < ArrayTupla.Length; i++)
+        {
+            Debug.Log(this + " Vecinos: " + ArrayTupla[i]);
             ArrayTupla[i] = ListNodosDist[i];
+        }
+
+        Debug.Log(ArrayTupla == null);
 
         return ArrayTupla;
     }

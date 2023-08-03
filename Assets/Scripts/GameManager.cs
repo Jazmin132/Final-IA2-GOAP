@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
             (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
     }
 
-
     public Nodes GetNode(Vector3 pos)
     {//Obtener nodo más cercano a la entidad dependiendo de su posición actual
         Nodes currentFirstNode = _AllNodes[0];
