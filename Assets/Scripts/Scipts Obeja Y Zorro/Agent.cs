@@ -16,16 +16,17 @@ public class Agent : GridEntity
     public float energy;
     public float maxEnergy;
     int _currentWaypoint;
-    private Vector3 _velocity;
+    Vector3 _velocity;
 
     public SpatialGrid targetGrid;
     private EventFSM<AgentStates> _eventFSM;
     private Transform _target;
-    private Vector3 _destination;
+    Vector3 _destination;
     public float pursitSpeed;
 
     [Header("Visual Values")]
-    public ParticleSystem particle;
+    public ParticleSystem particleTired;
+    public ParticleSystem particleEnojo;
 
     void Awake()
     {
@@ -52,7 +53,7 @@ public class Agent : GridEntity
 
         #region IDLE
         Idle.OnEnter += x =>
-        { particle.Play(); };
+        { particleTired.Play(); };
         Idle.OnUpdate += () =>
         {
             //OnMoveTest();
@@ -62,7 +63,7 @@ public class Agent : GridEntity
             return;
         };
         Idle.OnExit += x =>
-        { particle.Stop(); };
+        { particleTired.Stop(); };
 
         #endregion
 
@@ -93,6 +94,7 @@ public class Agent : GridEntity
 
         Pursuit.OnEnter += x =>//IA2-LINQ
         {
+            particleEnojo.Play();
             var Num = Query()
             .OfType<Boid>()
             .Select(x => x.transform)
@@ -106,22 +108,23 @@ public class Agent : GridEntity
         {
 
             energy -= Time.deltaTime;
-            if (energy <= 0)//Cambiar a IDLE
+            if (energy <= 0)
                 SendInputToSFSM(AgentStates.IDLE);
 
             if (_target != null)
                 if ((_target.position - transform.position).magnitude > pursuitRadius)
                     SendInputToSFSM(AgentStates.PATROL);
 
-            AddForce(NowPursuit());//Al sacar AddForce hace que el vector de rotacion de 0, asi que es mejor no sacar AddForce
-            //transform.position += _velocity * Time.deltaTime;
-            //transform.forward = _velocity;
+            AddForce(NowPursuit());
+
             if (_target != null)
             {
                 transform.LookAt(_target);
                 transform.position = Vector3.MoveTowards(transform.position, _target.position, pursitSpeed * Time.fixedDeltaTime);
             }
         };
+        Pursuit.OnExit += x => { particleEnojo.Stop(); };
+
 #endregion
 
         _eventFSM = new EventFSM<AgentStates>(Idle);
