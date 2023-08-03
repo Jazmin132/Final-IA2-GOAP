@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &19766644
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &90047929
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &115086709
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &160711702
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +909,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &183029042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,6 +1238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &233913636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1930,7 +1936,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &340317327
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,7 +2066,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &346013789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,6 +2114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &349292496
 GameObject:
   m_ObjectHideFlags: 0
@@ -2151,7 +2160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &363755376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +2208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &368387584
 GameObject:
   m_ObjectHideFlags: 0
@@ -3112,6 +3123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &534029202
 GameObject:
   m_ObjectHideFlags: 0
@@ -3296,6 +3308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &575140679
 GameObject:
   m_ObjectHideFlags: 0
@@ -4314,7 +4327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &757048723
 GameObject:
   m_ObjectHideFlags: 0
@@ -10286,6 +10300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -10910,7 +10925,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &1073185560
 GameObject:
   m_ObjectHideFlags: 0
@@ -10956,7 +10972,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &1074744717
 GameObject:
   m_ObjectHideFlags: 0
@@ -11688,6 +11705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1243061423
 GameObject:
   m_ObjectHideFlags: 0
@@ -11817,6 +11835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1255677684
 GameObject:
   m_ObjectHideFlags: 0
@@ -12064,6 +12083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1305343917
 GameObject:
   m_ObjectHideFlags: 0
@@ -12401,6 +12421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1323333522
 GameObject:
   m_ObjectHideFlags: 0
@@ -13449,7 +13470,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &1422002442
 GameObject:
   m_ObjectHideFlags: 0
@@ -14366,7 +14388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &1512804066
 GameObject:
   m_ObjectHideFlags: 0
@@ -14662,6 +14685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1570339533
 GameObject:
   m_ObjectHideFlags: 0
@@ -14708,6 +14732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1580159607
 GameObject:
   m_ObjectHideFlags: 0
@@ -14753,7 +14778,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &1595280098
 GameObject:
   m_ObjectHideFlags: 0
@@ -14966,6 +14992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1614468538
 GameObject:
   m_ObjectHideFlags: 0
@@ -15646,6 +15673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1786110119
 GameObject:
   m_ObjectHideFlags: 0
@@ -16097,6 +16125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1812704592
 GameObject:
   m_ObjectHideFlags: 0
@@ -16437,7 +16466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858077684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.4, y: 0, z: -27.73}
+  m_LocalPosition: {x: -41.2, y: 0, z: -27.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16457,7 +16486,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &1860942384
 GameObject:
   m_ObjectHideFlags: 0
@@ -16618,6 +16648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &1899047362
 GameObject:
   m_ObjectHideFlags: 0
@@ -16663,7 +16694,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vecinos: []
-  radious: 0
+  radious: 17
+  IsRed: 1
 --- !u!1 &1920846721
 GameObject:
   m_ObjectHideFlags: 0
@@ -17157,6 +17189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &2008762847
 GameObject:
   m_ObjectHideFlags: 0
@@ -17262,6 +17295,10 @@ PrefabInstance:
     - target: {fileID: 227656666880515936, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: m_Name
       value: Zorro (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515936, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: targetGrid
@@ -17416,6 +17453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &2028298673
 GameObject:
   m_ObjectHideFlags: 0
@@ -18425,6 +18463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &2103482230
 GameObject:
   m_ObjectHideFlags: 0
@@ -18698,6 +18737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vecinos: []
   radious: 16
+  IsRed: 0
 --- !u!1 &2140824132
 GameObject:
   m_ObjectHideFlags: 0

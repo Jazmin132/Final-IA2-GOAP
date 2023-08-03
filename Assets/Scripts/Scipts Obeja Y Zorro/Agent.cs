@@ -37,7 +37,6 @@ public class Agent : GridEntity
     void Awake()
     {
         energy = maxEnergy;
-        GameManager.instance.allFoxes.Add(this);
 
         var Idle = new State<AgentStates>("Idle");
         var Patrol = new State<AgentStates>("Patrol");
@@ -88,13 +87,17 @@ public class Agent : GridEntity
    #region GOTODEST
         GotoDest.OnEnter += x =>
         {
-            Debug.Log("Yenndo a mi destino");
+            Debug.Log("Yendo a mi destino");
             _GotoDest = true;
             if (_pathToFollow.Count == 0)
             {
                 _NodoInicial = PatrolWaypoints[0];
+                Debug.Log("NodoInicial : " + _NodoInicial);
                 _NodoFinal = GameManager.instance.GetNode(transform.position);
+                Debug.Log("NodoFinal : " + _NodoFinal);
                 _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
+
+                Debug.Log("pathToFollow : " + _pathToFollow.Count);
             }
         };
         GotoDest.OnUpdate += () =>
@@ -205,11 +208,14 @@ public class Agent : GridEntity
         _eventFSM = new EventFSM<AgentStates>(Idle);
     }
 
+    private void Start()
+    {
+        GameManager.instance.allFoxes.Add(this);
+    }
     public void Update()
     {
         _eventFSM.Update();
     }
-
     public IEnumerable<GridEntity> Query() //IA-P2
     {       
        //creo una "caja" con las dimensiones deseadas, y luego filtro segun distancia para formar el círculo

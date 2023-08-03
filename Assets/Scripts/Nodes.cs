@@ -8,6 +8,7 @@ public class Nodes : MonoBehaviour
 {
     public List<Nodes> Vecinos = new List<Nodes>();
     public float radious;
+    public bool IsRed = false;
 
     void Start()
     {
@@ -44,7 +45,12 @@ public class Nodes : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        //Gizmos.color = Color.grey;
-        //Gizmos.DrawWireSphere(transform.position, radious);
+        /*
+        if (IsRed == true)
+            Gizmos.color = Color.cyan;
+        else
+            Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, radious);
+        */
     }
 }

@@ -19,17 +19,22 @@ public class GameManager : MonoBehaviour
     int IndeX = 0;
     public List<Boid> allBoids = new List<Boid>();
     public GameObject padreGrilla;
+
     [Header("FOX Related Values")]
     public List<Agent> allFoxes = new List<Agent>();
-    List<Nodes> pathToFollow = new List<Nodes>();
+    List<Nodes> _pathToFollow = new List<Nodes>();
 
     public static GameManager instance;
 
-    private void Awake() { if (instance == null) instance = this; }
+    private void Awake() 
+    { 
+        if (instance == null) 
+            instance = this; 
+    }
 
     public List<Nodes> SetPath(Nodes StartingNode, Nodes GoalNode)
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
-        return pathToFollow = TimeSlicing.AStar(StartingNode,
+        return _pathToFollow = TimeSlicing.AStar(StartingNode,
             (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
     }
 

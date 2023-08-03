@@ -109,13 +109,9 @@ public class Bee : MonoBehaviour
                  _canSpawnObject = true;
          };
 
-        Death.OnEnter += x =>
-        {
-            Debug.Log("Death");
-            Destroy(gameObject);
-        };
+        Death.OnEnter += x => { Destroy(gameObject); };
 
-       _MyFSM = new EventFSM<BeeStates>(Moving);
+        _MyFSM = new EventFSM<BeeStates>(Moving);
     }
 
     void FixedUpdate()
