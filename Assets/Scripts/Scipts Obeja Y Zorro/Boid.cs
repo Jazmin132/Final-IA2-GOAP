@@ -29,7 +29,7 @@ public class Boid : GridEntity
     public float arriveWeight;
     [Range(0f, 3f)]
     public float evadeWeight;
-    [SerializeField] bool _state_Alignment, _state_Evade, _state_Arrive;
+
     public enum BoidStates
     {
         ALIGNMENT,
@@ -56,7 +56,6 @@ public class Boid : GridEntity
             .SetTransition(BoidStates.ALIGNMENT, _Alignment)
             .Done();
 
-        _Alignment.OnEnter += x => { _state_Alignment = true; };
         _Alignment.OnFixedUpdate += () => 
         {
             AddForce(Alignment() * alignmentWeight);
@@ -66,18 +65,14 @@ public class Boid : GridEntity
             else if ((GameManager.instance.food.transform.position - transform.position).magnitude <= arriveRadius)
                 SentToFSM(BoidStates.ARRIVE);
         };
-        _Alignment.OnExit += x => { _state_Alignment = false;};
-
-        _Evade.OnEnter += x => { _state_Evade = true; };
+       
         _Evade.OnFixedUpdate += () => 
         {
             AddForce(Evade() * evadeWeight);
             if (Vector3.Distance(transform.position, hunter.transform.position) > viewRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
         };
-        _Evade.OnExit += x => { _state_Evade = false; };
 
-        _Arrive.OnEnter += x => {_state_Arrive = true;};
         _Arrive.OnFixedUpdate += () =>
         {
             AddForce(Arrive(GameManager.instance.food) * arriveWeight);
@@ -87,7 +82,6 @@ public class Boid : GridEntity
             else if((GameManager.instance.food.transform.position - transform.position).magnitude > arriveRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
         };
-        _Arrive.OnExit += x => { _state_Arrive = false; };
 
        _MyFSM = new EventFSM<BoidStates>(_Alignment);
     }

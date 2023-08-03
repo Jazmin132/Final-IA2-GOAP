@@ -40,7 +40,6 @@ public class Bee : MonoBehaviour
     [SerializeField] Vector3 _vector3ToAddForce;
 
     //[Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
-    [SerializeField] bool _stateMove, _stateSpawnPlant, _stateDeath;
     public enum BeeStates
     {
         Moving,
@@ -82,7 +81,6 @@ public class Bee : MonoBehaviour
 
         StateConfigurer.Create(Death).Done();
 
-        Moving.OnEnter += x => { _stateMove = true; };
         Moving.OnFixedUpdate += () =>
         {
             if (_life > 0)
@@ -99,8 +97,6 @@ public class Bee : MonoBehaviour
             else
                 SentToFSM(BeeStates.DIE);
         };
-        Moving.OnExit += x => { _stateMove = false; };
-        SpawnPlant.OnEnter += x => { _stateSpawnPlant = true; };
         SpawnPlant.OnFixedUpdate += () =>
          {//SPAWN PLANT
              if (!_myRgbd.useGravity)
@@ -112,7 +108,7 @@ public class Bee : MonoBehaviour
              if (!_canSpawnObject)
                  _canSpawnObject = true;
          };
-        SpawnPlant.OnExit += x => { _stateSpawnPlant = false; };
+
         Death.OnEnter += x =>
         {
             Debug.Log("Death");

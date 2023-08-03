@@ -4,13 +4,14 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public enum AgentStates { IDLE, PATROL, PURSUIT }
+public enum AgentStates { IDLE, PATROL, PURSUIT, GOTODEST, RETURN }
 public class Agent : GridEntity
 {
     public float pursuitRadius;
-    public GameObject[] allWaypoints;
     public float speed = 5;
     public float maxSpeed;
+    public Nodes[] PatrolWaypoints;
+
     [Range(0, 0.1f)]
     public float maxForce;
     public float energy;
@@ -19,41 +20,59 @@ public class Agent : GridEntity
     Vector3 _velocity;
 
     public SpatialGrid targetGrid;
-    private EventFSM<AgentStates> _eventFSM;
     private Transform _target;
     Vector3 _destination;
     public float pursitSpeed;
+    List<Nodes> _pathToFollow = new List<Nodes>();
+    private Nodes _NodoFinal;
+    private Nodes _NodoInicial;
 
     [Header("Visual Values")]
     public ParticleSystem particleTired;
     public ParticleSystem particleEnojo;
 
+    private EventFSM<AgentStates> _eventFSM;
+
+    public bool _Idle, _Patrol, _Pursuit, _GotoDest, _Return;
     void Awake()
     {
         energy = maxEnergy;
-        //IA2 P3 -------------------------------------------------------
+        GameManager.instance.allFoxes.Add(this);
+
         var Idle = new State<AgentStates>("Idle");
         var Patrol = new State<AgentStates>("Patrol");
         var Pursuit = new State<AgentStates>("Pursuit");
+        var GotoDest = new State<AgentStates>("GotoDest");
+        var Return = new State<AgentStates>("Return");
 
-        #region Transitions
+   #region Transitions
         StateConfigurer.Create(Idle)
             .SetTransition(AgentStates.PATROL, Patrol)
+            .SetTransition(AgentStates.GOTODEST, GotoDest)
             .Done();
+
+        StateConfigurer.Create(GotoDest)
+            .SetTransition(AgentStates.PATROL, Patrol)//Si no ve a las ovejas
+            .SetTransition(AgentStates.PURSUIT, Pursuit).Done();//Si ve a las ovejas
+
+        StateConfigurer.Create(Return)
+            .SetTransition(AgentStates.PATROL, Patrol).Done();//Si no ve a las ovejas
 
         StateConfigurer.Create(Patrol)
             .SetTransition(AgentStates.IDLE, Idle)
+            .SetTransition(AgentStates.GOTODEST, GotoDest)
             .SetTransition(AgentStates.PURSUIT, Pursuit).Done();
 
         StateConfigurer.Create(Pursuit)
+            .SetTransition(AgentStates.RETURN, Return)
            .SetTransition(AgentStates.IDLE, Idle)
-           .SetTransition(AgentStates.PATROL, Patrol)
            .Done();
+           //.SetTransition(AgentStates.PATROL, Patrol)
+
         #endregion
 
-        #region IDLE
-        Idle.OnEnter += x =>
-        { particleTired.Play(); };
+   #region IDLE
+        Idle.OnEnter += x => { particleTired.Play(); _Idle = true; };
         Idle.OnUpdate += () =>
         {
             //OnMoveTest();
@@ -62,16 +81,68 @@ public class Agent : GridEntity
                 SendInputToSFSM(AgentStates.PATROL);
             return;
         };
-        Idle.OnExit += x =>
-        { particleTired.Stop(); };
+        Idle.OnExit += x => { particleTired.Stop(); _Idle = true; };
 
         #endregion
 
-        #region PATROL
-
-       Patrol.OnUpdate += () =>//IA2-LINQ
+   #region GOTODEST
+        GotoDest.OnEnter += x =>
         {
-            energy -= Time.deltaTime;
+            Debug.Log("Yenndo a mi destino");
+            _GotoDest = true;
+            if (_pathToFollow.Count == 0)
+            {
+                _NodoInicial = PatrolWaypoints[0];
+                _NodoFinal = GameManager.instance.GetNode(transform.position);
+                _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
+            }
+        };
+        GotoDest.OnUpdate += () =>
+        {
+            if (_pathToFollow.Count != 0)
+            {
+                GameManager.instance.PathToFollow(_pathToFollow, transform, 5);
+            }
+            else if (_pathToFollow.Count <= 0)
+            {
+                SendInputToSFSM(AgentStates.PATROL);
+            }
+        };
+        GotoDest.OnExit += x => { _pathToFollow.Clear(); _GotoDest = true; };
+   #endregion
+
+   #region RETURN
+        Return.OnEnter += x => 
+        {
+            Debug.Log("Volviendo a mi zona");
+            _Return = true;
+            if (_pathToFollow.Count == 0)
+            {
+                _NodoFinal = PatrolWaypoints[_currentWaypoint];
+                _NodoInicial = GameManager.instance.GetNode(transform.position);
+                _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
+            }
+        };
+        Return.OnUpdate += () =>
+        {
+            if (_pathToFollow.Count != 0)
+            {
+                GameManager.instance.PathToFollow(_pathToFollow, transform, speed);
+            }
+            else if (_pathToFollow.Count <= 0)
+            {
+                SendInputToSFSM(AgentStates.PATROL);
+            }
+        };
+        Return.OnExit += x => { _pathToFollow.Clear(); _Return = false; };
+        #endregion
+
+   #region PATROL
+        Patrol.OnEnter += x => { _Patrol = true; };
+        Patrol.OnUpdate += () =>//IA2-LINQ
+        {
+            
+               energy -= Time.deltaTime;
             if (energy <= 0) SendInputToSFSM(AgentStates.IDLE);
 
             NowPatrol();
@@ -88,13 +159,17 @@ public class Agent : GridEntity
             }
             return;
         };
+        Patrol.OnExit += x => { _Patrol = true; };
         #endregion
 
-        #region PURSUIT
+   #region PURSUIT
 
         Pursuit.OnEnter += x =>//IA2-LINQ
         {
+            _Pursuit = true;
+            AlertFoxes(this);
             particleEnojo.Play();
+
             var Num = Query()
             .OfType<Boid>()
             .Select(x => x.transform)
@@ -113,7 +188,7 @@ public class Agent : GridEntity
 
             if (_target != null)
                 if ((_target.position - transform.position).magnitude > pursuitRadius)
-                    SendInputToSFSM(AgentStates.PATROL);
+                    SendInputToSFSM(AgentStates.RETURN);
 
             AddForce(NowPursuit());
 
@@ -123,7 +198,7 @@ public class Agent : GridEntity
                 transform.position = Vector3.MoveTowards(transform.position, _target.position, pursitSpeed * Time.fixedDeltaTime);
             }
         };
-        Pursuit.OnExit += x => { particleEnojo.Stop(); };
+        Pursuit.OnExit += x => { particleEnojo.Stop(); _Pursuit = false; };
 
 #endregion
 
@@ -134,23 +209,23 @@ public class Agent : GridEntity
     {
         _eventFSM.Update();
     }
+
     public IEnumerable<GridEntity> Query() //IA-P2
     {       
-            //creo una "caja" con las dimensiones deseadas, y luego filtro segun distancia para formar el círculo
-            return targetGrid.Query(
-                transform.position + new Vector3(-pursuitRadius, 0, -pursuitRadius),
-                transform.position + new Vector3(pursuitRadius, 0, pursuitRadius),
-                x => {
-                    var position2d = x - transform.position;
-                    position2d.y = 0;
-                    return position2d.sqrMagnitude < pursuitRadius * pursuitRadius;
-                });        
+       //creo una "caja" con las dimensiones deseadas, y luego filtro segun distancia para formar el círculo
+       return targetGrid.Query(
+           transform.position + new Vector3(-pursuitRadius, 0, -pursuitRadius),
+           transform.position + new Vector3(pursuitRadius, 0, pursuitRadius),
+           x => {
+               var position2d = x - transform.position;
+               position2d.y = 0;
+               return position2d.sqrMagnitude < pursuitRadius * pursuitRadius;
+           });        
     }
 
-    //IA2 P3 -----------------------------------------------------------
     public void NowPatrol()
     {
-        GameObject waypoint = allWaypoints[_currentWaypoint];
+        Nodes waypoint = PatrolWaypoints[_currentWaypoint];
         Vector3 dir = waypoint.transform.position - transform.position;
         dir.y = 0;
         transform.forward = dir;
@@ -158,21 +233,14 @@ public class Agent : GridEntity
         if (dir.magnitude <= 0.3f)
         {
             _currentWaypoint++;
-            if (_currentWaypoint >= allWaypoints.Length)
+            if (_currentWaypoint >= PatrolWaypoints.Length)
                 _currentWaypoint = 0;
         }
     }
-
-    void SendInputToSFSM(AgentStates agent)
+    public void AlertFoxes(Agent fox)
     {
-        _eventFSM.SendInput(agent);
+        GameManager.instance.CallFoxes(fox);
     }
-
-    public void ChangeColor(Color color)
-    {
-        GetComponent<Renderer>().material.color = color;
-    }
-
     Vector3 NowPursuit()//IA2-LINQ
     {
         var boid = Query().OfType<Boid>();
@@ -190,7 +258,6 @@ public class Agent : GridEntity
 
         return Vector3.zero;
     }
-
     void AddForce(Vector3 force)
     {
         _velocity += force;
@@ -201,6 +268,16 @@ public class Agent : GridEntity
     public Vector3 GetVelocity()
     {
         return _velocity;
+    }
+
+    public void SendInputToSFSM(AgentStates agent)
+    {
+        _eventFSM.SendInput(agent);
+    }
+
+    public void ChangeColor(Color color)
+    {
+        GetComponent<Renderer>().material.color = color;
     }
 
     private void OnDrawGizmos()

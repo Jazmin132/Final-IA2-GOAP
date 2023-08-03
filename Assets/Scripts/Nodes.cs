@@ -41,4 +41,10 @@ public class Nodes : MonoBehaviour
 
         return ArrayTupla;
     }
+
+    private void OnDrawGizmos()
+    {
+        //Gizmos.color = Color.grey;
+        //Gizmos.DrawWireSphere(transform.position, radious);
+    }
 }

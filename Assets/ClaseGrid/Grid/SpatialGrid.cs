@@ -209,8 +209,8 @@ public class SpatialGrid : MonoBehaviour
                     Gizmos.DrawLine(ent.transform.position, neighbour.transform.position);
                     connections++;
                 }
-                if(showLogs)
-                    Debug.Log("tengo " + connections + " conexiones por individuo");
+               // if(showLogs)
+                   // Debug.Log("tengo " + connections + " conexiones por individuo");
                 connections = 0;
             }
         }

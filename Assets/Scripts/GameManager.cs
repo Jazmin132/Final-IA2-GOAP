@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("ASTAR Values")]
     public TimeSlicing timeSlicing;
-    public Nodes _StartingNode;
-    public Nodes _GoalNode;
     public List<Nodes> _AllNodes = new List<Nodes>();
 
     [Header("BOID Related Values")]
@@ -21,23 +19,21 @@ public class GameManager : MonoBehaviour
     int IndeX = 0;
     public List<Boid> allBoids = new List<Boid>();
     public GameObject padreGrilla;
+    [Header("FOX Related Values")]
+    public List<Agent> allFoxes = new List<Agent>();
+    List<Nodes> pathToFollow = new List<Nodes>();
 
     public static GameManager instance;
 
     private void Awake() { if (instance == null) instance = this; }
 
-    public void SetNodes(Nodes startingNode, Nodes finalNode)
-    {
-        _StartingNode = startingNode;
-        _GoalNode = finalNode;
-    }
-    public List<Nodes> SetPath(List<Nodes> pathToFollow)
+    public List<Nodes> SetPath(Nodes StartingNode, Nodes GoalNode)
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
-        return pathToFollow = TimeSlicing.AStar(_StartingNode,
-            (x) => x == _GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
+        return pathToFollow = TimeSlicing.AStar(StartingNode,
+            (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
     }
 
-    public void FollowPath(List<Nodes> pathToFollow, Transform EntityPos, float Speed)
+    public void PathToFollow(List<Nodes> pathToFollow, Transform EntityPos, float Speed)
     {//Pasar la posoción de la entidad y el speed
         //Esto tiene que ir un el otro lado
         var col = pathToFollow.Select(x => x.transform.position).OrderBy(x => x - EntityPos.position);
@@ -77,6 +73,14 @@ public class GameManager : MonoBehaviour
         food.transform.position = FoodPoints[IndeX].transform.position;
         IndeX++;
         if (IndeX >= FoodPoints.Length) IndeX = 0;
+    }
+    public void CallFoxes(Agent fox)
+    {
+        for (int i = 0; i < allFoxes.Count; i++)
+        {
+            if (fox != allFoxes[i])
+                allFoxes[i].SendInputToSFSM(AgentStates.GOTODEST);
+        }
     }
     public Vector3 ChangeObjPosition(Vector3 pos)
     {
