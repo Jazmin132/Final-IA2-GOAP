@@ -60,7 +60,7 @@ public class Woodcutter : MonoBehaviour
         LookTree.OnEnter += x =>
         {
             _LookingForTree = true;
-            if (LevelManager.instance.trees.Where(x => x).Any())// IA2 - LINQ
+            if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())// IA2 - LINQ
             {
                 if (_shortestDistanceToTree != 10000)
                     _shortestDistanceToTree = 10000;
@@ -76,11 +76,18 @@ public class Woodcutter : MonoBehaviour
                     
                 } 
             }
+            else
+            {
+                Debug.Log("No hay algo en la lista");
+            }
         };
         LookTree.OnFixedUpdate += () => 
         {
-            _myTransform.LookAt(new Vector3(_treeToGoTo.transform.position.x, 0, _treeToGoTo.transform.position.z));
-            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+            if(_treeToGoTo != null)
+            {
+                _myTransform.LookAt(new Vector3(_treeToGoTo.transform.position.x, 0, _treeToGoTo.transform.position.z));
+                _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+            }
         };
         LookTree.OnExit += x => { _LookingForTree = false; };
 
