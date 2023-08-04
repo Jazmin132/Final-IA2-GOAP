@@ -37,6 +37,10 @@ public class Chef : MonoBehaviour
     [Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
     [SerializeField] bool _stateLookingForFood, _stateCollect, _stateLoadFood, _stateEat;
 
+    public ParticleSystem particleCooking;
+    public ParticleSystem particleHungry;
+    public ParticleSystem Death;
+
     public enum ChefStates
     {
         LookingForFood,
@@ -100,24 +104,41 @@ public class Chef : MonoBehaviour
         };
         _Collect.OnExit += x => { _stateLookingForFood = false; };
 
-        _LoadFood.OnEnter += x => { _stateLoadFood = true; };
+        _LoadFood.OnEnter += x => 
+        {
+            particleCooking.Play();
+            _stateLoadFood = true; 
+        };
         _LoadFood.OnFixedUpdate += () => 
         {
             _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
 
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
-        _LoadFood.OnExit += x => { _stateLoadFood = false; };
+        _LoadFood.OnExit += x => 
+        {
+            particleCooking.Stop();
+            _stateLoadFood = false; 
+        };
 
-        _Eat.OnEnter += x => { _stateEat = true; };
+        _Eat.OnEnter += x =>
+        {
+            particleHungry.Play();
+            _stateEat = true;
+        };
         _Eat.OnFixedUpdate += () => 
         {
             _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
 
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
-        _Eat.OnExit += x => { _stateEat = false; };
+        _Eat.OnExit += x =>
+        {
+            particleHungry.Stop();
+            _stateEat = false;
+        };
 
+        _stateDeath.OnEnter += x => { Death.Play(); };
         _stateDeath.OnFixedUpdate += () => 
         {
             if (_hunger < _hungerMaxCapacity)
