@@ -53,10 +53,8 @@ public class Agent : GridEntity
 
         StateConfigurer.Create(GotoDest)
             .SetTransition(AgentStates.PATROL, Patrol)//Si no ve a las ovejas
+            .SetTransition(AgentStates.RETURN, Return)
             .SetTransition(AgentStates.PURSUIT, Pursuit).Done();//Si ve a las ovejas
-
-        StateConfigurer.Create(Return)
-            .SetTransition(AgentStates.PATROL, Patrol).Done();//Si no ve a las ovejas
 
         StateConfigurer.Create(Patrol)
             .SetTransition(AgentStates.IDLE, Idle)
@@ -67,7 +65,9 @@ public class Agent : GridEntity
             .SetTransition(AgentStates.RETURN, Return)
            .SetTransition(AgentStates.IDLE, Idle)
            .Done();
-           //.SetTransition(AgentStates.PATROL, Patrol)
+
+        StateConfigurer.Create(Return)
+            .SetTransition(AgentStates.PATROL, Patrol).Done();//Si no ve a las ovejas
 
         #endregion
 
@@ -75,13 +75,12 @@ public class Agent : GridEntity
         Idle.OnEnter += x => { particleTired.Play(); _Idle = true; };
         Idle.OnUpdate += () =>
         {
-            //OnMoveTest();
             energy += Time.deltaTime;
             if (energy >= maxEnergy)
                 SendInputToSFSM(AgentStates.PATROL);
             return;
         };
-        Idle.OnExit += x => { particleTired.Stop(); _Idle = true; };
+        Idle.OnExit += x => { particleTired.Stop(); _Idle = false; };
 
         #endregion
 
@@ -93,45 +92,49 @@ public class Agent : GridEntity
             if (_pathToFollow.Count == 0)
             {
                 _NodoInicial = PatrolWaypoints[0];
-                Debug.Log("NodoInicial : " + _NodoInicial);
                 _NodoFinal = GameManager.instance.GetNode(WhereToGo.position);
-                Debug.Log("NodoFinal : " + _NodoFinal);
-                _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
+                _pathToFollow = GameManager.instance.CreatePath(_NodoInicial, _NodoFinal);
             }
-            Debug.Log(_pathToFollow.Count + ": Camino");
-            Debug.Log(_pathToFollow + " Path To Follow");
+            Debug.Log("Camino Dest : " + _pathToFollow.Count);
         };
         GotoDest.OnUpdate += () =>
         {
             if (_pathToFollow.Count != 0)
             {
-                PathToFollow();
+                PathToFollow(7);
+                CheckForOveja();
             }
             else if (_pathToFollow.Count <= 0)
             {
-                SendInputToSFSM(AgentStates.PATROL);
+                Debug.Log("Ir A return"); 
+                SendInputToSFSM(AgentStates.RETURN);
             }
+
         };
-        GotoDest.OnExit += x => { _pathToFollow.Clear(); _GotoDest = true; };
+        GotoDest.OnExit += x => { _pathToFollow.Clear(); _GotoDest = false; };
    #endregion
 
    #region RETURN
         Return.OnEnter += x => 
         {
-            Debug.Log("Volviendo a mi zona");
             _Return = true;
+            transform.position += new Vector3(3.5f, 0, 2);
             if (_pathToFollow.Count == 0)
             {
-                _NodoFinal = PatrolWaypoints[_currentWaypoint];
+                _NodoFinal = PatrolWaypoints[0];
                 _NodoInicial = GameManager.instance.GetNode(transform.position);
-                _pathToFollow = GameManager.instance.SetPath(_NodoInicial, _NodoFinal);
+                Debug.Log("NodoInicial : " + _NodoInicial);
+                _pathToFollow = GameManager.instance.CreatePath(_NodoInicial, _NodoFinal);
+                Debug.Log("NodoFinal : " + _NodoFinal);
             }
+            Debug.Log("Camino Return: " + _pathToFollow.Count);
         };
         Return.OnUpdate += () =>
         {
             if (_pathToFollow.Count != 0)
             {
-                PathToFollow();
+                PathToFollow(5);
+                CheckForOveja();
             }
             else if (_pathToFollow.Count <= 0)
             {
@@ -145,25 +148,13 @@ public class Agent : GridEntity
         Patrol.OnEnter += x => { _Patrol = true; };
         Patrol.OnUpdate += () =>//IA2-LINQ
         {
-            
-               energy -= Time.deltaTime;
+            energy -= Time.deltaTime;
             if (energy <= 0) SendInputToSFSM(AgentStates.IDLE);
 
             NowPatrol();
-
-            var Num = Query().OfType<Boid>()
-            .Select(x => x.transform)
-            .OrderBy(x => x.position - transform.position);
-
-            foreach (var boid in Num)
-            {
-                Vector3 dist = boid.transform.position - transform.position;
-                if (dist.magnitude <= pursuitRadius)
-                    SendInputToSFSM(AgentStates.PURSUIT);
-            }
-            return;
+            CheckForOveja();
         };
-        Patrol.OnExit += x => { _Patrol = true; };
+        Patrol.OnExit += x => { _Patrol = false; };
         #endregion
 
    #region PURSUIT
@@ -202,7 +193,7 @@ public class Agent : GridEntity
                 transform.position = Vector3.MoveTowards(transform.position, _target.position, pursitSpeed * Time.fixedDeltaTime);
             }
         };
-        Pursuit.OnExit += x => { particleEnojo.Stop(); _Pursuit = false; };
+        Pursuit.OnExit += x => { particleEnojo.Stop(); _target = null; _Pursuit = false; };
 
 #endregion
 
@@ -244,18 +235,32 @@ public class Agent : GridEntity
                 _currentWaypoint = 0;
         }
     }
+    void CheckForOveja()//IA2-LINQ
+    {
+        var Num = Query().OfType<Boid>()
+        .Select(x => x.transform)
+        .OrderBy(x => x.position - transform.position);
+
+        foreach (var boid in Num)
+        {
+            Vector3 dist = boid.transform.position - transform.position;
+            if (dist.magnitude <= pursuitRadius)
+                SendInputToSFSM(AgentStates.PURSUIT);
+        }
+        return;
+    }
     public void AlertFoxes(Agent fox)
     {
         GameManager.instance.CallFoxes(fox);
     }
-    void PathToFollow()
+    void PathToFollow(float Speed)
     {
         Vector3 nextP = _pathToFollow[0].transform.position;
         Vector3 dir = nextP - transform.position;
         if (dir.magnitude > 0.1f)
         {
             transform.forward = dir;
-            transform.position += transform.forward * speed * Time.deltaTime;
+            transform.position += transform.forward * Speed * Time.fixedDeltaTime;
         }
         else
             _pathToFollow.RemoveAt(0);

@@ -75,7 +75,7 @@ public class Boid : GridEntity
             if (Vector3.Distance(transform.position, hunter.transform.position) > viewRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
         };
-        _Evade.OnExit += x => { particleScared.Play(); };
+        _Evade.OnExit += x => { particleScared.Stop(); };
 
         _Arrive.OnEnter += x => { particleHungry.Play(); };
         _Arrive.OnFixedUpdate += () =>
