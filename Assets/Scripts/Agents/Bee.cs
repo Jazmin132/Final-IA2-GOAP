@@ -40,6 +40,9 @@ public class Bee : MonoBehaviour
     [SerializeField] Vector3 _vector3ToAddForce;
 
     public ParticleSystem particleDeath;
+
+    [SerializeField] GameObject _particleDeathObject;
+
     //[Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
     public enum BeeStates
     {
@@ -113,6 +116,10 @@ public class Bee : MonoBehaviour
         Death.OnEnter += x => 
         {
             particleDeath.Play();
+
+            GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
+            Destroy(effect, 3f);
+
             Destroy(gameObject); 
         };
 

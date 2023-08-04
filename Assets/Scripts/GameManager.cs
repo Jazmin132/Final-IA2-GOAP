@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
     }
     public void CallFoxes(Agent fox)//IA2 LINQ
     {
-        var Foxes = allFoxes.Where(x => x != fox).ToList();
+        //var Foxes = allFoxes.Where(x => x != fox).ToList(); // Original
+        var Foxes = allFoxes.TakeWhile(x => x != fox).ToList();
         for (int i = 0; i < Foxes.Count; i++)
         {
             allFoxes[i].WhereToGo= fox.transform;

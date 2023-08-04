@@ -381,6 +381,7 @@ MonoBehaviour:
   _timerToMove: 10
   _doOnce: 0
   particleDeath: {fileID: 5091190839106595553}
+  _particleDeathObject: {fileID: 4374937912784042927, guid: 6dfb71ae6d9c32740ae4d53f28db7159, type: 3}
 --- !u!1 &1129340073818317919
 GameObject:
   m_ObjectHideFlags: 0

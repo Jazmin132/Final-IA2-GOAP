@@ -29,7 +29,7 @@ public class Plant : MonoBehaviour
 
     public ParticleSystem particleDeath;
 
-
+    [SerializeField] GameObject _particleDeathObject;
 
     //[SerializeField] bool _stateIdle, _stateMoving;
     public enum PlantStates
@@ -84,6 +84,10 @@ public class Plant : MonoBehaviour
         Death.OnEnter += x =>
         {
             particleDeath.Play();
+
+            GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
+            Destroy(effect, 3f);
+
             Destroy(gameObject);
         };
         _MyFSM = new EventFSM<PlantStates>(Idle);

@@ -41,6 +41,8 @@ public class Constructor : MonoBehaviour
     public ParticleSystem particleHunger;
     public ParticleSystem particleDeath;
 
+    [SerializeField] GameObject _particleDeathObject;
+
     public enum ContructorStates
     {
         GrabingWood,
@@ -119,6 +121,9 @@ public class Constructor : MonoBehaviour
 
         _stateDeath.OnFixedUpdate += () =>
         {
+            GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
+            Destroy(effect, 3f);
+
             Destroy(gameObject);
         };
 

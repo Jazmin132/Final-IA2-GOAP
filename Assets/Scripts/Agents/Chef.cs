@@ -42,6 +42,8 @@ public class Chef : MonoBehaviour
     public ParticleSystem Death;
     public ParticleSystem particleHarvest;
 
+    [SerializeField] GameObject _particleDeathObject;
+
     public enum ChefStates
     {
         LookingForFood,
@@ -154,8 +156,13 @@ public class Chef : MonoBehaviour
         _stateDeath.OnEnter += x => { Death.Play(); };
         _stateDeath.OnFixedUpdate += () => 
         {
-            if (_hunger < _hungerMaxCapacity)
+            if (_hunger > _hungerMaxCapacity)
+            {
+                GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
+                Destroy(effect, 3f);
+
                 Destroy(gameObject);
+            }
         };
 
         _MyFSM = new EventFSM<ChefStates>(_LookingForFood);
