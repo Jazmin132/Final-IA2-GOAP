@@ -11717,7 +11717,7 @@ MonoBehaviour:
   onGrid: 0
   hunter: {fileID: 1043122553}
   agent: {fileID: 1043122555}
-  maxSpeed: 10
+  maxSpeed: 8
   maxForce: 0.24
   viewRadius: 5
   separationRadius: 5.77
