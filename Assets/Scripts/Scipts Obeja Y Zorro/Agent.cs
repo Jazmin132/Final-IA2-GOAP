@@ -108,10 +108,7 @@ public class Agent : GridEntity
                 CheckForOveja();
             }
             else if (_pathToFollow.Count <= 0)
-            {
-                Debug.Log("Ir A return"); 
                 SendInputToSFSM(AgentStates.RETURN);
-            }
 
         };
         GotoDest.OnExit += x => { _pathToFollow.Clear(); _GotoDest = false; };
@@ -126,11 +123,8 @@ public class Agent : GridEntity
             {
                 _NodoFinal = PatrolWaypoints[0];
                 _NodoInicial = GameManager.instance.GetNode(transform.position);
-                Debug.Log("NodoInicial : " + _NodoInicial);
                 _pathToFollow = GameManager.instance.CreatePath(_NodoInicial, _NodoFinal);
-                Debug.Log("NodoFinal : " + _NodoFinal);
             }
-            Debug.Log("Camino Return: " + _pathToFollow.Count);
         };
         Return.OnUpdate += () =>
         {

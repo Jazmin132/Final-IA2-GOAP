@@ -35,51 +35,138 @@ public class Chef : MonoBehaviour
     [SerializeField] bool _hungerActive, _isEating;
 
     [Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
-    [SerializeField] bool _stateLookingForFood, _stateCollect, _stateLoadFood, _stateEat, _stateDeath;
+    [SerializeField] bool _stateLookingForFood, _stateCollect, _stateLoadFood, _stateEat;
+
+    public enum ChefStates
+    {
+        LookingForFood,
+        Collect,
+        LoadFood,
+        Eat,
+        stateDeath
+    }
+    public EventFSM<ChefStates> _MyFSM;
 
     void Awake()
     {
-        //Agregarlo a una lista antes de que haga algo? -> fijarse si poner código
+        var _LookingForFood = new State<ChefStates>("LookingForFood");
+        var _Collect = new State<ChefStates>("Collect");
+        var _LoadFood = new State<ChefStates>("LoadFood");
+        var _Eat = new State<ChefStates>("Eat");
+        var _stateDeath = new State<ChefStates>("stateDeath");
+
+        StateConfigurer.Create(_LookingForFood)
+            .SetTransition(ChefStates.Collect, _Collect)
+            .SetTransition(ChefStates.Eat, _Eat)
+            .SetTransition(ChefStates.LoadFood, _LoadFood)
+            .SetTransition(ChefStates.stateDeath, _stateDeath).Done();
+
+        StateConfigurer.Create(_Collect)
+            .SetTransition(ChefStates.Eat, _Eat)
+            .SetTransition(ChefStates.LoadFood, _LoadFood)
+            .SetTransition(ChefStates.stateDeath, _stateDeath)
+            .SetTransition(ChefStates.LookingForFood, _LookingForFood).Done();
+
+        StateConfigurer.Create(_Eat)
+          .SetTransition(ChefStates.Collect, _Collect)
+          .SetTransition(ChefStates.LoadFood, _LoadFood)
+          .SetTransition(ChefStates.stateDeath, _stateDeath)
+          .SetTransition(ChefStates.LookingForFood, _LookingForFood).Done();
+
+        StateConfigurer.Create(_LoadFood)
+         .SetTransition(ChefStates.Eat, _Eat)
+         .SetTransition(ChefStates.Collect, _Collect)
+         .SetTransition(ChefStates.stateDeath, _stateDeath)
+         .SetTransition(ChefStates.LookingForFood, _LookingForFood).Done();
+
+        StateConfigurer.Create(_stateDeath).Done();
+
+        _LookingForFood.OnEnter += x => { _stateLoadFood = true; }; 
+        _LookingForFood.OnFixedUpdate += () => 
+        {
+            if (!_restartFoodTime)
+                _restartFoodTime = true;
+
+            _myTransform.LookAt(new Vector3(_vegetablePatchToGoTo.transform.position.x, 0, _vegetablePatchToGoTo.transform.position.z));
+
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+        };
+        _LookingForFood.OnExit += x => { _stateLoadFood = false; };
+
+        _Collect.OnEnter += x => { _stateLookingForFood = true; };
+        _Collect.OnFixedUpdate += () => 
+        {
+            CountTimerCollectFood();
+        };
+        _Collect.OnExit += x => { _stateLookingForFood = false; };
+
+        _LoadFood.OnEnter += x => { _stateLoadFood = true; };
+        _LoadFood.OnFixedUpdate += () => 
+        {
+            _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
+
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+        };
+        _LoadFood.OnExit += x => { _stateLoadFood = false; };
+
+        _Eat.OnEnter += x => { _stateEat = true; };
+        _Eat.OnFixedUpdate += () => 
+        {
+            _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
+
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+        };
+        _Eat.OnExit += x => { _stateEat = false; };
+
+        _stateDeath.OnFixedUpdate += () => 
+        {
+            if (_hunger < _hungerMaxCapacity)
+                Destroy(gameObject);
+        };
+
+        _MyFSM = new EventFSM<ChefStates>(_LookingForFood);
     }
 
     void FixedUpdate()
     {
+        _MyFSM.FixedUpdate();
+
         if (_hungerActive)
-        {
             CountTimerHunger();
-        }
 
         if (_isEating)
-        {
             CountTimerEatFood();
-        }
 
+    #region Before
+        /*
         if (_hunger < _hungerMaxCapacity)
         {
             if (_stateLookingForFood && !_stateCollect && !_stateLoadFood && !_stateEat && !_stateDeath)
             {
-                LookingForFood();
+                //LookingForFood();
             }
             else if (_stateCollect && !_stateLookingForFood && !_stateLoadFood && !_stateEat && !_stateDeath)
             {
-                Collect();
+                //Collect();
             }
             else if (_stateLoadFood && !_stateLookingForFood && !_stateCollect && !_stateEat && !_stateDeath)
             {
-                LoadFood();
+                //LoadFood();
             }
             else if (_stateEat && !_stateLookingForFood && !_stateCollect && !_stateLoadFood && !_stateDeath)
             {
-                Eat();
+                //Eat();
             }
         }
         else
         {
-            if (_stateDeath && !_stateLookingForFood && !_stateCollect && !_stateLoadFood && !_stateEat)
-            {
-                Death();
-            }
+            //if (_stateDeath && !_stateLookingForFood && !_stateCollect && !_stateLoadFood && !_stateEat)
+            //{
+            //    Death();
+            //}
         }
+        */
+        #endregion
     }
 
     #region CountTimer
@@ -89,14 +176,11 @@ public class Chef : MonoBehaviour
         {
             if (!_restartFoodTime)
                 _restartFoodTime = true;
-
-            return;
         }
 
         if (_timeFood != 0 && _restartFoodTime)
         {
             _timeFood = 0;
-
             _restartFoodTime = false;
         }
 
@@ -104,19 +188,17 @@ public class Chef : MonoBehaviour
 
         if (_timeFood >= _timerFood)
         {
-            //_treeToCut.RemoveWood(_woodToGain);
-
             _food += _foodToGain;
 
             if (_food >= _foodMaxCapacity)
             {
-                if (_stateCollect)
-                    _stateCollect = false;
+                //if (_stateCollect)
+                //    _stateCollect = false;
+                //if (!_stateLoadFood)
+                //    _stateLoadFood = true;
 
-                if (!_stateLoadFood)
-                    _stateLoadFood = true;
+                SentToFSM(ChefStates.LoadFood);
             }
-
             _timeFood = 0;
         }
     }
@@ -186,11 +268,11 @@ public class Chef : MonoBehaviour
                     _hunger = 0;
                 }
 
-                if (_stateEat)
-                    _stateEat = false;
-
-                if (_isEating)
-                    _isEating = false;
+                //if (_stateEat)
+                //    _stateEat = false;
+                //
+                //if (_isEating)
+                //    _isEating = false;
 
                 if (!_restartFoodTime)
                     _restartFoodTime = true;
@@ -203,13 +285,15 @@ public class Chef : MonoBehaviour
 
                 if (_food < _foodMaxCapacity)
                 {
-                    if (!_stateLookingForFood)
-                        _stateLookingForFood = true;
+                    //if (!_stateLookingForFood)
+                    //    _stateLookingForFood = true;
+                    SentToFSM(ChefStates.LookingForFood);
                 }
                 else
                 {
-                    if (!_stateLoadFood)
-                        _stateLoadFood = true;
+                    //if (!_stateLoadFood)
+                    //    _stateLoadFood = true;
+                    SentToFSM(ChefStates.LoadFood);
                 }
 
                 if (!_restartEatFoodTime)
@@ -247,34 +331,31 @@ public class Chef : MonoBehaviour
 
             if (_hunger > _hungerMinCapacity && _hunger < _hungerMaxCapacity)
             {
-                if (_stateLookingForFood)
-                    _stateLookingForFood = false;
+                //if (_stateLookingForFood)
+                //    _stateLookingForFood = false;
+                //if (_stateCollect)
+                //    _stateCollect = false;
+                //if (_stateLoadFood)
+                //    _stateLoadFood = false;
+                //if (!_stateEat)
+                //    _stateEat = true;
 
-                if (_stateCollect)
-                    _stateCollect = false;
-
-                if (_stateLoadFood)
-                    _stateLoadFood = false;
-
-                if (!_stateEat)
-                    _stateEat = true;
+                SentToFSM(ChefStates.Eat);
             }
             else if (_hunger >= _hungerMaxCapacity)
             {
-                if (_stateLookingForFood)
-                    _stateLookingForFood = false;
+                //if (_stateLookingForFood)
+                //    _stateLookingForFood = false;
+                //if (_stateCollect)
+                //    _stateCollect = false;
+                //if (_stateLoadFood)
+                //    _stateLoadFood = false;
+                //if (_stateEat)
+                //    _stateEat = false;
+                //if (!_stateDeath)
+                //    _stateDeath = true;
 
-                if (_stateCollect)
-                    _stateCollect = false;
-
-                if (_stateLoadFood)
-                    _stateLoadFood = false;
-
-                if (_stateEat)
-                    _stateEat = false;
-
-                if (!_stateDeath)
-                    _stateDeath = true;
+                SentToFSM(ChefStates.stateDeath);
             }
 
             _timeHunger = 0;
@@ -313,72 +394,65 @@ public class Chef : MonoBehaviour
     //}
 
     #region States
-    void LookingForFood() //[STATE 1 - Inicial]
-    {
-        Debug.Log("LookingForFood");
+    //void LookingForFood() //[STATE 1 - Inicial]
+    //{
+    //    Debug.Log("LookingForFood");
+    //
+    //    if (!_restartFoodTime)
+    //        _restartFoodTime = true;
+    //
+    //    _myTransform.LookAt(new Vector3(_vegetablePatchToGoTo.transform.position.x, 0, _vegetablePatchToGoTo.transform.position.z));
+    //
+    //    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+    //}
 
-        if (!_restartFoodTime)
-            _restartFoodTime = true;
+    //void Collect() //[STATE 2]
+    //{
+    //    Debug.Log("Collect");
+    //    CountTimerCollectFood();
+    //}
 
-        _myTransform.LookAt(new Vector3(_vegetablePatchToGoTo.transform.position.x, 0, _vegetablePatchToGoTo.transform.position.z));
+    //void LoadFood() //[STATE 3]
+    //{
+    //    Debug.Log("LoadFood");
+    //
+    //    _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
+    //
+    //    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+    //}
 
-        _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-    }
+    //void Eat() //[STATE 4]
+    //{
+    //    Debug.Log("Eat");
+    //
+    //    _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
+    //
+    //    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+    //}
 
-    void Collect() //[STATE 2]
-    {
-        Debug.Log("Collect");
-
-        //if (_treeToCut == null)
-        //{
-        //    if (!_doOnce)
-        //        _doOnce = true;
-        //
-        //    if (_stateCollect)
-        //        _stateCollect = false;
-        //
-        //    if (!_stateLookingForFood)
-        //        _stateLookingForFood = true;
-        //}
-
-        CountTimerCollectFood();
-    }
-
-    void LoadFood() //[STATE 3]
-    {
-        Debug.Log("LoadFood");
-
-        _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
-
-        _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-    }
-
-    void Eat() //[STATE 4]
-    {
-        Debug.Log("Eat");
-
-        _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
-
-        _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-    }
-
-    void Death() //[STATE 5]
-    {
-        Debug.Log("Death");
-
-        Destroy(gameObject);
-    }
+    //void Death() //[STATE 5]
+    //{
+    //    Debug.Log("Death");
+    //
+    //    Destroy(gameObject);
+    //}
     #endregion
+
+    void SentToFSM(ChefStates states)
+    {
+        _MyFSM.SendInput(states);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == 9)
         {
-            if (_stateLookingForFood)
-                _stateLookingForFood = false;
+            //if (_stateLookingForFood)
+            //    _stateLookingForFood = false;
+            //if (!_stateCollect)
+            //    _stateCollect = true;
 
-            if (!_stateCollect)
-                _stateCollect = true;
+            SentToFSM(ChefStates.Collect);
         }
         else if (collision.gameObject.layer == 10)
         {
@@ -388,67 +462,21 @@ public class Chef : MonoBehaviour
 
                 _food = 0;
 
-                if (_stateLoadFood)
-                    _stateLoadFood = false;
+               //if (_stateLoadFood)
+               //    _stateLoadFood = false;
+               //if (!_stateLookingForFood)
+               //    _stateLookingForFood = true;
 
-                if (!_stateLookingForFood)
-                    _stateLookingForFood = true;
+                SentToFSM(ChefStates.LookingForFood);
             }
             else if (_stateEat)
             {
                 if (_hungerActive)
                     _hungerActive = false;
-
+                
                 if (!_isEating)
                     _isEating = true;
-
-                //if(_hunger <= _canteenToLoad.foodQuantity)
-                //{
-                //    _canteenToLoad.TakeFood(_hunger);
-                //
-                //    _hunger = 0;
-                //}
-                //else
-                //{
-                //    _hunger -= _canteenToLoad.foodQuantity;
-                //
-                //    _canteenToLoad.TakeFood(_canteenToLoad.foodQuantity);
-                //}
-                //
-                //if (_stateEat)
-                //    _stateEat = false;
-                //
-                //if(_food < _foodMaxCapacity)
-                //{
-                //    if (!_stateLookingForFood)
-                //        _stateLookingForFood = true;
-                //}
-                //else
-                //{
-                //    if (!_stateLoadFood)
-                //        _stateLoadFood = true;
-                //}
             }
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.layer == 7)
-    //    {
-    //        if (_stateLookingForTree)
-    //            _stateLookingForTree = false;
-    //
-    //        if (!_stateCut)
-    //            _stateCut = true;
-    //    }
-    //    else if (other.gameObject.layer == 8)
-    //    {
-    //        if (_stateCut)
-    //            _stateCut = false;
-    //
-    //        if (!_stateLookingForTree)
-    //            _stateLookingForTree = true;
-    //    }
-    //}
 }

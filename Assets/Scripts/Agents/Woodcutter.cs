@@ -137,16 +137,13 @@ public class Woodcutter : MonoBehaviour
         if (_timeWood >= _timerWood)
         {
             _treeToCut.RemoveWood(_woodToGain);
-
             _wood += _woodToGain;
-            Debug.Log("_wood : " + _wood);
+
             if (_wood >= _woodMaxCapacity)
             {
                 if (!_woodsObject.activeSelf)
-                {
                     _woodsObject.SetActive(true);
-                }
-                Debug.Log("Cambiar a LOAD WOOD");
+
                 SentToFSM(CutterStates.LoadWood);
             }
 
@@ -167,12 +164,6 @@ public class Woodcutter : MonoBehaviour
             if (collision.gameObject.GetComponent<TreeScript>())
             {
                 _treeToCut = collision.gameObject.GetComponent<TreeScript>();
-
-                //if (_stateLookingForTree)
-                //    _stateLookingForTree = false;
-                //
-                //if (!_stateCut)
-                //    _stateCut = true;
 
                 SentToFSM(CutterStates.CUT);
             }
