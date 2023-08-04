@@ -40,6 +40,7 @@ public class Chef : MonoBehaviour
     public ParticleSystem particleCooking;
     public ParticleSystem particleHungry;
     public ParticleSystem Death;
+    public ParticleSystem particleHarvest;
 
     public enum ChefStates
     {
@@ -102,13 +103,18 @@ public class Chef : MonoBehaviour
 
         _Collect.OnEnter += x => 
         {
+            particleHarvest.Play();
             _stateLookingForFood = true; 
         };
         _Collect.OnFixedUpdate += () => 
         {
             CountTimerCollectFood();
         };
-        _Collect.OnExit += x => { _stateLookingForFood = false; };
+        _Collect.OnExit += x =>
+        {
+            particleHarvest.Stop();
+            _stateLookingForFood = false;
+        };
 
         _LoadFood.OnEnter += x => 
         {
