@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         IndeX++;
         if (IndeX >= FoodPoints.Length) IndeX = 0;
     }
-    public void CallFoxes(Agent fox)
+    public void CallFoxes(Agent fox)//IA2 LINQ
     {
         var Foxes = allFoxes.Where(x => x != fox).ToList();
         for (int i = 0; i < Foxes.Count; i++)

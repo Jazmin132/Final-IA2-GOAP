@@ -60,7 +60,7 @@ public class Woodcutter : MonoBehaviour
         LookTree.OnEnter += x =>
         {
             _LookingForTree = true;
-            if (LevelManager.instance.trees.Where(x => x).Any())
+            if (LevelManager.instance.trees.Where(x => x).Any())// IA2 - LINQ
             {
                 if (_shortestDistanceToTree != 10000)
                     _shortestDistanceToTree = 10000;
