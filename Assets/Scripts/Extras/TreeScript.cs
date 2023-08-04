@@ -34,6 +34,8 @@ public class TreeScript : MonoBehaviour
 
             if (_woodHP <= 0)
             {
+                _levelManager.RemoveTree(this);
+
                 Destroy(gameObject);
             }
         }
