@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -86067,7 +86067,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.37028992, y: 0, z: 0, w: 0.9289163}
-  m_LocalPosition: {x: -6.3, y: 43.3, z: -60.4}
+  m_LocalPosition: {x: -6.3, y: 40.6, z: -55.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -145928,7 +145928,7 @@ MonoBehaviour:
   particleCooking: {fileID: 563905907}
   particleHungry: {fileID: 1667879905}
   Death: {fileID: 1338688594}
-  particleHarvest: {fileID: 1935917947}
+  particleHarvest: {fileID: 0}
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0
