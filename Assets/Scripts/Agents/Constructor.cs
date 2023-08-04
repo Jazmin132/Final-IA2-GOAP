@@ -36,6 +36,11 @@ public class Constructor : MonoBehaviour
 
     [Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
     [SerializeField] bool _stateGrabingWood, _stateConstruct, _stateEat;
+
+    public ParticleSystem particleBuilding;
+    public ParticleSystem particleHunger;
+    public ParticleSystem particleDeath;
+
     public enum ContructorStates
     {
         GrabingWood,
@@ -77,22 +82,40 @@ public class Constructor : MonoBehaviour
         };
         _GrabingWood.OnExit += x => { _stateGrabingWood = false; };
 
-        _Construct.OnEnter += x => { _stateConstruct = true; };
+        _Construct.OnEnter += x =>
+        {
+            _stateConstruct = true;
+            particleBuilding.Play();
+        };
         _Construct.OnFixedUpdate += () => 
         {
             _myTransform.LookAt(new Vector3(_buildingZoneToBuild.transform.position.x, 0, _buildingZoneToBuild.transform.position.z));
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
-        _Construct.OnExit += x => { _stateConstruct = false; };
+        _Construct.OnExit += x =>
+        { 
+            _stateConstruct = false;
+            _isWorking = false;
+            particleBuilding.Stop();
+        };
 
-        _Eat.OnEnter += x => { _isEating = true; };
+        _Eat.OnEnter += x => 
+        { 
+            _stateEat = true; 
+            particleHunger.Play();
+        };
         _Eat.OnFixedUpdate += () =>
         {
-            CountTimerEatFood();
+            if(_isEating == true)CountTimerEatFood();
             _myTransform.LookAt(new Vector3(_canteenToEat.transform.position.x, 0, _canteenToEat.transform.position.z));
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
-        _Eat.OnExit += x => { _isEating = false; };
+        _Eat.OnExit += x => 
+        { 
+            _isEating = false;
+            _stateEat = false;
+            particleHunger.Stop();
+        };
 
         _stateDeath.OnFixedUpdate += () =>
         {
@@ -243,7 +266,7 @@ public class Constructor : MonoBehaviour
         {
             _hunger += _hungerToGain;
 
-            if (_hunger > _hungerMinCapacity && _hunger < _hungerMaxCapacity)
+            if (_hunger >= _hungerMinCapacity && _hunger < _hungerMaxCapacity)
             {
                 //if (_stateGrabingWoodForWork)
                 //    _stateGrabingWoodForWork = false;
