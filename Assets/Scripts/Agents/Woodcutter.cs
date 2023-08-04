@@ -28,6 +28,8 @@ public class Woodcutter : MonoBehaviour
     [Header("State")]
     [SerializeField] bool _LookingForTree, _Cut, _LoadWood;
 
+    public ParticleSystem particleCutting;
+
     public enum CutterStates
     {
         LookingForTree,
@@ -82,7 +84,11 @@ public class Woodcutter : MonoBehaviour
         };
         LookTree.OnExit += x => { _LookingForTree = false; };
 
-        CutTree.OnEnter += x => { _Cut = true; };
+        CutTree.OnEnter += x => 
+        {
+            particleCutting.Play();
+            _Cut = true;
+        };
         CutTree.OnFixedUpdate += () =>
         { 
             if (_treeToCut == null) 
@@ -90,7 +96,11 @@ public class Woodcutter : MonoBehaviour
             else
                 CountTimerWood();
         };
-        CutTree.OnExit += x => { _Cut = false; };
+        CutTree.OnExit += x => 
+        { 
+            _Cut = false;
+            particleCutting.Stop();
+        };
 
         LOADWOOD.OnEnter += x => { _Cut = true; };
         LOADWOOD.OnFixedUpdate += () => 
