@@ -12,11 +12,11 @@ TagManager:
   - Water
   - UI
   - PermanentObject
-  - 
-  - 
-  - 
-  - 
-  - 
+  - TreeLayer
+  - StoreLayer
+  - BuildingLayer
+  - FoodLayer
+  - SleepLayer
   - 
   - 
   - 
