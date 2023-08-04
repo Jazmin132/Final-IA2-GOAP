@@ -27161,6 +27161,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1739711744}
   - {fileID: 1592526698}
   m_Father: {fileID: 268092241}
   m_RootOrder: 2
@@ -38940,8 +38941,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 532732880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.975, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 2.922, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.41961, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1739711744}
@@ -54287,8 +54288,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639160075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.6, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalPosition: {x: 0, y: 3.355, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.4386825, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1739711744}
@@ -54314,7 +54315,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70a6e22cc62878b4eb0c8ad36d324040, type: 2}
+  - {fileID: 2100000, guid: 8928602a63251c4468d86a22a911da38, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86065,14 +86066,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.3421033, y: 0.35548085, z: -0.14170381, w: 0.85820675}
-  m_LocalPosition: {x: -48.9, y: 31.9, z: -46.8}
+  m_LocalRotation: {x: 0.37028992, y: 0, z: 0, w: 0.9289163}
+  m_LocalPosition: {x: -6.3, y: 43.3, z: -60.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 43.467, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 43.467, y: 0, z: 0}
 --- !u!1 &989691598
 GameObject:
   m_ObjectHideFlags: 0
@@ -94413,7 +94414,7 @@ GameObject:
   - component: {fileID: 1338688594}
   - component: {fileID: 1338688593}
   m_Layer: 0
-  m_Name: Cansado
+  m_Name: Muerte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94455,7 +94456,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 29de3fc282ebf054381bf621bfd95402, type: 2}
+  - {fileID: 2100000, guid: 028ac436321cc2141a678a213330c16d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95340,7 +95341,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -95443,8 +95444,66 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 0
-    m_Bursts: []
+    m_BurstCount: 1
+    m_Bursts:
+    - serializedVersion: 2
+      time: 0
+      countCurve:
+        serializedVersion: 2
+        minMaxState: 0
+        scalar: 15
+        minScalar: 30
+        maxCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        minCurve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+      cycleCount: 1
+      repeatInterval: 0.01
+      probability: 1
   SizeModule:
     enabled: 1
     curve:
@@ -104909,7 +104968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ada7f0fd80bbe146aa931422b66c8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodQuantity: 0
+  foodQuantity: 500
 --- !u!1 &1394101394
 GameObject:
   m_ObjectHideFlags: 0
@@ -105023,7 +105082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395154078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.1, z: 0.275}
+  m_LocalPosition: {x: 0, y: 3.047, z: 0.275}
   m_LocalScale: {x: 0.35, y: 0.1, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107363,9 +107422,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2039341659}
-  - {fileID: 1739711744}
   m_Father: {fileID: 331551333}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1595280098
 GameObject:
@@ -107503,7 +107561,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70a6e22cc62878b4eb0c8ad36d324040, type: 2}
+  - {fileID: 2100000, guid: a4682599a8663344eb31ffcd95e8a50e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122868,8 +122926,8 @@ Transform:
   - {fileID: 630770500}
   - {fileID: 1825769365}
   - {fileID: 674242289}
-  m_Father: {fileID: 1592526698}
-  m_RootOrder: 1
+  m_Father: {fileID: 331551333}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1739711746
 Rigidbody:
@@ -141085,6 +141143,9 @@ MonoBehaviour:
   _stateCollect: 0
   _stateLoadFood: 0
   _stateEat: 0
+  particleCooking: {fileID: 563905907}
+  particleHungry: {fileID: 1667879905}
+  Death: {fileID: 1338688594}
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0
