@@ -14,6 +14,7 @@ public class Agent : GridEntity
 
     [Range(0, 0.1f)]
     public float maxForce;
+
     public float energy;
     public float maxEnergy;
     int _currentWaypoint;
@@ -23,10 +24,12 @@ public class Agent : GridEntity
     private Transform _target;
     Vector3 _destination;
     public float pursitSpeed;
+    public LayerMask obstacleLayer;
     List<Nodes> _pathToFollow = new List<Nodes>();
     public Transform WhereToGo;
     private Nodes _NodoFinal;
     private Nodes _NodoInicial;
+    public float Angle;
 
     [Header("Visual Values")]
     public ParticleSystem particleTired;
@@ -207,6 +210,7 @@ public class Agent : GridEntity
     public void Update()
     {
         _eventFSM.Update();
+        //AddForce(ObstacleAvoidance() * 5);
     }
     public IEnumerable<GridEntity> Query() //IA-P2
     {       
@@ -292,20 +296,44 @@ public class Agent : GridEntity
     {
         return _velocity;
     }
+    /*
+    Vector3 ObstacleAvoidance()
+    {
+        Vector3 desired = default;
+        Collider[] obstacles = Physics.OverlapSphere(transform.position, pursuitRadius, obstacleLayer);
 
+        foreach (var item in obstacles)
+        {
+            if (Vector3.Angle(item.transform.position - transform.position, transform.forward) <= Angle / 2)
+                return CalculateSteering(-transform.right);
+        }
+        if (desired != Vector3.zero) desired /= obstacles.Length;
+        return (desired);
+    }
+    */
+    Vector3 CalculateSteering(Vector3 desired)
+    {
+        return Vector3.ClampMagnitude((desired.normalized * speed) - _velocity, maxForce);
+    }
     public void SendInputToSFSM(AgentStates agent)
     {
         _eventFSM.SendInput(agent);
     }
 
-    public void ChangeColor(Color color)
+    Vector3 GetDirFromAngle(float Angle)
     {
-        GetComponent<Renderer>().material.color = color;
+        return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad));
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, pursuitRadius);
+
+        Vector3 LineaA = GetDirFromAngle(-Angle / 2 + transform.eulerAngles.y);
+        Vector3 LineaB = GetDirFromAngle(Angle / 2 + transform.eulerAngles.y);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + LineaA * pursuitRadius);
+        Gizmos.DrawLine(transform.position, transform.position + LineaB * pursuitRadius);
     }
 }

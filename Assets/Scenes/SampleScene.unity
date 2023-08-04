@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10749,7 +10749,7 @@ GameObject:
   - component: {fileID: 144610880}
   - component: {fileID: 144610882}
   - component: {fileID: 144610881}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sudor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26496,7 +26496,7 @@ GameObject:
   - component: {fileID: 337137327}
   - component: {fileID: 337137326}
   - component: {fileID: 337137328}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Oveja (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48500,7 +48500,7 @@ GameObject:
   - component: {fileID: 710052697}
   - component: {fileID: 710052699}
   - component: {fileID: 710052698}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54705,7 +54705,7 @@ GameObject:
   - component: {fileID: 867776484}
   - component: {fileID: 867776486}
   - component: {fileID: 867776485}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Hunger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66497,7 +66497,7 @@ GameObject:
   - component: {fileID: 1164843639}
   - component: {fileID: 1164843641}
   - component: {fileID: 1164843640}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66663,7 +66663,7 @@ GameObject:
   - component: {fileID: 1199533858}
   - component: {fileID: 1199533860}
   - component: {fileID: 1199533859}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72286,7 +72286,7 @@ GameObject:
   - component: {fileID: 1320585029}
   - component: {fileID: 1320585031}
   - component: {fileID: 1320585030}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78500,7 +78500,7 @@ GameObject:
   - component: {fileID: 1410087654}
   - component: {fileID: 1410087656}
   - component: {fileID: 1410087655}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98142,7 +98142,7 @@ GameObject:
   - component: {fileID: 2008762848}
   - component: {fileID: 2008762850}
   - component: {fileID: 2008762849}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103741,7 +103741,7 @@ GameObject:
   - component: {fileID: 2043962379}
   - component: {fileID: 2043962381}
   - component: {fileID: 2043962380}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103990,7 +103990,7 @@ GameObject:
   - component: {fileID: 2077774281}
   - component: {fileID: 2077774283}
   - component: {fileID: 2077774282}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

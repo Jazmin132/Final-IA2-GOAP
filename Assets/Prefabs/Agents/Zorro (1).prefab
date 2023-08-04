@@ -749,7 +749,11 @@ MonoBehaviour:
   maxEnergy: 20
   targetGrid: {fileID: 0}
   pursitSpeed: 8
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1408
   WhereToGo: {fileID: 0}
+  Angle: 120
   particleTired: {fileID: 227656667539640491}
   particleEnojo: {fileID: 227656667509331075}
   _Idle: 0
