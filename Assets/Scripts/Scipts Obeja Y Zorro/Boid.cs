@@ -35,8 +35,6 @@ public class Boid : GridEntity
     [Range(0f, 3f)]
     public float separationWeight;
     [Range(0f, 3f)]
-    public float alignmentWeight;
-    [Range(0f, 3f)]
     public float cohesionWeight;
     [Range(0f, 3f)]
     public float arriveWeight;
@@ -148,24 +146,6 @@ public class Boid : GridEntity
     #endregion
 
     #region Alignment
-    //Vector3 Alignment() // No se usa
-    //{
-    //    Vector3 desired = Vector3.zero;
-    //    int count = 0;
-    //    foreach (var item in GameManager.instance.allBoids)
-    //    {
-    //        if (item == this) continue;
-    //        if (Vector3.Distance(transform.position, item.transform.position) <= viewRadius)
-    //        {
-    //            desired += item._velocity;
-    //            count++;
-    //        }
-    //    }
-    //    if (count == 0) return desired;
-    //    desired /= (float)count;
-    //    return CalculateSteering(desired);        
-    //    //var closestBoid = GameManager.instance.allBoids.Where(x => Vector3.Distance(transform.position, x.gameObject.transform.position) <= viewRadius).OrderBy(x => x).Take(1);
-    //}
 
     void ChangeTransformRotationY(float value)
     {
