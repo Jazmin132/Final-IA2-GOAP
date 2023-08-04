@@ -1,17 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Woodcutter : MonoBehaviour
 {
     [Header("NormalValues")] //Lo siguiente se puede tener normalmente pero usarlo de esta manera es más óptimo
     [SerializeField] Transform _myTransform;
     [SerializeField] Rigidbody _myRgbd;
-
-    [Header("Values")]
-
-    //[SerializeField] float _randomValueForAngle;
-    //[SerializeField] Vector3 _newVector3Rotation;
 
     [Header("ImportantValues")]
     [SerializeField] float _wood;
@@ -29,28 +25,87 @@ public class Woodcutter : MonoBehaviour
     [SerializeField] float _timeWood, _timerWood;
     [SerializeField] TreeScript _treeToCut;
 
-    [Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
-    [SerializeField] bool _stateLookingForTree, _stateCut, _stateLoadWood;
+    [Header("State")]
+    [SerializeField] bool _LookingForTree, _Cut, _LoadWood;
 
+    public enum CutterStates
+    {
+        LookingForTree,
+        CUT,
+        LoadWood
+    }
+    public EventFSM<CutterStates> _MyFSM;
     void Awake()
     {
-        //Agregarlo a una lista antes de que haga algo? -> fijarse si poner código
+    #region States & Transitions
+        var LookTree = new State<CutterStates>("LookTree");
+        var CutTree = new State<CutterStates>("CUT");
+        var LOADWOOD = new State<CutterStates>("LoadWood");
+
+        StateConfigurer.Create(LookTree)
+           .SetTransition(CutterStates.CUT, CutTree)
+           .SetTransition(CutterStates.LoadWood, LOADWOOD).Done();
+
+        StateConfigurer.Create(CutTree)
+            .SetTransition(CutterStates.LookingForTree, LookTree)
+            .SetTransition(CutterStates.LoadWood, LOADWOOD).Done();
+
+        StateConfigurer.Create(LOADWOOD)
+           .SetTransition(CutterStates.CUT, CutTree)
+            .SetTransition(CutterStates.LookingForTree, LookTree).Done();
+        #endregion
+
+        LookTree.OnEnter += x =>
+        {
+            _LookingForTree = true;
+            if (LevelManager.instance.trees.Count > 0)
+            {
+                if (_shortestDistanceToTree != 10000)
+                    _shortestDistanceToTree = 10000;
+
+                foreach (var tree in LevelManager.instance.trees)
+                {
+                    if ((tree.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree && tree != null)
+                    {
+                        _shortestDistanceToTree = (tree.transform.position - _myTransform.position).sqrMagnitude;
+                    
+                        _treeToGoTo = tree;
+                    }
+                    
+                } 
+            }
+        };
+        LookTree.OnFixedUpdate += () => 
+        {
+            _myTransform.LookAt(new Vector3(_treeToGoTo.transform.position.x, 0, _treeToGoTo.transform.position.z));
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+        };
+        LookTree.OnExit += x => { _LookingForTree = false; };
+
+        CutTree.OnEnter += x => { _Cut = true; };
+        CutTree.OnFixedUpdate += () =>
+        { 
+            if (_treeToCut == null) 
+                SentToFSM(CutterStates.LookingForTree);
+            else
+                CountTimerWood();
+        };
+        CutTree.OnExit += x => { _Cut = false; };
+
+        LOADWOOD.OnEnter += x => { _Cut = true; };
+        LOADWOOD.OnFixedUpdate += () => 
+        {
+            _myTransform.LookAt(new Vector3(_storeToLoad.transform.position.x, 0, _storeToLoad.transform.position.z));
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+        };
+        LOADWOOD.OnExit += x => { _Cut = false; };
+
+        _MyFSM = new EventFSM<CutterStates>(LookTree);
     }
 
     void FixedUpdate()
     {
-        if (_stateLookingForTree && !_stateCut && !_stateLoadWood)
-        {
-            LookingForTree();
-        }
-        else if (_stateCut && !_stateLookingForTree && !_stateLoadWood)
-        {
-            Cut();
-        }
-        else if (_stateLoadWood && !_stateLookingForTree && !_stateCut)
-        {
-            LoadWood();
-        }
+        _MyFSM.FixedUpdate();
     }
 
     #region CountTimer
@@ -60,14 +115,10 @@ public class Woodcutter : MonoBehaviour
         {
             if (!_restartWoodTime)
                 _restartWoodTime = true;
-
-            return;
         }
-
         if (_timeWood != 0 && _restartWoodTime)
         {
             _timeWood = 0;
-
             _restartWoodTime = false;
         }
 
@@ -78,17 +129,15 @@ public class Woodcutter : MonoBehaviour
             _treeToCut.RemoveWood(_woodToGain);
 
             _wood += _woodToGain;
-
+            Debug.Log("_wood : " + _wood);
             if (_wood >= _woodMaxCapacity)
             {
                 if (!_woodsObject.activeSelf)
+                {
                     _woodsObject.SetActive(true);
-
-                if (_stateCut)
-                    _stateCut = false;
-
-                if (!_stateLoadWood)
-                    _stateLoadWood = true;
+                }
+                Debug.Log("Cambiar a LOAD WOOD");
+                SentToFSM(CutterStates.LoadWood);
             }
 
             _timeWood = 0;
@@ -96,101 +145,10 @@ public class Woodcutter : MonoBehaviour
     }
     #endregion
 
-    //void SetValueRandom(float valueToRandom, float min, float max)
-    //{
-    //    Debug.Log("SetValueRandom");
-    //
-    //    valueToRandom = Random.Range(min, max);
-    //}
-
-    //void ChangeTransformRotationY(float value)
-    //{
-    //    Debug.Log("ChangeTransformRotationY");
-    //
-    //    _newVector3Rotation = new Vector3(_myTransform.rotation.eulerAngles.x, value, _myTransform.rotation.eulerAngles.z);
-    //
-    //    _myTransform.localEulerAngles = _newVector3Rotation;
-    //}
-
-    //void DoTransformRotationYWithRandomValue()
-    //{
-    //    if (!_doOnce)
-    //        return;
-    //
-    //    //SetValueRandom(_randomValueForAngle, 0, 361);
-    //
-    //    _randomValueForAngle = Random.Range(0, 361);
-    //
-    //    ChangeTransformRotationY(_randomValueForAngle);
-    //
-    //    _doOnce = false;
-    //}
-
-    #region States
-    void LookingForTree() //[STATE 1 - Inicial]
+    void SentToFSM(CutterStates states)
     {
-        Debug.Log("LookingForTree");
-
-        if (!_restartWoodTime)
-            _restartWoodTime = true;
-
-        if (LevelManager.instance.trees.Count > 0)
-        {
-            if (_doOnce)
-            {
-                if (_shortestDistanceToTree != 10000)
-                    _shortestDistanceToTree = 10000;
-
-                foreach (var tree in LevelManager.instance.trees)
-                {
-                    if (tree != null)
-                    {
-                        if ((tree.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree)
-                        {
-                            _shortestDistanceToTree = (tree.transform.position - _myTransform.position).sqrMagnitude;
-
-                            _treeToGoTo = tree;
-                        }
-                    }
-                }
-
-                _doOnce = false;
-            }
-
-            _myTransform.LookAt(new Vector3(_treeToGoTo.transform.position.x, 0, _treeToGoTo.transform.position.z));
-
-            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-        }
+        _MyFSM.SendInput(states);
     }
-
-    void Cut() //[STATE 2]
-    {
-        Debug.Log("Cut");
-
-        if (_treeToCut == null)
-        {
-            if (!_doOnce)
-                _doOnce = true;
-
-            if (_stateCut)
-                _stateCut = false;
-
-            if (!_stateLookingForTree)
-                _stateLookingForTree = true;
-        }
-
-        CountTimerWood();
-    }
-
-    void LoadWood() //[STATE 3]
-    {
-        Debug.Log("LoadWood");
-
-        _myTransform.LookAt(new Vector3(_storeToLoad.transform.position.x, 0, _storeToLoad.transform.position.z));
-
-        _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-    }
-    #endregion
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -200,11 +158,13 @@ public class Woodcutter : MonoBehaviour
             {
                 _treeToCut = collision.gameObject.GetComponent<TreeScript>();
 
-                if (_stateLookingForTree)
-                    _stateLookingForTree = false;
+                //if (_stateLookingForTree)
+                //    _stateLookingForTree = false;
+                //
+                //if (!_stateCut)
+                //    _stateCut = true;
 
-                if (!_stateCut)
-                    _stateCut = true;
+                SentToFSM(CutterStates.CUT);
             }
         }
         else if (collision.gameObject.layer == 8)
@@ -216,34 +176,7 @@ public class Woodcutter : MonoBehaviour
             if (_woodsObject.activeSelf)
                 _woodsObject.SetActive(false);
 
-            if (!_doOnce)
-                _doOnce = true;
-
-            if (_stateLoadWood)
-                _stateLoadWood = false;
-
-            if (!_stateLookingForTree)
-                _stateLookingForTree = true;
+            SentToFSM(CutterStates.LookingForTree);
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.layer == 7)
-    //    {
-    //        if (_stateLookingForTree)
-    //            _stateLookingForTree = false;
-    //
-    //        if (!_stateCut)
-    //            _stateCut = true;
-    //    }
-    //    else if (other.gameObject.layer == 8)
-    //    {
-    //        if (_stateCut)
-    //            _stateCut = false;
-    //
-    //        if (!_stateLookingForTree)
-    //            _stateLookingForTree = true;
-    //    }
-    //}
 }
