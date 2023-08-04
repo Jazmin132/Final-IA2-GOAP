@@ -39,6 +39,7 @@ public class Bee : MonoBehaviour
     //[SerializeField] float _valueYFirstPosToFly, _valueYSecondPosToFly;
     [SerializeField] Vector3 _vector3ToAddForce;
 
+    public ParticleSystem particleDeath;
     //[Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
     public enum BeeStates
     {
@@ -109,7 +110,11 @@ public class Bee : MonoBehaviour
                  _canSpawnObject = true;
          };
 
-        Death.OnEnter += x => { Destroy(gameObject); };
+        Death.OnEnter += x => 
+        {
+            particleDeath.Play();
+            Destroy(gameObject); 
+        };
 
         _MyFSM = new EventFSM<BeeStates>(Moving);
     }
