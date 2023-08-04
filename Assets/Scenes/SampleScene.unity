@@ -5515,7 +5515,7 @@ GameObject:
   - component: {fileID: 144610882}
   - component: {fileID: 144610881}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Sudor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5625,7 +5625,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -11506,6 +11506,7 @@ MonoBehaviour:
   arriveRadius: 8.45
   eatRadius: 3.63
   particleHungry: {fileID: 867776486}
+  particleHelp: {fileID: 144610882}
   separationWeight: 1.83
   alignmentWeight: 2.32
   cohesionWeight: 2.21
