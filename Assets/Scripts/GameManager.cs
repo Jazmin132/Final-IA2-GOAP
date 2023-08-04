@@ -32,26 +32,23 @@ public class GameManager : MonoBehaviour
             instance = this; 
     }
 
-    public List<Nodes> SetPath(Nodes StartingNode, Nodes GoalNode)
+    public List<Nodes> CreatePath(Nodes StartingNode, Nodes GoalNode)
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
         return _pathToFollow = TimeSlicing.AStar(StartingNode,
             (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
     }
 
-    public Nodes GetNode(Vector3 pos)
+    public Nodes GetNode(Vector3 pos)//IA2-LINQ
     {//Obtener nodo más cercano a la entidad dependiendo de su posición actual
         Nodes currentFirstNode = _AllNodes[0];
         var MinDist = Vector3.Distance(_AllNodes[0].transform.position, pos);
 
-        _AllNodes.Where(x => (pos - x.transform.position).magnitude < MinDist);
+        var Nodes = _AllNodes.Where(x => (pos - x.transform.position).magnitude < MinDist);
 
-        foreach (var CurrentNode in _AllNodes)
+        foreach (var CurrentNode in Nodes)
         {
-            if (Vector3.Distance(CurrentNode.transform.position, pos) < MinDist)
-            {
-                MinDist = Vector3.Distance(CurrentNode.transform.position, pos);
-                currentFirstNode = CurrentNode;
-            }
+            MinDist = Vector3.Distance(CurrentNode.transform.position, pos);
+            currentFirstNode = CurrentNode;
         }
         return currentFirstNode;
     }
@@ -69,13 +66,11 @@ public class GameManager : MonoBehaviour
     }
     public void CallFoxes(Agent fox)
     {
-        for (int i = 0; i < allFoxes.Count; i++)
+        var Foxes = allFoxes.Where(x => x != fox).ToList();
+        for (int i = 0; i < Foxes.Count; i++)
         {
-            if (fox != allFoxes[i])
-            {
-                allFoxes[i].WhereToGo= fox.transform;
-                allFoxes[i].SendInputToSFSM(AgentStates.GOTODEST);
-            }
+            allFoxes[i].WhereToGo= fox.transform;
+            allFoxes[i].SendInputToSFSM(AgentStates.GOTODEST);
         }
     }
     public Vector3 ChangeObjPosition(Vector3 pos)

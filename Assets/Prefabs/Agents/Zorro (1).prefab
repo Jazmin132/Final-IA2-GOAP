@@ -741,20 +741,22 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   onGrid: 0
   pursuitRadius: 8
-  allWaypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   speed: 5
   maxSpeed: 10
+  PatrolWaypoints: []
   maxForce: 0.0486
   energy: 0
   maxEnergy: 20
   targetGrid: {fileID: 0}
-  pursitSpeed: 15
+  pursitSpeed: 8
+  WhereToGo: {fileID: 0}
   particleTired: {fileID: 227656667539640491}
   particleEnojo: {fileID: 227656667509331075}
+  _Idle: 0
+  _Patrol: 0
+  _Pursuit: 0
+  _GotoDest: 0
+  _Return: 0
 --- !u!1 &227656666904545444
 GameObject:
   m_ObjectHideFlags: 0
@@ -6342,7 +6344,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -6395,7 +6397,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
