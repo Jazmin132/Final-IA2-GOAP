@@ -18451,7 +18451,7 @@ MonoBehaviour:
   _canCountTimeSpawn: 1
   _restartSpawnTime: 0
   _timeSpawn: 0
-  _timerSpawn: 10
+  _timerSpawn: 15
   _treeToSpawn: {fileID: 5578950265373744941, guid: 23bed1664c341134ebabfc11e8e7d6e9, type: 3}
 --- !u!1 &625424356
 GameObject:
@@ -41430,7 +41430,7 @@ GameObject:
   - component: {fileID: 1218544088}
   - component: {fileID: 1218544089}
   m_Layer: 8
-  m_Name: Store
+  m_Name: StoreWood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
