@@ -247,7 +247,6 @@ public class Agent : GridEntity
             if (dist.magnitude <= pursuitRadius)
                 SendInputToSFSM(AgentStates.PURSUIT);
         }
-        return;
     }
     public void AlertFoxes(Agent fox)
     {

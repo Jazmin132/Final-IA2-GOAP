@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static Plant;
 
 public class Boid : GridEntity
 {
@@ -21,10 +22,18 @@ public class Boid : GridEntity
     public ParticleSystem particleHungry;
     public ParticleSystem particleScared;
 
+    [SerializeField] float _randomValueForAngle;
+    [SerializeField] Vector3 _newVector3Rotation;
+
+    [SerializeField] Transform _myTransform;
+    [SerializeField] Rigidbody _myRgbd;
+
+    [SerializeField] bool _canCountTimeMove, _restartMoveTime;
+    [SerializeField] float _timeMove, _timerMove;
+    [SerializeField] float _timerToMove;
+
     [Range(0f, 3f)]
     public float separationWeight;
-    [Range(0f, 3f)]
-    public float alignmentWeight;
     [Range(0f, 3f)]
     public float cohesionWeight;
     [Range(0f, 3f)]
@@ -58,9 +67,12 @@ public class Boid : GridEntity
             .SetTransition(BoidStates.ALIGNMENT, _Alignment)
             .Done();
 
+        _Alignment.OnEnter += x => { DoTransformRotationYWithRandomValue(); };
         _Alignment.OnFixedUpdate += () => 
         {
-            AddForce(Alignment() * alignmentWeight);
+            //AddForce(Alignment() * alignmentWeight);
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * maxSpeed * Time.fixedDeltaTime);
+            CountTimerMoving();
 
             if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
                 SentToFSM(BoidStates.EVADE);
@@ -134,23 +146,39 @@ public class Boid : GridEntity
     #endregion
 
     #region Alignment
-    Vector3 Alignment()
+
+    void ChangeTransformRotationY(float value)
     {
-        Vector3 desired = Vector3.zero;
-        int count = 0;
-        foreach (var item in GameManager.instance.allBoids)
+        _newVector3Rotation = new Vector3(_myTransform.rotation.eulerAngles.x, value, _myTransform.rotation.eulerAngles.z);
+        _myTransform.localEulerAngles = _newVector3Rotation;
+    }
+    void DoTransformRotationYWithRandomValue()
+    {
+        _randomValueForAngle = Random.Range(0, 361);
+        ChangeTransformRotationY(_randomValueForAngle);
+    }
+
+    void CountTimerMoving()
+    {
+        if (!_canCountTimeMove)
         {
-            if (item == this) continue;
-            if (Vector3.Distance(transform.position, item.transform.position) <= viewRadius)
-            {
-                desired += item._velocity;
-                count++;
-            }
+            if (!_restartMoveTime)
+                _restartMoveTime = true;
         }
-        if (count == 0) return desired;
-        desired /= (float)count;
-        return CalculateSteering(desired);
-        //var closestBoid = GameManager.instance.allBoids.Where(x => Vector3.Distance(transform.position, x.gameObject.transform.position) <= viewRadius).OrderBy(x => x).Take(1);
+
+        if (_timeMove != 0 && _restartMoveTime)
+        {
+            _timeMove = 0;
+            _restartMoveTime = false;
+        }
+
+        _timeMove += Time.fixedDeltaTime;
+
+        if (_timeMove >= _timerMove)
+        {
+            if (_timeMove < _timerToMove)
+                SentToFSM(BoidStates.ALIGNMENT);
+        }
     }
     #endregion
 
