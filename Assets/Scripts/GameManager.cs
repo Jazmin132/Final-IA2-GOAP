@@ -43,9 +43,11 @@ public class GameManager : MonoBehaviour
         Nodes currentFirstNode = _AllNodes[0];
         var MinDist = Vector3.Distance(_AllNodes[0].transform.position, pos);
 
+        _AllNodes.Where(x => (pos - x.transform.position).magnitude < MinDist);
+
         foreach (var CurrentNode in _AllNodes)
         {
-            if (Vector3.Distance(CurrentNode.transform.position, pos) < MinDist)//&& VisibleDist(InLineOffSight)
+            if (Vector3.Distance(CurrentNode.transform.position, pos) < MinDist)
             {
                 MinDist = Vector3.Distance(CurrentNode.transform.position, pos);
                 currentFirstNode = CurrentNode;
@@ -84,21 +86,7 @@ public class GameManager : MonoBehaviour
         if (pos.x > boundWidth / 2) pos.x = -boundWidth / 2;
         return pos;
     }
-    /*
-    public void SpawnFood()
-    {
-        //actualSpawnPoint = foodSpawnPoints[UnityEngine.Random.Range(0, foodSpawnPoints.Count)];
-        //StartCoroutine(SpawnTimer());
-    }
-    private IEnumerator SpawnTimer()
-    {
-        yield return new WaitForSeconds(spawnTimer);
-        //Instantiate(food, padreGrilla.transform);
-        spawnPoint = new Vector3(UnityEngine.Random.Range(-boundWidth, boundWidth), 0.5f,
-            UnityEngine.Random.Range(-boundHeight, boundHeight));
-        Instantiate(food, spawnPoint, spawnRotation);
-    }
-    */
+
     private void OnDrawGizmos()
     {
         Vector3 topLeft = new Vector3(-boundWidth / 2, 0, boundHeight / 2);
@@ -113,14 +101,3 @@ public class GameManager : MonoBehaviour
         Gizmos.DrawLine(botLeft, topLeft);
     }
 }
-
-//public void FollowPath(Transform Entity, float Speed)
-//Vector3 nextP = _pathToFollow[0].transform.position;
-//Vector3 dir = nextP - Entity.position;
-//if (dir.magnitude > 0.1f)
-//{
-//    Entity.transform.forward = dir;
-//    Entity.transform.position += Entity.forward * Speed * Time.deltaTime;
-//}
-//else
-//    _pathToFollow.RemoveAt(0);
