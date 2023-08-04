@@ -35,52 +35,113 @@ public class Constructor : MonoBehaviour
     [SerializeField] bool _hungerActive, _isEating, _isWorking;
 
     [Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
-    [SerializeField] bool _stateGrabingWoodForWork, _stateConstruct, _stateEat, _stateDeath;
+    [SerializeField] bool _stateGrabingWood, _stateConstruct, _stateEat;
+    public enum ContructorStates
+    {
+        GrabingWood,
+        Construct,
+        Eat,
+        stateDeath
+    }
+    public EventFSM<ContructorStates> _MyFSM;
 
     void Awake()
     {
-        //Agregarlo a una lista antes de que haga algo? -> fijarse si poner código
+        var _GrabingWood = new State<ContructorStates>("GrabingWood");
+        var _Construct = new State<ContructorStates>("Construct");
+        var _Eat = new State<ContructorStates>("Eat");
+        var _stateDeath = new State<ContructorStates>("stateDeath");
+
+        StateConfigurer.Create(_GrabingWood)
+            .SetTransition(ContructorStates.Eat, _Eat)
+            .SetTransition(ContructorStates.Construct, _Construct)
+            .SetTransition(ContructorStates.stateDeath, _stateDeath).Done();
+
+        StateConfigurer.Create(_Construct)
+            .SetTransition(ContructorStates.Eat, _Eat)      
+            .SetTransition(ContructorStates.stateDeath, _stateDeath)
+            .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
+
+        StateConfigurer.Create(_Eat)
+            .SetTransition(ContructorStates.Construct, _Construct)
+            .SetTransition(ContructorStates.stateDeath, _stateDeath)
+            .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
+
+        StateConfigurer.Create(_stateDeath).Done();
+
+        _GrabingWood.OnEnter += x => { _stateGrabingWood = true; };
+        _GrabingWood.OnFixedUpdate += () => 
+        {
+            _myTransform.LookAt(new Vector3(_storeToGrabWood.transform.position.x, 0, _storeToGrabWood.transform.position.z));
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+        };
+        _GrabingWood.OnExit += x => { _stateGrabingWood = false; };
+
+        _Construct.OnEnter += x => { _stateConstruct = true; };
+        _Construct.OnFixedUpdate += () => 
+        {
+            _myTransform.LookAt(new Vector3(_buildingZoneToBuild.transform.position.x, 0, _buildingZoneToBuild.transform.position.z));
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+        };
+        _Construct.OnExit += x => { _stateConstruct = false; };
+
+        _Eat.OnEnter += x => { _isEating = true; };
+        _Eat.OnFixedUpdate += () =>
+        {
+            CountTimerEatFood();
+            _myTransform.LookAt(new Vector3(_canteenToEat.transform.position.x, 0, _canteenToEat.transform.position.z));
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+        };
+        _Eat.OnExit += x => { _isEating = false; };
+
+        _stateDeath.OnFixedUpdate += () =>
+        {
+            Destroy(gameObject);
+        };
+
+        _MyFSM = new EventFSM<ContructorStates>(_GrabingWood);
     }
 
     void FixedUpdate()
     {
+        _MyFSM.FixedUpdate();
+
         if (_hungerActive)
         {
             CountTimerHunger();
         }
-
-        if (_isEating)
-        {
-            CountTimerEatFood();
-        }
-
+        //if (_isEating)
+        //{
+        //    CountTimerEatFood();
+        //}
         if (_isWorking)
         {
             CountTimerWork();
         }
-
-        if (_hunger < _hungerMaxCapacity)
+        #region BEFORE
+        /*if (_hunger < _hungerMaxCapacity)
         {
             if (_stateGrabingWoodForWork && !_stateConstruct && !_stateEat && !_stateDeath)
             {
-                GrabingWoodForWork();
+                //GrabingWoodForWork();Cambiar a _GrabingWood
             }
             else if (_stateConstruct && !_stateGrabingWoodForWork && !_stateEat && !_stateDeath)
             {
-                Construct();
+                //Construct();
             }
             else if (_stateEat && !_stateGrabingWoodForWork && !_stateConstruct && !_stateDeath)
             {
-                Eat();
+                //Eat();
             }
-        }
         else
         {
             if (_stateDeath && !_stateGrabingWoodForWork && !_stateConstruct && !_stateEat)
             {
-                Death();
+                //Death();
             }
         }
+        }*/
+        #endregion
     }
 
     #region CountTimer
@@ -129,16 +190,11 @@ public class Constructor : MonoBehaviour
 
             if (_hunger <= 0)
             {
-                if (_hunger < 0)
-                {
-                    _hunger = 0;
-                }
+                if (_hunger < 0) _hunger = 0;
 
-                if (_stateEat)
-                    _stateEat = false;
+                if (_stateEat) _stateEat = false;
 
-                if (_isEating)
-                    _isEating = false;
+                if (_isEating) _isEating = false;
 
                 if (!_restartHungerTime)
                     _restartHungerTime = true;
@@ -148,13 +204,15 @@ public class Constructor : MonoBehaviour
 
                 if (_wood <= 0)
                 {
-                    if (!_stateGrabingWoodForWork)
-                        _stateGrabingWoodForWork = true;
+                    //if (!_stateGrabingWoodForWork)
+                    //    _stateGrabingWoodForWork = true;
+                    SentToFSM(ContructorStates.GrabingWood);
                 }
                 else
                 {
-                    if (!_stateConstruct)
-                        _stateConstruct = true;
+                    //if (!_stateConstruct)
+                    //    _stateConstruct = true;
+                    SentToFSM(ContructorStates.Construct);
                 }
 
                 if (!_restartEatFoodTime)
@@ -171,14 +229,11 @@ public class Constructor : MonoBehaviour
         {
             if (!_restartHungerTime)
                 _restartHungerTime = true;
-
-            return;
         }
 
         if (_timeHunger != 0 && _restartHungerTime)
         {
             _timeHunger = 0;
-
             _restartHungerTime = false;
         }
 
@@ -190,31 +245,34 @@ public class Constructor : MonoBehaviour
 
             if (_hunger > _hungerMinCapacity && _hunger < _hungerMaxCapacity)
             {
-                if (_stateGrabingWoodForWork)
-                    _stateGrabingWoodForWork = false;
+                //if (_stateGrabingWoodForWork)
+                //    _stateGrabingWoodForWork = false;
+                //
+                //if (_stateConstruct)
+                //    _stateConstruct = false;
+                //
+                //if (!_stateEat)
+                //    _stateEat = true;
+                //
+                //if (_isWorking)
+                //    _isWorking = false;
 
-                if (_stateConstruct)
-                    _stateConstruct = false;
-
-                if (!_stateEat)
-                    _stateEat = true;
-
-                if (_isWorking)
-                    _isWorking = false;
+                SentToFSM(ContructorStates.Eat);
             }
             else if (_hunger >= _hungerMaxCapacity)
             {
-                if (_stateGrabingWoodForWork)
-                    _stateGrabingWoodForWork = false;
-
-                if (_stateConstruct)
-                    _stateConstruct = false;
-
-                if (_stateEat)
-                    _stateEat = false;
-
-                if (!_stateDeath)
-                    _stateDeath = true;
+                //if (_stateGrabingWoodForWork)
+                //    _stateGrabingWoodForWork = false;
+                //
+                //if (_stateConstruct)
+                //    _stateConstruct = false;
+                //
+                //if (_stateEat)
+                //    _stateEat = false;
+                //
+                //if (!_stateDeath)
+                //    _stateDeath = true;
+                SentToFSM(ContructorStates.stateDeath);
             }
 
             _timeHunger = 0;
@@ -275,14 +333,15 @@ public class Constructor : MonoBehaviour
 
             if (_wood <= 0)
             {
-                if (_stateConstruct)
-                    _stateConstruct = false;
-
-                if (!_stateGrabingWoodForWork)
-                    _stateGrabingWoodForWork = true;
-
-                if (_isWorking)
-                    _isWorking = false;
+                //if (_stateConstruct)
+                //    _stateConstruct = false;
+                //
+                //if (!_stateGrabingWoodForWork)
+                //    _stateGrabingWoodForWork = true;
+                //
+                //if (_isWorking)
+                //    _isWorking = false;
+                SentToFSM(ContructorStates.GrabingWood);
             }
 
             _timeWood = 0;
@@ -321,40 +380,35 @@ public class Constructor : MonoBehaviour
     //}
 
     #region States
-    void GrabingWoodForWork() //[STATE 1]
-    {
-        Debug.Log("GrabingWoodForWork");
+    //void GrabingWoodForWork() //[STATE 1]
+    //{
+    //    Debug.Log("GrabingWoodForWork");
+    //
+    //    _myTransform.LookAt(new Vector3(_storeToGrabWood.transform.position.x, 0, _storeToGrabWood.transform.position.z));
+    //    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+    //}
 
-        _myTransform.LookAt(new Vector3(_storeToGrabWood.transform.position.x, 0, _storeToGrabWood.transform.position.z));
-
-        _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-    }
-
-    void Construct() //[STATE 2 - Inicial]
-    {
-        Debug.Log("Construct");
-
-        _myTransform.LookAt(new Vector3(_buildingZoneToBuild.transform.position.x, 0, _buildingZoneToBuild.transform.position.z));
-
-        _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-    }
-
-    void Eat() //[STATE 3]
-    {
-        Debug.Log("Eat");
-
-        _myTransform.LookAt(new Vector3(_canteenToEat.transform.position.x, 0, _canteenToEat.transform.position.z));
-
-        _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
-    }
-
-    void Death() //[STATE 4]
-    {
-        Debug.Log("Death");
-
-        Destroy(gameObject);
-    }
+    //void Construct() //[STATE 2 - Inicial]
+    //{
+    //    Debug.Log("Construct");
+    //
+    //    _myTransform.LookAt(new Vector3(_buildingZoneToBuild.transform.position.x, 0, _buildingZoneToBuild.transform.position.z));
+    //    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+    //}
+   
+    //void Eat() //[STATE 3]
+    //{
+    //    Debug.Log("Eat");
+    //
+    //    _myTransform.LookAt(new Vector3(_canteenToEat.transform.position.x, 0, _canteenToEat.transform.position.z));
+    //    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+    //}
     #endregion
+
+    void SentToFSM(ContructorStates states)
+    {
+        _MyFSM.SendInput(states);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -389,11 +443,11 @@ public class Constructor : MonoBehaviour
                 _storeToGrabWood.TakeWood(_storeToGrabWood.woodQuantity);
             }
 
-            if (_stateGrabingWoodForWork)
-                _stateGrabingWoodForWork = false;
-
-            if (!_stateConstruct)
-                _stateConstruct = true;
+            //if (_stateGrabingWoodForWork)
+            //    _stateGrabingWoodForWork = false;
+            //if (!_stateConstruct)
+            //    _stateConstruct = true;
+            SentToFSM(ContructorStates.Construct);
         }
     }
 }

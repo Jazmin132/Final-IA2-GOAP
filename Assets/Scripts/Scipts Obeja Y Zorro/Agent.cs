@@ -90,7 +90,6 @@ public class Agent : GridEntity
    #region GOTODEST
         GotoDest.OnEnter += x =>
         {
-            Debug.Log("Yendo a mi destino");
             _GotoDest = true;
             if (_pathToFollow.Count == 0)
             {
@@ -98,7 +97,6 @@ public class Agent : GridEntity
                 _NodoFinal = GameManager.instance.GetNode(WhereToGo.position);
                 _pathToFollow = GameManager.instance.CreatePath(_NodoInicial, _NodoFinal);
             }
-            Debug.Log("Camino Dest : " + _pathToFollow.Count);
         };
         GotoDest.OnUpdate += () =>
         {
@@ -109,7 +107,6 @@ public class Agent : GridEntity
             }
             else if (_pathToFollow.Count <= 0)
                 SendInputToSFSM(AgentStates.RETURN);
-
         };
         GotoDest.OnExit += x => { _pathToFollow.Clear(); _GotoDest = false; };
    #endregion

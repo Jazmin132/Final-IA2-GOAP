@@ -285,14 +285,10 @@ public class Chef : MonoBehaviour
 
                 if (_food < _foodMaxCapacity)
                 {
-                    //if (!_stateLookingForFood)
-                    //    _stateLookingForFood = true;
                     SentToFSM(ChefStates.LookingForFood);
                 }
                 else
                 {
-                    //if (!_stateLoadFood)
-                    //    _stateLoadFood = true;
                     SentToFSM(ChefStates.LoadFood);
                 }
 
@@ -331,30 +327,10 @@ public class Chef : MonoBehaviour
 
             if (_hunger > _hungerMinCapacity && _hunger < _hungerMaxCapacity)
             {
-                //if (_stateLookingForFood)
-                //    _stateLookingForFood = false;
-                //if (_stateCollect)
-                //    _stateCollect = false;
-                //if (_stateLoadFood)
-                //    _stateLoadFood = false;
-                //if (!_stateEat)
-                //    _stateEat = true;
-
                 SentToFSM(ChefStates.Eat);
             }
             else if (_hunger >= _hungerMaxCapacity)
             {
-                //if (_stateLookingForFood)
-                //    _stateLookingForFood = false;
-                //if (_stateCollect)
-                //    _stateCollect = false;
-                //if (_stateLoadFood)
-                //    _stateLoadFood = false;
-                //if (_stateEat)
-                //    _stateEat = false;
-                //if (!_stateDeath)
-                //    _stateDeath = true;
-
                 SentToFSM(ChefStates.stateDeath);
             }
 
@@ -447,11 +423,6 @@ public class Chef : MonoBehaviour
     {
         if (collision.gameObject.layer == 9)
         {
-            //if (_stateLookingForFood)
-            //    _stateLookingForFood = false;
-            //if (!_stateCollect)
-            //    _stateCollect = true;
-
             SentToFSM(ChefStates.Collect);
         }
         else if (collision.gameObject.layer == 10)
@@ -461,12 +432,6 @@ public class Chef : MonoBehaviour
                 _canteenToLoad.AddFood(_food);
 
                 _food = 0;
-
-               //if (_stateLoadFood)
-               //    _stateLoadFood = false;
-               //if (!_stateLookingForFood)
-               //    _stateLookingForFood = true;
-
                 SentToFSM(ChefStates.LookingForFood);
             }
             else if (_stateEat)
