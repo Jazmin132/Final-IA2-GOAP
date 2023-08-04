@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &19766644
@@ -463,7 +462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &82689203
@@ -5465,7 +5463,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &115086709
@@ -5515,7 +5512,7 @@ GameObject:
   - component: {fileID: 144610882}
   - component: {fileID: 144610881}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Sudor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10359,7 +10356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &160711702
@@ -10535,7 +10531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &183029042
@@ -10863,7 +10858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &233913636
@@ -11506,6 +11500,7 @@ MonoBehaviour:
   arriveRadius: 8.45
   eatRadius: 3.63
   particleHungry: {fileID: 867776486}
+  particleScared: {fileID: 144610882}
   separationWeight: 1.83
   alignmentWeight: 2.32
   cohesionWeight: 2.21
@@ -11568,7 +11563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &340317327
@@ -11698,7 +11692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &346013789
@@ -11745,7 +11738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &349292496
@@ -11792,7 +11784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &363755376
@@ -11839,7 +11830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &368387584
@@ -17567,7 +17557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &534029202
@@ -17752,7 +17741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &575140679
@@ -33208,7 +33196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &757048723
@@ -39180,7 +39167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &963194225
@@ -39806,7 +39792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &1073185560
@@ -39853,7 +39838,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &1074744717
@@ -40585,7 +40569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1243061423
@@ -40715,7 +40698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1255677684
@@ -40963,7 +40945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1305343917
@@ -46113,7 +46094,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1323333522
@@ -47163,7 +47143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &1422002442
@@ -48178,7 +48157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &1512804066
@@ -48474,7 +48452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1570339533
@@ -48521,7 +48498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1580159607
@@ -48568,7 +48544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &1595280098
@@ -48781,7 +48756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1614468538
@@ -54371,7 +54345,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1786110119
@@ -54823,7 +54796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1812704592
@@ -55185,7 +55157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &1860942384
@@ -55346,7 +55317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &1899047362
@@ -55393,7 +55363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 17
   IsRed: 1
 --- !u!1 &1920846721
@@ -55887,7 +55856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &2008762847
@@ -56151,7 +56119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &2028298673
@@ -57161,7 +57128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &2103482230
@@ -57436,7 +57402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d57924386bf644cb1983bb53daf5be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vecinos: []
   radious: 16
   IsRed: 0
 --- !u!1 &2140824132
