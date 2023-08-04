@@ -85,7 +85,10 @@ public class Chef : MonoBehaviour
 
         StateConfigurer.Create(_stateDeath).Done();
 
-        _LookingForFood.OnEnter += x => { _stateLoadFood = true; }; 
+        _LookingForFood.OnEnter += x => 
+        { 
+            _stateLoadFood = true; 
+        }; 
         _LookingForFood.OnFixedUpdate += () => 
         {
             if (!_restartFoodTime)
@@ -97,7 +100,10 @@ public class Chef : MonoBehaviour
         };
         _LookingForFood.OnExit += x => { _stateLoadFood = false; };
 
-        _Collect.OnEnter += x => { _stateLookingForFood = true; };
+        _Collect.OnEnter += x => 
+        {
+            _stateLookingForFood = true; 
+        };
         _Collect.OnFixedUpdate += () => 
         {
             CountTimerCollectFood();
@@ -136,6 +142,7 @@ public class Chef : MonoBehaviour
         {
             particleHungry.Stop();
             _stateEat = false;
+            _isEating = false;
         };
 
         _stateDeath.OnEnter += x => { Death.Play(); };
