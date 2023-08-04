@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
             allFoxes[i].SendInputToSFSM(AgentStates.GOTODEST);
         }
     }
+ 
     public Vector3 ChangeObjPosition(Vector3 pos)
     {
         if (pos.z > boundHeight / 2) pos.z = -boundHeight / 2;
