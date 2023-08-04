@@ -87990,7 +87990,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1202066376}
-  - component: {fileID: 1202066377}
   m_Layer: 0
   m_Name: Manzana (1)
   m_TagString: Untagged
@@ -88015,20 +88014,6 @@ Transform:
   m_Father: {fileID: 10881733}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 5.989, y: 8.39, z: -3.927}
---- !u!114 &1202066377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202066375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9281fd2b65ab3eb49a3867c3de3e2884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: {x: 0, y: 0, z: 0}
-  onGrid: 1
 --- !u!1 &1218544086
 GameObject:
   m_ObjectHideFlags: 0
@@ -108226,7 +108211,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1655317491}
-  - component: {fileID: 1655317492}
   m_Layer: 0
   m_Name: Manzana
   m_TagString: Untagged
@@ -108251,20 +108235,6 @@ Transform:
   m_Father: {fileID: 10881733}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -6.597, y: -8.776, z: -1.694}
---- !u!114 &1655317492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655317490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9281fd2b65ab3eb49a3867c3de3e2884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocity: {x: 0, y: 0, z: 0}
-  onGrid: 1
 --- !u!1 &1661859571
 GameObject:
   m_ObjectHideFlags: 0
@@ -122998,10 +122968,9 @@ MonoBehaviour:
   _hungerActive: 1
   _isEating: 0
   _isWorking: 0
-  _stateGrabingWoodForWork: 0
+  _stateGrabingWood: 0
   _stateConstruct: 1
   _stateEat: 0
-  _stateDeath: 0
 --- !u!1 &1741503117
 GameObject:
   m_ObjectHideFlags: 0
