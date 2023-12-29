@@ -35,8 +35,7 @@ public class Bee : MonoBehaviour
 
     [SerializeField] bool _canCountTimeFlying, _restartFlyingTime;
     [SerializeField] float _timeFlying, _timerFlying;
-    //[SerializeField] Vector3 _firstPosToFly, _secondPosToFly;
-    //[SerializeField] float _valueYFirstPosToFly, _valueYSecondPosToFly;
+
     [SerializeField] Vector3 _vector3ToAddForce;
 
     public ParticleSystem particleDeath;
@@ -254,29 +253,3 @@ public class Bee : MonoBehaviour
     }
     //Agregar el flocking acá lo que va afuera del FixedUpdate (copiar y pegar lo que se encuentra en el TP-IA2 (o en el Parcial 1 de IA1))
 }
-
-//if (_myRgbd.velocity != Vector3.zero)
-//    _myRgbd.velocity = Vector3.zero;
-
-//if (!_myRgbd.useGravity)
-//    _myRgbd.useGravity = true;
-//
-//if (_canCountTimeFlying)
-//    _canCountTimeFlying = false;
-//
-//if(!_canSpawnObject)
-//    _canSpawnObject = true;
-
-//Espacio
-//void SetValueRandom(float valueToRandom, float min, float max)
-//{
-//    Debug.Log("SetValueRandom");
-//
-//    valueToRandom = Random.Range(min, max);
-//}
-
-///Espacio
-//_firstPosToFly = new Vector3(_myTransform.position.x, _valueY1, _myTransform.position.z);
-//_secondPosToFly = new Vector3(_myTransform.position.x, _valueY2, _myTransform.position.z);
-
-//_myTransform.position = Vector3.Lerp(_firstPosToFly, _secondPosToFly, _timeFlying / _timerFlying);

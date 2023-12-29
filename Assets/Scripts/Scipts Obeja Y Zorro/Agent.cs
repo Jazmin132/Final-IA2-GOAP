@@ -21,12 +21,13 @@ public class Agent : GridEntity
     Vector3 _velocity;
 
     public SpatialGrid targetGrid;
-    private Transform _target;
+    public Transform target;
+    
     Vector3 _destination;
     public float pursitSpeed;
     public LayerMask obstacleLayer;
     List<Nodes> _pathToFollow = new List<Nodes>();
-    public Transform WhereToGo;
+    //public Transform WhereToGo;
     private Nodes _NodoFinal;
     private Nodes _NodoInicial;
     public float Angle;
@@ -94,7 +95,8 @@ public class Agent : GridEntity
             if (_pathToFollow.Count == 0)
             {
                 _NodoInicial = PatrolWaypoints[0];
-                _NodoFinal = GameManager.instance.GetNode(WhereToGo.position);
+                _NodoFinal = GameManager.instance.GetNode(target.position);
+                //_NodoFinal = GameManager.instance.GetNode(WhereToGo.position);
                 _pathToFollow = GameManager.instance.CreatePath(_NodoInicial, _NodoFinal);
             }
         };
@@ -161,12 +163,12 @@ public class Agent : GridEntity
 
             var Num = Query()
             .OfType<Boid>()
-            .Select(x => x.transform)
+            .Select(x => x.transform)//Agregué el where
+            .Where(x => (x.transform.position - transform.position).magnitude <= pursuitRadius)
             .OrderBy(x => x.position - transform.position).First();
-
-            _destination = Num.transform.position - transform.position;
-             if(_destination.magnitude <= pursuitRadius) 
-                _target = Num.transform;     
+            //_destination = Num.transform.position - transform.position;
+            // if(_destination.magnitude <= pursuitRadius) 
+                target = Num.transform;     
         };
         Pursuit.OnUpdate += () =>
         {
@@ -175,19 +177,19 @@ public class Agent : GridEntity
             if (energy <= 0)
                 SendInputToSFSM(AgentStates.IDLE);
 
-            if (_target != null)
-                if ((_target.position - transform.position).magnitude > pursuitRadius)
+            if (target != null)
+                if ((target.position - transform.position).magnitude > pursuitRadius)
                     SendInputToSFSM(AgentStates.RETURN);
 
             AddForce(NowPursuit());
 
-            if (_target != null)
+            if (target != null)
             {
-                transform.LookAt(_target);
-                transform.position = Vector3.MoveTowards(transform.position, _target.position, pursitSpeed * Time.fixedDeltaTime);
+                transform.LookAt(target);
+                transform.position = Vector3.MoveTowards(transform.position, target.position, pursitSpeed * Time.fixedDeltaTime);
             }
         };
-        Pursuit.OnExit += x => { particleEnojo.Stop(); _target = null; _Pursuit = false; };
+        Pursuit.OnExit += x => { particleEnojo.Stop(); target = null; _Pursuit = false; };
 
 #endregion
 
@@ -287,21 +289,7 @@ public class Agent : GridEntity
     {
         return _velocity;
     }
-    /*
-    Vector3 ObstacleAvoidance()
-    {
-        Vector3 desired = default;
-        Collider[] obstacles = Physics.OverlapSphere(transform.position, pursuitRadius, obstacleLayer);
 
-        foreach (var item in obstacles)
-        {
-            if (Vector3.Angle(item.transform.position - transform.position, transform.forward) <= Angle / 2)
-                return CalculateSteering(-transform.right);
-        }
-        if (desired != Vector3.zero) desired /= obstacles.Length;
-        return (desired);
-    }
-    */
     Vector3 CalculateSteering(Vector3 desired)
     {
         return Vector3.ClampMagnitude((desired.normalized * speed) - _velocity, maxForce);

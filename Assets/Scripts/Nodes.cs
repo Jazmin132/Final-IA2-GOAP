@@ -36,15 +36,4 @@ public class Nodes : MonoBehaviour
 
         return ArrayTupla;
     }
-
-    private void OnDrawGizmos()
-    {
-        /*
-        if (IsRed == true)
-            Gizmos.color = Color.cyan;
-        else
-            Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position, radious);
-        */
-    }
 }

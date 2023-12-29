@@ -19,6 +19,7 @@ public class Woodcutter : MonoBehaviour
 
     [SerializeField] float _shortestDistanceToTree;
     [SerializeField] TreeScript _treeToGoTo;
+    [SerializeField] IEnumerable <TreeScript> _treeList;
     [SerializeField] bool _doOnce;
 
     [SerializeField] bool _canCountTimeWood, _restartWoodTime;
@@ -60,21 +61,24 @@ public class Woodcutter : MonoBehaviour
         LookTree.OnEnter += x =>
         {
             _LookingForTree = true;
-            if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())// IA2 - LINQ
+            _treeList = LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x));
+            //if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())
+            if (_treeList.Any())// IA2 - LINQ
             {
                 if (_shortestDistanceToTree != 10000)
                     _shortestDistanceToTree = 10000;
 
-                foreach (var tree in LevelManager.instance.trees)
+                //var FirstTree = _treeList.Where(x => (x.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree)
+                //.OrderBy(x => x.transform.position - _myTransform.position).First();
+               // Debug.Log(FirstTree + "Primer arbol");
+                //_treeToGoTo = FirstTree;
+
+                foreach (var tree in _treeList)
                 {
                     if ((tree.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree && tree != null)
-                    {
                         _shortestDistanceToTree = (tree.transform.position - _myTransform.position).sqrMagnitude;
-                    
                         _treeToGoTo = tree;
-                    }
-                    
-                } 
+                }
             }
             else
             {
@@ -83,11 +87,13 @@ public class Woodcutter : MonoBehaviour
         };
         LookTree.OnFixedUpdate += () => 
         {
-            if(_treeToGoTo != null)
+            if (_treeToGoTo != null)
             {
                 _myTransform.LookAt(new Vector3(_treeToGoTo.transform.position.x, 0, _treeToGoTo.transform.position.z));
                 _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
             }
+            else
+                return;
         };
         LookTree.OnExit += x => { _LookingForTree = false; };
 

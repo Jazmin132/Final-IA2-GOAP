@@ -70,7 +70,8 @@ public class GameManager : MonoBehaviour
         var Foxes = allFoxes.TakeWhile(x => x != fox).ToList();
         for (int i = 0; i < Foxes.Count; i++)
         {
-            allFoxes[i].WhereToGo= fox.transform;
+            //allFoxes[i].WhereToGo= fox.transform;
+            allFoxes[i].target = fox.transform;
             allFoxes[i].SendInputToSFSM(AgentStates.GOTODEST);
         }
     }
