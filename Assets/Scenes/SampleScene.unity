@@ -16910,6 +16910,7 @@ MonoBehaviour:
   _AllNodes: []
   boundWidth: 90
   boundHeight: 60
+  BoidPrefab: {fileID: 0}
   food: {fileID: 2103482232}
   FoodPoints:
   - {fileID: 861262862}
@@ -27419,6 +27420,7 @@ MonoBehaviour:
   _timeMove: 0
   _timerMove: 4
   _timerToMove: 8
+  _IsAlive: 0
   separationWeight: 1.83
   cohesionWeight: 2.21
   arriveWeight: 2.31
@@ -141037,7 +141039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 227656666880515939, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.139
+      value: 1.19
       objectReference: {fileID: 0}
     - target: {fileID: 227656666880515939, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: m_LocalPosition.z
@@ -141070,6 +141072,22 @@ PrefabInstance:
     - target: {fileID: 227656666880515939, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1403427
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Size.z
+      value: 4.1094093
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Center.x
+      value: -0.020067215
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Center.z
+      value: -0.11117935
       objectReference: {fileID: 0}
     - target: {fileID: 227656667539640491, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: InitialModule.startRotationX.scalar
@@ -143114,6 +143132,30 @@ PrefabInstance:
     - target: {fileID: 227656666880515939, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Size.x
+      value: 1.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Size.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Center.x
+      value: -0.00021839142
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Center.y
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515941, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: m_Center.z
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 227656667539640491, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: InitialModule.startRotationX.scalar
