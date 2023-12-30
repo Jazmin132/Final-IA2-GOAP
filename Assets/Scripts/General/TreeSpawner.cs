@@ -15,7 +15,8 @@ public class TreeSpawner : MonoBehaviour
 
     [SerializeField] bool _canCountTimeSpawn, _restartSpawnTime;
     [SerializeField] float _timeSpawn, _timerSpawn;
-    [SerializeField] TreeScript _treeToSpawn;
+    //[SerializeField] TreeScript _treeToSpawn;
+    [SerializeField] GameObject[] _AllFood;
 
     void FixedUpdate()
     {
@@ -56,7 +57,10 @@ public class TreeSpawner : MonoBehaviour
     {
         spawnPoint = new Vector3(Random.Range(-_treeSpawnerLimitMapRL, _treeSpawnerLimitMapRL), 0, Random.Range(-_treeSpawnerLimitMapUD, _treeSpawnerLimitMapUD));
         spawnRotation = new Quaternion(0, Random.Range(0, 361), 0, 0);
-        Instantiate(_treeToSpawn, spawnPoint, spawnRotation);
+
+        var RN = Random.Range(0,3);
+        Instantiate(_AllFood[RN], spawnPoint, spawnRotation);
+        //Instantiate(_treeToSpawn, spawnPoint, spawnRotation);
     }
 
     private void OnDrawGizmos()
