@@ -68,17 +68,19 @@ public class Woodcutter : MonoBehaviour
                 if (_shortestDistanceToTree != 10000)
                     _shortestDistanceToTree = 10000;
 
-                //var FirstTree = _treeList.Where(x => (x.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree)
-                //.OrderBy(x => x.transform.position - _myTransform.position).First();
-               // Debug.Log(FirstTree + "Primer arbol");
-                //_treeToGoTo = FirstTree;
+                var FirstTree = _treeList.Where(x => (x.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree)
+                .OrderBy(x => (x.transform.position - _myTransform.position).sqrMagnitude).First();
+                
+                Debug.Log(FirstTree + "Primer arbol");
+                
+                _treeToGoTo = FirstTree;
 
-                foreach (var tree in _treeList)
-                {
-                    if ((tree.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree && tree != null)
-                        _shortestDistanceToTree = (tree.transform.position - _myTransform.position).sqrMagnitude;
-                        _treeToGoTo = tree;
-                }
+                //foreach (var tree in _treeList)
+                //{
+                //    if ((tree.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree && tree != null)
+                //        _shortestDistanceToTree = (tree.transform.position - _myTransform.position).sqrMagnitude;
+                //        _treeToGoTo = tree;
+                //}
             }
             else
             {
