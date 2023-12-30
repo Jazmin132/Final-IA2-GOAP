@@ -264,7 +264,8 @@ public class Agent : GridEntity
     Vector3 NowPursuit()//IA2-LINQ
     {
         var boid = Query().OfType<Boid>();
-        
+        if (boid != null) return new Vector3();
+
         Vector3 Steering = boid.Aggregate(new Vector3(), (x, y) =>
         {
             Vector3 futurePos = y.transform.position + y.GetVelocity();
@@ -303,6 +304,13 @@ public class Agent : GridEntity
     {
         return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad));
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var X = collision.collider.GetComponent<Boid>();
+        if (X != null) X._IsAlive = false;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;

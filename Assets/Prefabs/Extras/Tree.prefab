@@ -149,6 +149,7 @@ MonoBehaviour:
   - {fileID: 5578950266638873849}
   - {fileID: 5578950265407152163}
   _levelManager: {fileID: 0}
+  _Bee: {fileID: 3907819722661048847, guid: 597235e19e68eac4ebc92b35ce82b5a9, type: 3}
 --- !u!1 &5578950265407152163
 GameObject:
   m_ObjectHideFlags: 0

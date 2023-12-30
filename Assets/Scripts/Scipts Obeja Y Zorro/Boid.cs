@@ -6,7 +6,6 @@ using static Plant;
 
 public class Boid : GridEntity
 {
-    //public List<Food> Foods;
     List<Food> _closestFood;
     public GameObject hunter;
     public Agent agent;
@@ -31,6 +30,7 @@ public class Boid : GridEntity
     [SerializeField] bool _canCountTimeMove, _restartMoveTime;
     [SerializeField] float _timeMove, _timerMove;
     [SerializeField] float _timerToMove;
+    public bool _IsAlive = true;
 
     [Range(0f, 3f)]
     public float separationWeight;
@@ -45,27 +45,32 @@ public class Boid : GridEntity
     {
         ALIGNMENT,
         EVADE,
-        ARRIVE
+        ARRIVE,
+        DIE
     }
     public EventFSM<BoidStates> _MyFSM;
     private void Awake()
     {
         var _Alignment = new State<BoidStates>("Idle");
         var _Evade = new State<BoidStates>("Move");
-        var _Arrive = new State<BoidStates>("DIE");
+        var _Arrive = new State<BoidStates>("Arrive");
+        var _Death = new State<BoidStates>("DIE");
 
         StateConfigurer.Create(_Alignment)
             .SetTransition(BoidStates.EVADE, _Evade)
-            .SetTransition(BoidStates.ARRIVE, _Arrive).Done();
+            .SetTransition(BoidStates.ARRIVE, _Arrive)
+            .SetTransition(BoidStates.DIE, _Death) .Done();
 
         StateConfigurer.Create(_Evade)
             .SetTransition(BoidStates.ALIGNMENT, _Alignment)
-            .Done();//.SetTransition(BoidStates.ARRIVE, _Arrive)
+            .SetTransition(BoidStates.DIE, _Death) .Done();
 
         StateConfigurer.Create(_Arrive)
             .SetTransition(BoidStates.EVADE, _Evade)
             .SetTransition(BoidStates.ALIGNMENT, _Alignment)
-            .Done();
+            .SetTransition(BoidStates.DIE, _Death) .Done();
+
+        StateConfigurer.Create(_Death);
 
         _Alignment.OnEnter += x => { DoTransformRotationYWithRandomValue(); };
         _Alignment.OnFixedUpdate += () => 
@@ -78,6 +83,8 @@ public class Boid : GridEntity
                 SentToFSM(BoidStates.EVADE);
             else if ((GameManager.instance.food.transform.position - transform.position).magnitude <= arriveRadius)
                 SentToFSM(BoidStates.ARRIVE);
+                
+            if(_IsAlive == false) SentToFSM(BoidStates.DIE);
         };
 
         _Evade.OnEnter += x => { particleScared.Play(); };
@@ -86,6 +93,8 @@ public class Boid : GridEntity
             AddForce(Evade() * evadeWeight);
             if (Vector3.Distance(transform.position, hunter.transform.position) > viewRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
+
+            if (_IsAlive == false) SentToFSM(BoidStates.DIE);
         };
         _Evade.OnExit += x => { particleScared.Stop(); };
 
@@ -98,15 +107,24 @@ public class Boid : GridEntity
                 SentToFSM(BoidStates.EVADE);
             else if((GameManager.instance.food.transform.position - transform.position).magnitude > arriveRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
+
+            if (_IsAlive == false) SentToFSM(BoidStates.DIE);
         };
         _Arrive.OnExit += x => { particleHungry.Stop(); };
+
+        _Death.OnEnter += x => 
+        {
+            Debug.Log("Me morí");
+            GameManager.instance.RemoveBoid(this);
+            Destroy(gameObject);
+        };
 
        _MyFSM = new EventFSM<BoidStates>(_Alignment);
     }
     void Start()
     {
         GameManager.instance.AddBoid(this);
-
+        _IsAlive = true;
         Vector3 randomDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         randomDir.Normalize();
         randomDir *= maxSpeed;

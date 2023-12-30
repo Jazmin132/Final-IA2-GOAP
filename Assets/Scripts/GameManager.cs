@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [Header("BOID Related Values")]
     public float boundWidth;
     public float boundHeight;
-
+    public Boid BoidPrefab;
     public Food food;
     public GameObject[] FoodPoints;
     int IndeX = 0;
@@ -55,9 +55,22 @@ public class GameManager : MonoBehaviour
 
     public void AddBoid(Boid b)
     {
-        if (!allBoids.Contains(b))
-            allBoids.Add(b);
+        if (!allBoids.Contains(b)) allBoids.Add(b);
     }
+    public void RemoveBoid(Boid b)
+    {
+        if (allBoids != null) 
+        {
+            allBoids.Remove(b);
+            
+        }
+    }
+    public void InstaBoid()
+    {
+        Instantiate(BoidPrefab.gameObject, FoodPoints[0].transform);
+        Debug.Log("Instanciar Obeja");
+    }
+
     public void ChangeFoodPos(Food food)
     {
         food.transform.position = FoodPoints[IndeX].transform.position;

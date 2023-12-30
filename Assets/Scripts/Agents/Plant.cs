@@ -30,6 +30,7 @@ public class Plant : MonoBehaviour
     public ParticleSystem particleDeath;
 
     [SerializeField] GameObject _particleDeathObject;
+    [SerializeField] GameObject _InstanciateTree;
 
     //[SerializeField] bool _stateIdle, _stateMoving;
     public enum PlantStates
@@ -85,8 +86,11 @@ public class Plant : MonoBehaviour
         {
             particleDeath.Play();
 
+            Instantiate(_InstanciateTree, transform.position, Quaternion.identity);
+
             GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
             Destroy(effect, 3f);
+
 
             Destroy(gameObject);
         };

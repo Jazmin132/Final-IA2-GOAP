@@ -22,5 +22,5 @@ public class GridEntity : MonoBehaviour
 		//Optimization: Hacer esto solo cuando realmente se mueve y no en el update
 		transform.position += velocity * Time.deltaTime;
 	    OnMove(this);
-	}
+    }
 }

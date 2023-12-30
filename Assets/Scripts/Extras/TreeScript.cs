@@ -7,15 +7,12 @@ public class TreeScript : MonoBehaviour
     [SerializeField] float _woodHP, _woodHPValueToChangeToDamaged;
     [SerializeField] GameObject[] _viewModels;
     [SerializeField] LevelManager _levelManager;
+    [SerializeField] Bee _Bee;
 
     void Awake()
     {
-        //GameManager.instance.AddTree(this);
-
         if (_levelManager == null)
-        {
             _levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
-        }
 
         _levelManager.AddTree(this);
     }
@@ -36,6 +33,12 @@ public class TreeScript : MonoBehaviour
             {
                 _levelManager.RemoveTree(this);
 
+                if (Random.Range(0, 1) == 0)
+                {
+                    Instantiate(_Bee);
+                    Debug.Log("CrearAbeja");
+                }
+                
                 Destroy(gameObject);
             }
         }

@@ -62,6 +62,8 @@ public class SpatialGrid : MonoBehaviour
 
     public void UpdateEntity(GridEntity entity)
     {
+        if (entity == null) return;
+
         var lastPos = lastPositions.ContainsKey(entity) ? lastPositions[entity] : Outside;
         var currentPos = GetPositionInGrid(entity.gameObject.transform.position);
 
@@ -192,7 +194,7 @@ public class SpatialGrid : MonoBehaviour
         }
 
         if (buckets == null || AreGizmosShutDown) return;
-
+        Debug.Log(buckets+ "buckets");
         var originalCol = GUI.color;
         GUI.color = Color.red;
         if (!activatedGrid)
