@@ -78,11 +78,15 @@ public class SpatialGrid : MonoBehaviour
         //Lo "metemos" a la celda nueva, o lo sacamos si salio de la grilla
         if (IsInsideGrid(currentPos))
         {
+            entity.onGrid = true;
             buckets[currentPos.Item1, currentPos.Item2].Add(entity);
             lastPositions[entity] = currentPos;
         }
         else
+        {
             lastPositions.Remove(entity);
+            entity.onGrid = false;
+        }
     }
 
     public IEnumerable<GridEntity> Query(Vector3 aabbFrom, Vector3 aabbTo, Func<Vector3, bool> filterByPosition)

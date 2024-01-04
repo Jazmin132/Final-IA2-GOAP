@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System;
+//using System; System no deja usar el random
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     List<Nodes> _pathToFollow = new List<Nodes>();
 
     public static GameManager instance;
+    public GameObject boidPrefab;//CAMBIO JULI
+
+    public int respawnTime;//CAMBIO JULI
+    public Quaternion spawnRotation;//CAMBIO JULI
 
     private void Awake() 
     { 
@@ -59,12 +63,28 @@ public class GameManager : MonoBehaviour
     }
     public void RemoveBoid(Boid b)
     {
-        if (allBoids != null) 
-        {
-            allBoids.Remove(b);
-            
-        }
+        //if (allBoids != null) 
+        //{
+        //    allBoids.Remove(b);
+        //    
+        //}
+        allBoids.Remove(b);//CAMBIO JULI
+        StartCoroutine(RespawnBoid(respawnTime));//CAMBIO JULI
     }
+
+    private IEnumerator RespawnBoid(float delay)// Se usa para aparecer en aleatorio adentro de la zona de contencion CAMBIO JULI
+    {
+        yield return new WaitForSeconds(delay);
+
+
+        Vector3 respawnPosition = new Vector3(Random.Range(-boundWidth / 2, boundWidth / 2), 0, Random.Range(-boundHeight / 2, boundHeight / 2));
+
+        GameObject newBoidObject = Instantiate(boidPrefab, respawnPosition, spawnRotation);
+        Boid newBoid = newBoidObject.GetComponent<Boid>();
+
+        allBoids.Add(newBoid);
+    }
+
     public void InstaBoid()
     {
         Instantiate(BoidPrefab.gameObject, FoodPoints[0].transform);

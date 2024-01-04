@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using static Plant;
+using Unity.VisualScripting;
 
 public class Boid : GridEntity
 {
@@ -18,6 +19,8 @@ public class Boid : GridEntity
     public float separationRadius;
     public float arriveRadius;
     public float eatRadius;
+    public float hunterRadius; // ESTO ES NUEVO PARA EL DESTROY CAMBIO JULI
+    public SpatialGrid targetGrid;// CAMBIO JULI
     public ParticleSystem particleHungry;
     public ParticleSystem particleScared;
 
@@ -129,7 +132,19 @@ public class Boid : GridEntity
         randomDir.Normalize();
         randomDir *= maxSpeed;
         AddForce(randomDir);
-    }
+        //CAMBIO JULI--
+        SpatialGrid spatialGrid = FindObjectOfType<SpatialGrid>();
+
+        if (spatialGrid != null)
+        {
+            targetGrid = spatialGrid;
+            UpdateGrid();
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró una instancia de SpatialGrid");
+        }
+    }   //CAMBIO JULI--
 
     public void FixedUpdate()
     {
@@ -146,6 +161,16 @@ public class Boid : GridEntity
         CheckBounds();
         transform.position = new Vector3(transform.position.x,0, transform.position.z);
     }
+
+    public void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
+    { 
+        if(Vector3.Distance(transform.position, hunter.transform.position) <= hunterRadius)
+        {
+            GameManager.instance.RemoveBoid(this);
+            Destroy(gameObject);
+            return;
+        }
+    }//CAMBIO JULI
 
     #region Separation
     Vector3 Separation()
@@ -288,6 +313,20 @@ public class Boid : GridEntity
     {
         _MyFSM.SendInput(states);
     }
+
+    void UpdateGrid()//CAMBIO JULI
+    {
+        SpatialGrid spatialGrid = FindObjectOfType<SpatialGrid>();
+
+        if (spatialGrid != null)
+        {
+            spatialGrid.UpdateEntity(this);
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró una instancia de SpatialGrid");
+        }
+    }//CAMBIO JULI
 
     private void OnDrawGizmos()
     {

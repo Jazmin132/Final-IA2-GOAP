@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using static UnityEngine.GraphicsBuffer;
 
 public enum AgentStates { IDLE, PATROL, PURSUIT, GOTODEST, RETURN }
 public class Agent : GridEntity
@@ -168,14 +169,20 @@ public class Agent : GridEntity
             .OrderBy(x => x.position - transform.position).First();
             //_destination = Num.transform.position - transform.position;
             // if(_destination.magnitude <= pursuitRadius) 
-                target = Num.transform;     
+                //target = Num.transform;     
         };
         Pursuit.OnUpdate += () =>
         {
-
+            
             energy -= Time.deltaTime;
             if (energy <= 0)
                 SendInputToSFSM(AgentStates.IDLE);
+
+            if (target == null)//CAMBIO JULI
+            {
+                Debug.Log("NO ANDA AAAAAAH");
+                SendInputToSFSM(AgentStates.RETURN);
+            } //CAMBIO JULI
 
             if (target != null)
                 if ((target.position - transform.position).magnitude > pursuitRadius)
@@ -234,15 +241,20 @@ public class Agent : GridEntity
     }
     void CheckForOveja()//IA2-LINQ
     {
+        Debug.Log(target);//CAMBIO JULI
         var Num = Query().OfType<Boid>()
         .Select(x => x.transform)
-        .OrderBy(x => x.position - transform.position);
+        .OrderBy(x => x.position - transform.position)
+        .ToList();
 
         foreach (var boid in Num)
         {
-            Vector3 dist = boid.transform.position - transform.position;
-            if (dist.magnitude <= pursuitRadius)
-                SendInputToSFSM(AgentStates.PURSUIT);
+             Vector3 dist = boid.transform.position - transform.position;
+             if (dist.magnitude <= pursuitRadius)
+             {
+                 target = boid.transform;//CAMBIO JULI
+                 SendInputToSFSM(AgentStates.PURSUIT);
+             }
         }
     }
     public void AlertFoxes(Agent fox)
