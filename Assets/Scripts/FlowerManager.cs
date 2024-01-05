@@ -36,8 +36,8 @@ public class FlowerManager : MonoBehaviour
     {
         for (int i = 0; i < _BeeTotal.Count; i++)
         {
-            //_BeeTotal[i].TargetPlant = plant.transform;
-            //_BeeTotal[i].SendInputToSFSM(AgentStates.GOTOFLOWER);
+            _BeeTotal[i].TargetPlant = plant.transform.position;
+            _BeeTotal[i].SentToFSM(BeeStates.Defend);
         }
     }
 }

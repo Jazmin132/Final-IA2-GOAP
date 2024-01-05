@@ -198,7 +198,7 @@ public class SpatialGrid : MonoBehaviour
         }
 
         if (buckets == null || AreGizmosShutDown) return;
-        Debug.Log(buckets+ "buckets");
+        //Debug.Log(buckets+ "buckets");
         var originalCol = GUI.color;
         GUI.color = Color.red;
         if (!activatedGrid)

@@ -363,6 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _myTransform: {fileID: 1129340073728493527}
   _myRgbd: {fileID: 1129340073728493525}
+  _viewRadius: 8
   _randomValueForAngle: 0
   _newVector3Rotation: {x: 0, y: 0, z: 0}
   _life: 100

@@ -241,7 +241,7 @@ public class Agent : GridEntity
     }
     void CheckForOveja()//IA2-LINQ
     {
-        Debug.Log(target);//CAMBIO JULI
+       // Debug.Log(target);//CAMBIO JULI
         var Num = Query().OfType<Boid>()
         .Select(x => x.transform)
         .OrderBy(x => x.position - transform.position)

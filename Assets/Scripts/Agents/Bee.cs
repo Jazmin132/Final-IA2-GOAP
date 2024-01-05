@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BeeStates
+{
+    Moving,
+    Spawn,
+    Defend,
+    DIE
+}
+
 public class Bee : MonoBehaviour
 {
     //[Header("Flocking")]
@@ -44,14 +52,8 @@ public class Bee : MonoBehaviour
     [SerializeField] GameObject _particleDeathObject;
 
     //[Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
-    public enum BeeStates
-    {
-        Moving,
-        Spawn,
-        Defend,
-        DIE
-    }
     public EventFSM<BeeStates> _MyFSM;
+
     void Awake()
     {
         #region something
@@ -123,7 +125,10 @@ public class Bee : MonoBehaviour
              if (!_canSpawnObject)
                  _canSpawnObject = true;
          };
-
+        GotoPlant.OnEnter += x => 
+        {
+            Debug.Log("MUST PROTECT PLANT");
+        };
         GotoPlant.OnFixedUpdate += () =>
         {
             Vector3 dir = TargetPlant - transform.position;
@@ -133,7 +138,7 @@ public class Bee : MonoBehaviour
                 transform.forward = dir;
                 transform.position += transform.forward * (_speed + 3f) * Time.deltaTime;
             }
-            else SentToFSM(BeeStates.DIE);
+            else SentToFSM(BeeStates.Moving);
         };
 
         Death.OnEnter += x => 
@@ -236,7 +241,7 @@ public class Bee : MonoBehaviour
         }
     }
     #endregion
-    void SentToFSM(BeeStates states)
+    public void SentToFSM(BeeStates states)
     {
         _MyFSM.SendInput(states);
     }

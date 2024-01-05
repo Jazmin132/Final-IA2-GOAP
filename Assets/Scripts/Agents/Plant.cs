@@ -71,16 +71,8 @@ public class Plant : MonoBehaviour
                 SentToFSM(PlantStates.Death);
         };
         Moving.OnEnter += x =>
-        {
+        {     
             DoTransformRotationYWithRandomValue();
-            List<Boid> _Boids = GameManager.instance.allBoids;
-            for (int i = 0; i < _Boids.Count; i++)
-            {
-                if (Vector3.Distance(transform.position,_Boids[i].transform.position) <= _viewRadius)
-                {
-                    
-                }
-            }
         };
         Moving.OnFixedUpdate += () =>
         {
@@ -93,6 +85,15 @@ public class Plant : MonoBehaviour
             else
                 SentToFSM(PlantStates.Death);
 
+            List<Boid> _Boids = GameManager.instance.allBoids;
+            for (int i = 0; i < _Boids.Count; i++)
+            {
+                if (Vector3.Distance(transform.position, _Boids[i].transform.position) <= _viewRadius)
+                {
+                    Debug.Log("SHEEP-DETECTED");
+                    FlowerManager.instance.CallBees(this);
+                }
+            }
         };
         Death.OnEnter += x =>
         {
@@ -183,6 +184,7 @@ public class Plant : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color= Color.yellow;
         Gizmos.DrawWireSphere(transform.position, _viewRadius);
     }
 }
