@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     public List<Boid> allBoids = new List<Boid>();
     public GameObject padreGrilla;
 
+    [Header("FOOD Related Values")]
+    public List<NewFood> allFood = new List<NewFood>();
+
     [Header("FOX Related Values")]
     public List<Agent> allFoxes = new List<Agent>();
     List<Nodes> _pathToFollow = new List<Nodes>();
@@ -64,18 +67,21 @@ public class GameManager : MonoBehaviour
     public void RemoveBoid(Boid b)
     {
         //if (allBoids != null) 
-        //{
-        //    allBoids.Remove(b);
-        //    
-        //}
+        //{allBoids.Remove(b);}
         allBoids.Remove(b);//CAMBIO JULI
         StartCoroutine(RespawnBoid(respawnTime));//CAMBIO JULI
     }
-
+    public void AddFood(NewFood b)
+    {
+        if (!allFood.Contains(b)) allFood.Add(b);
+    }
+    public void RemoveFood(NewFood b)
+    {
+        allFood.Remove(b);
+    }
     private IEnumerator RespawnBoid(float delay)// Se usa para aparecer en aleatorio adentro de la zona de contencion CAMBIO JULI
     {
         yield return new WaitForSeconds(delay);
-
 
         Vector3 respawnPosition = new Vector3(Random.Range(-boundWidth / 2, boundWidth / 2), 0, Random.Range(-boundHeight / 2, boundHeight / 2));
 

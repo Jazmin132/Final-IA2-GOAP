@@ -15,6 +15,7 @@ public class Bee : MonoBehaviour
 
     [SerializeField] float _randomValueForAngle;
     [SerializeField] Vector3 _newVector3Rotation;
+    public Vector3 TargetPlant;
 
     [Header("ImportantValues")]
     [SerializeField] float _life;
@@ -47,6 +48,7 @@ public class Bee : MonoBehaviour
     {
         Moving,
         Spawn,
+        Defend,
         DIE
     }
     public EventFSM<BeeStates> _MyFSM;
@@ -70,17 +72,27 @@ public class Bee : MonoBehaviour
         _myRgbd.AddForce(_vector3ToAddForce * _jumpForce * Time.fixedDeltaTime, ForceMode.Impulse);
         #endregion
 
-        var Moving = new State<BeeStates>("Idle");
-        var SpawnPlant = new State<BeeStates>("Accion1");
-        var Death = new State<BeeStates>("Accion2");
+        FlowerManager.instance.AddBee(this);
+
+        var Moving = new State<BeeStates>("Moving");
+        var SpawnPlant = new State<BeeStates>("SpawnPlant");
+        var GotoPlant = new State<BeeStates>("GotoPlant");
+        var Death = new State<BeeStates>("Death");
 
         StateConfigurer.Create(Moving)
             .SetTransition(BeeStates.Spawn, SpawnPlant)
+            .SetTransition(BeeStates.Defend, GotoPlant)
             .SetTransition(BeeStates.DIE, Death).Done();
 
         StateConfigurer.Create(SpawnPlant)
             .SetTransition(BeeStates.Moving, Moving)
+            .SetTransition(BeeStates.Defend, GotoPlant)
             .SetTransition(BeeStates.DIE, Death).Done();
+
+        StateConfigurer.Create(GotoPlant)
+        .SetTransition(BeeStates.Moving, Moving)
+        .SetTransition(BeeStates.Spawn, SpawnPlant)
+        .SetTransition(BeeStates.DIE, Death).Done();
 
         StateConfigurer.Create(Death).Done();
 
@@ -112,6 +124,18 @@ public class Bee : MonoBehaviour
                  _canSpawnObject = true;
          };
 
+        GotoPlant.OnFixedUpdate += () =>
+        {
+            Vector3 dir = TargetPlant - transform.position;
+            dir.y = 0;
+            if (dir.magnitude <= 0.3f)
+            {
+                transform.forward = dir;
+                transform.position += transform.forward * (_speed + 3f) * Time.deltaTime;
+            }
+            else SentToFSM(BeeStates.DIE);
+        };
+
         Death.OnEnter += x => 
         {
             particleDeath.Play();
@@ -119,6 +143,7 @@ public class Bee : MonoBehaviour
             GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
             Destroy(effect, 3f);
 
+            FlowerManager.instance.RemoveBee(this);
             Destroy(gameObject); 
         };
 

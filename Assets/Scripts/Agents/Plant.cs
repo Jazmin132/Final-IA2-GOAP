@@ -10,6 +10,8 @@ public class Plant : MonoBehaviour
 
     [Header("Values")]
 
+    [SerializeField] float _viewRadius;
+    Bee _BeeCall;
     [SerializeField] float _randomValueForAngle;
     [SerializeField] Vector3 _newVector3Rotation;
 
@@ -42,6 +44,7 @@ public class Plant : MonoBehaviour
     public EventFSM<PlantStates> _MyFSM;
     void Awake()
     {
+        FlowerManager.instance.AddFlower(this);
         //Agregarlo a una lista antes de que haga algo? -> fijarse si poner código
         var Idle = new State<PlantStates>("Idle");
         var Moving = new State<PlantStates>("Move");
@@ -70,6 +73,14 @@ public class Plant : MonoBehaviour
         Moving.OnEnter += x =>
         {
             DoTransformRotationYWithRandomValue();
+            List<Boid> _Boids = GameManager.instance.allBoids;
+            for (int i = 0; i < _Boids.Count; i++)
+            {
+                if (Vector3.Distance(transform.position,_Boids[i].transform.position) <= _viewRadius)
+                {
+                    
+                }
+            }
         };
         Moving.OnFixedUpdate += () =>
         {
@@ -81,6 +92,7 @@ public class Plant : MonoBehaviour
             }
             else
                 SentToFSM(PlantStates.Death);
+
         };
         Death.OnEnter += x =>
         {
@@ -91,7 +103,7 @@ public class Plant : MonoBehaviour
             GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
             Destroy(effect, 3f);
 
-
+            FlowerManager.instance.RemoveFlower(this);
             Destroy(gameObject);
         };
         _MyFSM = new EventFSM<PlantStates>(Idle);
@@ -167,5 +179,10 @@ public class Plant : MonoBehaviour
     void SentToFSM(PlantStates states)
     {
         _MyFSM.SendInput(states);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, _viewRadius);
     }
 }
