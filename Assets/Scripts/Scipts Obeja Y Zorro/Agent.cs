@@ -224,7 +224,7 @@ public class Agent : GridEntity
                var position2d = x - transform.position;
                position2d.y = 0;
                return position2d.sqrMagnitude < pursuitRadius * pursuitRadius;
-           });        
+           });
     }
 
     public void NowPatrol()
@@ -251,15 +251,15 @@ public class Agent : GridEntity
 
             MoveTest(1);
 
-            //Debug.Log(target); //CAMBIO JULI
+            Debug.Log(target); //CAMBIO JULI
             var Num = Query().OfType<Boid>()
             .Select(x => x.transform)
             .OrderBy(x => x.position - transform.position)
             .ToList();
-
+            
             //Debug.Log(Num);
             _listTransforms = Num;
-
+            
             foreach (var boid in Num)
             {
                 Vector3 dist = boid.transform.position - transform.position;
@@ -270,6 +270,20 @@ public class Agent : GridEntity
                     SendInputToSFSM(AgentStates.PURSUIT);
                 }
             }
+
+            //foreach(GridEntity boid in Query().ToList())
+            //{
+            //    if (boid!= this && boid.GetComponent<Boid>())
+            //    {
+            //        Vector3 dist = boid.transform.position - transform.position;
+            //        if(dist.magnitude <= pursuitRadius)
+            //        {
+            //            target = boid.transform;
+            //            SendInputToSFSM(AgentStates.PURSUIT);
+            //        }
+            //    }
+            //}
+            //return;
         }
     }
     public void AlertFoxes(Agent fox)
