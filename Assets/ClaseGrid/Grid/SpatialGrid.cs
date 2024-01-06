@@ -207,18 +207,18 @@ public class SpatialGrid : MonoBehaviour
             foreach(var elem in buckets)
                 allElems = allElems.Concat(elem);
 
-            int connections = 0;
-            foreach (var ent in allElems)
-            {
-                foreach(var neighbour in allElems.Where(x => x != ent))
-                {
-                    Gizmos.DrawLine(ent.transform.position, neighbour.transform.position);
-                    connections++;
-                }
-               // if(showLogs)
-                   // Debug.Log("tengo " + connections + " conexiones por individuo");
-                connections = 0;
-            }
+            //int connections = 0;
+            //foreach (var ent in allElems)
+            //{
+            //    foreach(var neighbour in allElems.Where(x => x != ent))
+            //    {
+            //        Gizmos.DrawLine(ent.transform.position, neighbour.transform.position);
+            //        connections++;
+            //    }
+            //   // if(showLogs)
+            //       // Debug.Log("tengo " + connections + " conexiones por individuo");
+            //    connections = 0;
+            //}
         }
         else
         {
