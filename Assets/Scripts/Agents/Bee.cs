@@ -74,8 +74,6 @@ public class Bee : MonoBehaviour
         _myRgbd.AddForce(_vector3ToAddForce * _jumpForce * Time.fixedDeltaTime, ForceMode.Impulse);
         #endregion
 
-        FlowerManager.instance.AddBee(this);
-
         var Moving = new State<BeeStates>("Moving");
         var SpawnPlant = new State<BeeStates>("SpawnPlant");
         var GotoPlant = new State<BeeStates>("GotoPlant");
@@ -153,6 +151,11 @@ public class Bee : MonoBehaviour
         };
 
         _MyFSM = new EventFSM<BeeStates>(Moving);
+    }
+
+    void Start()
+    {
+        FlowerManager.instance.AddBee(this);
     }
 
     void FixedUpdate()

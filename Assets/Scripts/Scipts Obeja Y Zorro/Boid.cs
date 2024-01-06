@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 public class Boid : GridEntity
 {
     List<Food> _closestFood;
-    public GameObject hunter;
+    //public GameObject hunter;
     public Agent agent;
 
     private Vector3 _velocity;
@@ -82,7 +82,7 @@ public class Boid : GridEntity
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * maxSpeed * Time.fixedDeltaTime);
             CountTimerMoving();
 
-            if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
+            if (Vector3.Distance(transform.position, agent.transform.position) <= viewRadius)
                 SentToFSM(BoidStates.EVADE);
             else if ((GameManager.instance.food.transform.position - transform.position).magnitude <= arriveRadius)
                 SentToFSM(BoidStates.ARRIVE);
@@ -94,7 +94,7 @@ public class Boid : GridEntity
         _Evade.OnFixedUpdate += () => 
         {
             AddForce(Evade() * evadeWeight);
-            if (Vector3.Distance(transform.position, hunter.transform.position) > viewRadius)
+            if (Vector3.Distance(transform.position, agent.transform.position) > viewRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
 
             if (_IsAlive == false) SentToFSM(BoidStates.DIE);
@@ -106,7 +106,7 @@ public class Boid : GridEntity
         {
             AddForce(Arrive(GameManager.instance.food) * arriveWeight);
 
-            if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
+            if (Vector3.Distance(transform.position, agent.transform.position) <= viewRadius)
                 SentToFSM(BoidStates.EVADE);
             else if((GameManager.instance.food.transform.position - transform.position).magnitude > arriveRadius)
                 SentToFSM(BoidStates.ALIGNMENT);
@@ -163,8 +163,10 @@ public class Boid : GridEntity
     }
 
     public void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
-    { 
-        if(Vector3.Distance(transform.position, hunter.transform.position) <= hunterRadius)
+    {
+        MoveTest(0);
+
+        if(Vector3.Distance(transform.position, agent.transform.position) <= hunterRadius)
         {
             GameManager.instance.RemoveBoid(this);
             Destroy(gameObject);
@@ -277,8 +279,8 @@ public class Boid : GridEntity
 
     Vector3 Evade()
     {
-        Vector3 futurePos = hunter.transform.position + agent.GetVelocity();
-        Vector3 desired = futurePos + hunter.transform.position;
+        Vector3 futurePos = agent.transform.position + agent.GetVelocity();
+        Vector3 desired = futurePos + agent.transform.position;
         desired.Normalize();
         desired *= agent.maxSpeed;
         return CalculateSteering(desired);
@@ -338,6 +340,8 @@ public class Boid : GridEntity
         Gizmos.DrawWireSphere(transform.position, arriveRadius);
         Gizmos.color = Color.grey;
         Gizmos.DrawWireSphere(transform.position, eatRadius);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, hunterRadius);
 
     }
 

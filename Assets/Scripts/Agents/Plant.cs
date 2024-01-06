@@ -44,7 +44,6 @@ public class Plant : MonoBehaviour
     public EventFSM<PlantStates> _MyFSM;
     void Awake()
     {
-        FlowerManager.instance.AddFlower(this);
         //Agregarlo a una lista antes de que haga algo? -> fijarse si poner código
         var Idle = new State<PlantStates>("Idle");
         var Moving = new State<PlantStates>("Move");
@@ -108,6 +107,11 @@ public class Plant : MonoBehaviour
             Destroy(gameObject);
         };
         _MyFSM = new EventFSM<PlantStates>(Idle);
+    }
+
+    void Start()
+    {
+        FlowerManager.instance.AddFlower(this);
     }
 
     void FixedUpdate()

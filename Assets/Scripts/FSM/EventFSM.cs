@@ -7,17 +7,17 @@ public class EventFSM<T>
 	private State<T> current;
 
 	public EventFSM(State<T> initial)
-     {
+    {
 		current = initial;
 		current.Enter(default(T));
 	}
 
 	public void SendInput(T input)
-     {
+    {
 		State<T> newState;
 
 		if (current.CheckInput(input, out newState))
-         {
+        {
 			current.Exit(input);
 			current = newState;
 			current.Enter(input);
@@ -26,7 +26,7 @@ public class EventFSM<T>
 
 
 	public void Update()
-     {
+    {
 		current.Update();
 	}
 

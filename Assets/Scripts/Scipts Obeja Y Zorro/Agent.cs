@@ -39,6 +39,8 @@ public class Agent : GridEntity
 
     private EventFSM<AgentStates> _eventFSM;
 
+    public List<Transform> _listTransforms;
+
     public bool _Idle, _Patrol, _Pursuit, _GotoDest, _Return;
     void Awake()
     {
@@ -241,20 +243,33 @@ public class Agent : GridEntity
     }
     void CheckForOveja()//IA2-LINQ
     {
-       // Debug.Log(target);//CAMBIO JULI
-        var Num = Query().OfType<Boid>()
-        .Select(x => x.transform)
-        .OrderBy(x => x.position - transform.position)
-        .ToList();
+        Debug.Log("CheckingSheep");
 
-        foreach (var boid in Num)
+        if (GameManager.instance.sheepAlive)
         {
-             Vector3 dist = boid.transform.position - transform.position;
-             if (dist.magnitude <= pursuitRadius)
-             {
-                 target = boid.transform;//CAMBIO JULI
-                 SendInputToSFSM(AgentStates.PURSUIT);
-             }
+            Debug.Log("CheckingSheepWithAlive");
+
+            MoveTest(1);
+
+            //Debug.Log(target); //CAMBIO JULI
+            var Num = Query().OfType<Boid>()
+            .Select(x => x.transform)
+            .OrderBy(x => x.position - transform.position)
+            .ToList();
+
+            //Debug.Log(Num);
+            _listTransforms = Num;
+
+            foreach (var boid in Num)
+            {
+                Vector3 dist = boid.transform.position - transform.position;
+                if (dist.magnitude <= pursuitRadius)
+                {
+                    target = boid.transform;//CAMBIO JULI
+                    Debug.Log(target);
+                    SendInputToSFSM(AgentStates.PURSUIT);
+                }
+            }
         }
     }
     public void AlertFoxes(Agent fox)

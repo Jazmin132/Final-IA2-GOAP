@@ -23,4 +23,18 @@ public class GridEntity : MonoBehaviour
 		transform.position += velocity * Time.deltaTime;
 	    OnMove(this);
     }
+
+    public void MoveTest(int num)
+    {
+        if(num == 0)
+        {
+            Debug.Log("MoveTestWorking on Boid");
+        }
+        else
+        {
+            Debug.Log("MoveTestWorking on Agent");
+        }
+
+        OnMove(this);
+    }
 }

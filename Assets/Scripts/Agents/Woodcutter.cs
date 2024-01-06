@@ -71,7 +71,7 @@ public class Woodcutter : MonoBehaviour
                 var FirstTree = _treeList.Where(x => (x.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree)
                 .OrderBy(x => (x.transform.position - _myTransform.position).sqrMagnitude).First();
                 
-                Debug.Log(FirstTree + "Primer arbol");
+                //Debug.Log(FirstTree + "Primer arbol");
                 
                 _treeToGoTo = FirstTree;
 
