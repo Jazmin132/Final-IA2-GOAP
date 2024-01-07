@@ -51,6 +51,7 @@ public class Chef : MonoBehaviour
         Collect,
         LoadFood,
         Eat,
+        WaitForCompany,
         stateDeath
     }
     public EventFSM<ChefStates> _MyFSM;
@@ -61,6 +62,7 @@ public class Chef : MonoBehaviour
         var _Collect = new State<ChefStates>("Collect");
         var _LoadFood = new State<ChefStates>("LoadFood");
         var _Eat = new State<ChefStates>("Eat");
+        var _WaitForCompany = new State<ChefStates>("WaitForCompany");
         var _stateDeath = new State<ChefStates>("stateDeath");
 
         StateConfigurer.Create(_LookingForFood)
@@ -86,6 +88,11 @@ public class Chef : MonoBehaviour
          .SetTransition(ChefStates.Collect, _Collect)
          .SetTransition(ChefStates.stateDeath, _stateDeath)
          .SetTransition(ChefStates.LookingForFood, _LookingForFood).Done();
+
+        StateConfigurer.Create(_WaitForCompany)
+            .SetTransition(ChefStates.Eat, _Eat)
+            .SetTransition(ChefStates.LoadFood, _LoadFood)
+            .SetTransition(ChefStates.stateDeath, _stateDeath).Done();
 
         StateConfigurer.Create(_stateDeath).Done();
 

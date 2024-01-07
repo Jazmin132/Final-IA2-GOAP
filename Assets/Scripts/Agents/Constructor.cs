@@ -48,7 +48,8 @@ public class Constructor : MonoBehaviour
         GrabingWood,
         Construct,
         Eat,
-        stateDeath
+        stateDeath,
+        WaitForFood
     }
     public EventFSM<ContructorStates> _MyFSM;
 
@@ -58,6 +59,7 @@ public class Constructor : MonoBehaviour
         var _Construct = new State<ContructorStates>("Construct");
         var _Eat = new State<ContructorStates>("Eat");
         var _stateDeath = new State<ContructorStates>("stateDeath");
+        var _WaitForFood = new State<ContructorStates>("WaitForFood");
 
         StateConfigurer.Create(_GrabingWood)
             .SetTransition(ContructorStates.Eat, _Eat)
@@ -71,6 +73,11 @@ public class Constructor : MonoBehaviour
 
         StateConfigurer.Create(_Eat)
             .SetTransition(ContructorStates.Construct, _Construct)
+            .SetTransition(ContructorStates.stateDeath, _stateDeath)
+            .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
+
+        StateConfigurer.Create(_WaitForFood)
+            .SetTransition(ContructorStates.Eat, _Eat)
             .SetTransition(ContructorStates.stateDeath, _stateDeath)
             .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
 
@@ -125,6 +132,14 @@ public class Constructor : MonoBehaviour
             Destroy(effect, 3f);
 
             Destroy(gameObject);
+        };
+        _WaitForFood.OnEnter += x =>
+        {
+
+        };
+        _WaitForFood.OnFixedUpdate += () =>
+        {
+            
         };
 
         _MyFSM = new EventFSM<ContructorStates>(_GrabingWood);
