@@ -43,13 +43,14 @@ public class Constructor : MonoBehaviour
 
     [SerializeField] GameObject _particleDeathObject;
 
+    #region ConstructorStates
     public enum ContructorStates
     {
         GrabingWood,
         Construct,
+        WaitForFood,
         Eat,
-        stateDeath,
-        WaitForFood
+        stateDeath
     }
     public EventFSM<ContructorStates> _MyFSM;
 
@@ -57,9 +58,9 @@ public class Constructor : MonoBehaviour
     {
         var _GrabingWood = new State<ContructorStates>("GrabingWood");
         var _Construct = new State<ContructorStates>("Construct");
+        var _WaitForFood = new State<ContructorStates>("WaitForFood");
         var _Eat = new State<ContructorStates>("Eat");
         var _stateDeath = new State<ContructorStates>("stateDeath");
-        var _WaitForFood = new State<ContructorStates>("WaitForFood");
 
         StateConfigurer.Create(_GrabingWood)
             .SetTransition(ContructorStates.Eat, _Eat)
@@ -71,15 +72,16 @@ public class Constructor : MonoBehaviour
             .SetTransition(ContructorStates.stateDeath, _stateDeath)
             .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
 
+        StateConfigurer.Create(_WaitForFood)
+            .SetTransition(ContructorStates.Eat, _Eat)
+            .SetTransition(ContructorStates.stateDeath, _stateDeath)
+            .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
+
         StateConfigurer.Create(_Eat)
             .SetTransition(ContructorStates.Construct, _Construct)
             .SetTransition(ContructorStates.stateDeath, _stateDeath)
             .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
 
-        StateConfigurer.Create(_WaitForFood)
-            .SetTransition(ContructorStates.Eat, _Eat)
-            .SetTransition(ContructorStates.stateDeath, _stateDeath)
-            .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
 
         StateConfigurer.Create(_stateDeath).Done();
 
@@ -108,6 +110,19 @@ public class Constructor : MonoBehaviour
             particleBuilding.Stop();
         };
 
+        _WaitForFood.OnEnter += x =>
+        {
+
+        };
+        _WaitForFood.OnFixedUpdate += () =>
+        {
+
+        };
+        _WaitForFood.OnExit += x =>
+        {
+
+        };
+
         _Eat.OnEnter += x => 
         { 
             _stateEat = true; 
@@ -133,17 +148,10 @@ public class Constructor : MonoBehaviour
 
             Destroy(gameObject);
         };
-        _WaitForFood.OnEnter += x =>
-        {
-
-        };
-        _WaitForFood.OnFixedUpdate += () =>
-        {
-            
-        };
 
         _MyFSM = new EventFSM<ContructorStates>(_GrabingWood);
     }
+    #endregion
 
     void FixedUpdate()
     {

@@ -5210,7 +5210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3907819722661048843}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.65, y: 1.25, z: 6.66}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5269,6 +5269,7 @@ MonoBehaviour:
   _myRgbd: {fileID: 3907819722661048846}
   _randomValueForAngle: 0
   _newVector3Rotation: {x: 0, y: 0, z: 0}
+  TargetPlant: {x: 0, y: 0, z: 0}
   _life: 100
   _lifeOriginal: 100
   _lifeToLose: 5

@@ -5510,7 +5510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5499290305119165747}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.73, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5547,7 +5547,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
   onGrid: 0
-  hunter: {fileID: 227656666880515936, guid: b17f45c4eee686446a6e78486865c169, type: 3}
   agent: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
   maxSpeed: 8
   maxForce: 0.25
@@ -5556,6 +5555,7 @@ MonoBehaviour:
   arriveRadius: 8.45
   eatRadius: 3.65
   hunterRadius: 3
+  targetGrid: {fileID: 0}
   particleHungry: {fileID: 5499290304672556153}
   particleScared: {fileID: 5499290305597687261}
   _randomValueForAngle: 0
@@ -5568,10 +5568,10 @@ MonoBehaviour:
   _timerMove: 4
   _timerToMove: 8
   _IsAlive: 0
-  separationWeight: 1.83
-  cohesionWeight: 2.21
-  arriveWeight: 2.31
-  evadeWeight: 2.76
+  separationWeight: 1.85
+  cohesionWeight: 2.2
+  arriveWeight: 2.3
+  evadeWeight: 2.75
 --- !u!54 &5499290305119165743
 Rigidbody:
   m_ObjectHideFlags: 0
