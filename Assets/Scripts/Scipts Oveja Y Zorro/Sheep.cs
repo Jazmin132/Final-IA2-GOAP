@@ -33,7 +33,7 @@ public class Sheep : GridEntity
     public float hunterRadius2 = 6;
     void Start()
     {
-        GameManager.instance.AddBoid(this);
+        TrazynTheInfinite.instance.AddBoid(this);
 
         Vector3 randomDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         randomDir.Normalize();
@@ -59,21 +59,21 @@ public class Sheep : GridEntity
     public override void Update()
     {
         base.Update();
-        AddForce2(Separation2() * separationWeight);
+        AddForce2(Separation2() * separationWeight2);
         AddForce2(Alignment2() * alignmentWeight2);
-        AddForce2(Cohesion2() * cohesionWeight);
-        AddForce2(Evade2() * evadeWeight);
-        AddForce2(Arrive2() * arriveWeight);
+        AddForce2(Cohesion2() * cohesionWeight2);
+        AddForce2(Evade2() * evadeWeight2);
+        AddForce2(Arrive2() * arriveWeight2);
 
-        if (Vector3.Distance(transform.position, hunter.transform.position) <= hunterRadius)
+        if (Vector3.Distance(transform.position, hunter.transform.position) <= hunterRadius2)
         {
             TrazynTheInfinite.instance.SheepDestroyed(this);
             Destroy(gameObject);
             return;
         }
 
-        transform.position += _velocity * Time.deltaTime;
-        transform.forward = _velocity;
+        transform.position += _velocity2 * Time.deltaTime;
+        transform.forward = _velocity2;
         CheckBounds2();
         transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
@@ -94,19 +94,19 @@ public class Sheep : GridEntity
 
     public IEnumerable<GridEntity> Query()
     {
-        return targetGrid.Query(
-            transform.position + new Vector3(-viewRadius, 0, -viewRadius),
-            transform.position + new Vector3(viewRadius, 0, viewRadius),
+        return targetGrid2.Query(
+            transform.position + new Vector3(-viewRadius2, 0, -viewRadius2),
+            transform.position + new Vector3(viewRadius2, 0, viewRadius2),
             x => {
                 var position2d = x - transform.position;
                 position2d.y = 0;
-                return position2d.sqrMagnitude < viewRadius * viewRadius;
+                return position2d.sqrMagnitude < viewRadius2 * viewRadius2;
             });
     }
 
     public Vector3 GetVelocity2()
     {
-        return _velocity;
+        return _velocity2;
     }
 
     #region Separation
@@ -116,7 +116,7 @@ public class Sheep : GridEntity
         foreach (GridEntity boid in Query().ToList())
         {
             Vector3 dist = boid.transform.position - transform.position;
-            if (dist.magnitude <= separationRadius)
+            if (dist.magnitude <= separationRadius2)
             {
                 desired += dist;
             }
@@ -136,9 +136,9 @@ public class Sheep : GridEntity
         {
             if (boid != this && boid.GetComponent<Sheep>())
             {
-                if (Vector3.Distance(transform.position, boid.transform.position) <= viewRadius)
+                if (Vector3.Distance(transform.position, boid.transform.position) <= viewRadius2)
                 {
-                    desired += boid.GetComponent<Sheep>()._velocity;
+                    desired += boid.GetComponent<Sheep>()._velocity2;
                     count++;
                 }
             }
@@ -158,7 +158,7 @@ public class Sheep : GridEntity
         {
             if (boid == this) continue;
 
-            if (Vector3.Distance(transform.position, boid.transform.position) <= viewRadius)
+            if (Vector3.Distance(transform.position, boid.transform.position) <= viewRadius2)
             {
                 desired += boid.transform.position;
                 count++;
@@ -177,7 +177,7 @@ public class Sheep : GridEntity
     Vector3 Arrive2()
     {
         if (TrazynTheInfinite.instance.allFoods == null) return Vector3.zero;
-        var closestFood = TrazynTheInfinite.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius)
+        var closestFood = TrazynTheInfinite.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius2)
             .OrderBy(x => Vector3.Distance(x.transform.position, transform.position)).Take(1).ToList();
 
         Debug.Log(closestFood);
@@ -186,14 +186,14 @@ public class Sheep : GridEntity
         {
             Vector3 desired = closestFood[0].gameObject.transform.position - transform.position;
             float dist = desired.magnitude;
-            if (dist <= arriveRadius)
+            if (dist <= arriveRadius2)
             {
                 desired.Normalize();
-                desired *= maxSpeed * (dist / arriveRadius);
+                desired *= maxSpeed2 * (dist / arriveRadius2);
             }
-            if ((closestFood[0].gameObject.transform.position - transform.position).magnitude <= eatRadius)
+            if ((closestFood[0].gameObject.transform.position - transform.position).magnitude <= eatRadius2)
             {
-                EatFood(closestFood[0]);
+                EatFood2(closestFood[0]);
             }
             return CalculateSteering2(desired);
         }
@@ -204,12 +204,12 @@ public class Sheep : GridEntity
 
     Vector3 Evade2()
     {
-        if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius)
+        if (Vector3.Distance(transform.position, hunter.transform.position) <= viewRadius2)
         {
-            Vector3 futurePos = hunter.transform.position + agent.GetVelocity();
+            Vector3 futurePos = hunter.transform.position + agent2.GetVelocity();
             Vector3 desired = futurePos + hunter.transform.position;
             desired.Normalize();
-            desired *= agent.maxSpeed;
+            desired *= agent2.maxSpeed;
             return CalculateSteering2(desired);
         }
         return Vector3.zero;
@@ -217,7 +217,7 @@ public class Sheep : GridEntity
 
     Vector3 CalculateSteering2(Vector3 desired)
     {
-        return Vector3.ClampMagnitude((desired.normalized * maxSpeed) - _velocity, maxForce);
+        return Vector3.ClampMagnitude((desired.normalized * maxSpeed2) - _velocity2, maxForce2);
     }
 
     void CheckBounds2()
@@ -227,7 +227,7 @@ public class Sheep : GridEntity
 
     void AddForce2(Vector3 force)
     {
-        _velocity = Vector3.ClampMagnitude(_velocity + force, maxSpeed);
+        _velocity2 = Vector3.ClampMagnitude(_velocity2 + force, maxSpeed2);
     }
 
     public void EatFood2(Food food)
@@ -238,13 +238,13 @@ public class Sheep : GridEntity
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawWireSphere(transform.position, viewRadius);
+        Gizmos.DrawWireSphere(transform.position, viewRadius2);
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, separationRadius);
+        Gizmos.DrawWireSphere(transform.position, separationRadius2);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, arriveRadius);
+        Gizmos.DrawWireSphere(transform.position, arriveRadius2);
         Gizmos.color = Color.grey;
-        Gizmos.DrawWireSphere(transform.position, eatRadius);
+        Gizmos.DrawWireSphere(transform.position, eatRadius2);
 
     }
 }

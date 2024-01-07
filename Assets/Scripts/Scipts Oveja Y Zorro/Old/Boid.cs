@@ -5,7 +5,7 @@ using System.Linq;
 using static Plant;
 using Unity.VisualScripting;
 
-public class Sheep : GridEntity
+public class Boid : GridEntity
 {
     List<Food> _closestFood;
     //public GameObject hunter;
@@ -124,7 +124,7 @@ public class Sheep : GridEntity
 
        _MyFSM = new EventFSM<BoidStates>(_Alignment);
     }
-    void Start()
+    private void Start()
     {
         GameManager.instance.AddBoid(this);
         _IsAlive = true;
@@ -162,7 +162,7 @@ public class Sheep : GridEntity
         transform.position = new Vector3(transform.position.x,0, transform.position.z);
     }
 
-    public void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
+    public override void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
     {
         MoveTest(0);
 
@@ -178,7 +178,7 @@ public class Sheep : GridEntity
     Vector3 Separation()
     {
         Vector3 desired = Vector3.zero;
-        foreach (Sheep boid in GameManager.instance.allBoids)
+        foreach (Boid boid in GameManager.instance.allBoids)
         {
             Vector3 dist = boid.transform.position - transform.position;
             if (dist.magnitude <= separationRadius)
@@ -330,7 +330,7 @@ public class Sheep : GridEntity
         }
     }//CAMBIO JULI
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmos2()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, viewRadius);

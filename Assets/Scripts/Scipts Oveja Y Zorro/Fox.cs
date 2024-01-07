@@ -80,7 +80,7 @@ public class Fox : GridEntity
             NowPatrol();
             foreach (GridEntity boid in Query().ToList())
             {
-                if (boid != this && boid.GetComponent<Sheep>())
+                if (boid != this && boid.GetComponent<Boid>())
                 {
                     Vector3 dist = boid.transform.position - transform.position;
                     if (dist.magnitude <= pursuitRadius)
@@ -167,7 +167,7 @@ public class Fox : GridEntity
     }
     Vector3 NowPursuit()
     {
-        var boid = Query().Where(x => x is Sheep).Select(x => x as Sheep);
+        var boid = Query().Where(x => x is Boid).Select(x => x as Boid);
 
         foreach (var item in boid)
         {

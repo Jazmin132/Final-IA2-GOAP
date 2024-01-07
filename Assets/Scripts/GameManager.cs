@@ -13,11 +13,11 @@ public class GameManager : MonoBehaviour
     [Header("BOID Related Values")]
     public float boundWidth;
     public float boundHeight;
-    public Sheep BoidPrefab;
+    public Boid BoidPrefab;
     public Food food;
     public GameObject[] FoodPoints;
     int IndeX = 0;
-    public List<Sheep> allBoids = new List<Sheep>();
+    public List<Boid> allBoids = new List<Boid>();
     public GameObject padreGrilla;
 
     [Header("FOOD Related Values")]
@@ -62,13 +62,13 @@ public class GameManager : MonoBehaviour
         return currentFirstNode;
     }
 
-    public void AddBoid(Sheep b)
+    public void AddBoid(Boid b)
     {
         if (!allBoids.Contains(b)) allBoids.Add(b);
         sheepAlive = true;
     }
 
-    public void RemoveBoid(Sheep b)
+    public void RemoveBoid(Boid b)
     {
         //if (allBoids != null) 
         //{allBoids.Remove(b);}
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         Vector3 respawnPosition = new Vector3(Random.Range(-boundWidth / 2, boundWidth / 2), 0, Random.Range(-boundHeight / 2, boundHeight / 2));
 
         GameObject newBoidObject = Instantiate(boidPrefab, respawnPosition, spawnRotation);
-        Sheep newBoid = newBoidObject.GetComponent<Sheep>();
+        Boid newBoid = newBoidObject.GetComponent<Boid>();
 
         allBoids.Add(newBoid);
     }

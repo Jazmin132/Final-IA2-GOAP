@@ -84,7 +84,7 @@ public class Plant : MonoBehaviour
             else
                 SentToFSM(PlantStates.Death);
 
-            List<Sheep> _Boids = GameManager.instance.allBoids;
+            List<Boid> _Boids = GameManager.instance.allBoids;
             for (int i = 0; i < _Boids.Count; i++)
             {
                 if (Vector3.Distance(transform.position, _Boids[i].transform.position) <= _viewRadius)
