@@ -132710,7 +132710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5499290305119165747, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
       propertyPath: m_Name
-      value: Oveja (1)
+      value: Oveja
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
@@ -132788,7 +132788,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6834363477936721396, guid: b7f9f4f5ed842244892b531af33afa6e, type: 3}
       propertyPath: m_Name
-      value: Manzana
+      value: Grass
       objectReference: {fileID: 0}
     - target: {fileID: 6834363477936721397, guid: b7f9f4f5ed842244892b531af33afa6e, type: 3}
       propertyPath: m_RootOrder
