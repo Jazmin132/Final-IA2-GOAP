@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static UnityEditor.Progress;
 
 public class Sheep : GridEntity
 {
     public List<Food> Foods;
     public GameObject hunter;
-    public Agent agent2;
+    public Fox agent2;
     public SpatialGrid targetGrid2; //
 
     private Vector3 _velocity2;
@@ -222,7 +223,7 @@ public class Sheep : GridEntity
 
     void CheckBounds2()
     {
-        transform.position = GameManager.instance.ChangeObjPosition(transform.position);
+        transform.position = TrazynTheInfinite.instance.ChangeObjPosition(transform.position);
     }
 
     void AddForce2(Vector3 force)

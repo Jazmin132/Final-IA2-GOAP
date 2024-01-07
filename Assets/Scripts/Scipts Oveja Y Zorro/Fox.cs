@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+using System.Security.Cryptography;
 
 public class Fox : GridEntity
 {
@@ -53,7 +55,7 @@ public class Fox : GridEntity
         };
         Idle.OnUpdate += () =>
         {
-            MoveTest(1);
+            MoveTest();
             energy += Time.deltaTime;
             if (energy >= maxEnergy)
                 SendInputToSFSM(AgentStates.PATROL);
@@ -73,14 +75,14 @@ public class Fox : GridEntity
         };
         Patrol.OnUpdate += () =>
         {
-            MoveTest(1);
+            MoveTest();
             energy -= Time.deltaTime;
             if (energy <= 0)
                 SendInputToSFSM(AgentStates.IDLE);
             NowPatrol();
             foreach (GridEntity boid in Query().ToList())
             {
-                if (boid != this && boid.GetComponent<Boid>())
+                if (boid != this && boid.GetComponent<Sheep>())
                 {
                     Vector3 dist = boid.transform.position - transform.position;
                     if (dist.magnitude <= pursuitRadius)
@@ -167,11 +169,11 @@ public class Fox : GridEntity
     }
     Vector3 NowPursuit()
     {
-        var boid = Query().Where(x => x is Boid).Select(x => x as Boid);
+        var boid = Query().Where(x => x is Sheep).Select(x => x as Sheep);
 
         foreach (var item in boid)
         {
-            Vector3 futurePos = item.transform.position + item.GetVelocity();
+            Vector3 futurePos = item.transform.position + item.GetVelocity2();
             Vector3 desired = futurePos - transform.position;
             desired.Normalize();
             desired *= maxSpeed;

@@ -209,7 +209,7 @@ public class Agent : GridEntity
     {
         GameManager.instance.allFoxes.Add(this);
     }
-    public void Update()
+    public override void Update()
     {
         _eventFSM.Update();
         //AddForce(ObstacleAvoidance() * 5);
@@ -250,7 +250,7 @@ public class Agent : GridEntity
         {
             Debug.Log("CheckingSheepWithAlive");
 
-            MoveTest(1);
+            MoveTest();
 
             Debug.Log(target); //CAMBIO JULI
             var Num = Query().OfType<Boid>()

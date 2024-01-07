@@ -164,7 +164,7 @@ public class Boid : GridEntity
 
     public override void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
     {
-        MoveTest(0);
+        MoveTest();
 
         if(Vector3.Distance(transform.position, agent.transform.position) <= hunterRadius)
         {

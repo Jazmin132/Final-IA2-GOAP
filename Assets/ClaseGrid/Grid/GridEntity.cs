@@ -7,7 +7,7 @@ public class GridEntity : MonoBehaviour
 	public event Action<GridEntity> OnMove = delegate {};
 	public Vector3 velocity = new Vector3(0, 0, 0);
     public bool onGrid;
-    Renderer _rend;
+    protected Renderer _rend;
 
     private void Awake()
     {
@@ -24,17 +24,8 @@ public class GridEntity : MonoBehaviour
 	    OnMove(this);
     }
 
-    public void MoveTest(int num)
+    public void MoveTest()
     {
-        if(num == 0)
-        {
-            Debug.Log("MoveTestWorking on Boid");
-        }
-        else
-        {
-            Debug.Log("MoveTestWorking on Agent");
-        }
-
         OnMove(this);
     }
 }
