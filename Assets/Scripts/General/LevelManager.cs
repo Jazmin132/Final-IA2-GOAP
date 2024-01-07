@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
 
     public List<TreeScript> trees = new List<TreeScript>();
+
     /*
     [SerializeField]
     float _limitMapRL = 25f;
@@ -15,6 +16,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     float _limitMapUD = 25f;
     */
+
     private void Awake()
     {
         instance = this;
@@ -33,7 +35,8 @@ public class LevelManager : MonoBehaviour
         if (trees.Contains(t))
             trees.Remove(t);
     }
-/*
+
+    /*
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -50,5 +53,5 @@ public class LevelManager : MonoBehaviour
         Gizmos.DrawLine(bottomRight, bottomLeft);
         Gizmos.DrawLine(bottomLeft, topLeft);
     }
-*/
+    */
 }
