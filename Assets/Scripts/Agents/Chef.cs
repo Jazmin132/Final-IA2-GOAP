@@ -44,6 +44,8 @@ public class Chef : MonoBehaviour
 
     [SerializeField] GameObject _particleDeathObject;
 
+    [SerializeField] NewFood[] _foodCollected;
+
     #region ChefStates
     public enum ChefStates
     {
