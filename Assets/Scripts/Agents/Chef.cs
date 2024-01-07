@@ -44,6 +44,7 @@ public class Chef : MonoBehaviour
 
     [SerializeField] GameObject _particleDeathObject;
 
+    #region ChefStates
     public enum ChefStates
     {
         LookingForFood,
@@ -167,6 +168,7 @@ public class Chef : MonoBehaviour
 
         _MyFSM = new EventFSM<ChefStates>(_LookingForFood);
     }
+    #endregion
 
     void FixedUpdate()
     {
