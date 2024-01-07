@@ -5,7 +5,7 @@ using System.Linq;
 using static Plant;
 using Unity.VisualScripting;
 
-public class Boid : GridEntity
+public class Sheep : GridEntity
 {
     List<Food> _closestFood;
     //public GameObject hunter;
@@ -178,7 +178,7 @@ public class Boid : GridEntity
     Vector3 Separation()
     {
         Vector3 desired = Vector3.zero;
-        foreach (Boid boid in GameManager.instance.allBoids)
+        foreach (Sheep boid in GameManager.instance.allBoids)
         {
             Vector3 dist = boid.transform.position - transform.position;
             if (dist.magnitude <= separationRadius)

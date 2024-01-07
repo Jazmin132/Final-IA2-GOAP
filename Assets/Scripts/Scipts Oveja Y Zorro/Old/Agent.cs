@@ -165,7 +165,7 @@ public class Agent : GridEntity
             particleEnojo.Play();
 
             var Num = Query()
-            .OfType<Boid>()
+            .OfType<Sheep>()
             .Select(x => x.transform)//Agregué el where
             .Where(x => (x.transform.position - transform.position).magnitude <= pursuitRadius)
             .OrderBy(x => x.position - transform.position).First();
@@ -253,7 +253,7 @@ public class Agent : GridEntity
             MoveTest(1);
 
             Debug.Log(target); //CAMBIO JULI
-            var Num = Query().OfType<Boid>()
+            var Num = Query().OfType<Sheep>()
             .Select(x => x.transform)
             .OrderBy(x => x.position - transform.position)
             .ToList();
@@ -308,7 +308,7 @@ public class Agent : GridEntity
 
     Vector3 NowPursuit()//IA2-LINQ
     {
-        var boid = Query().OfType<Boid>();
+        var boid = Query().OfType<Sheep>();
         if (boid != null) return new Vector3();
 
         Vector3 Steering = boid.Aggregate(new Vector3(), (x, y) =>
@@ -355,7 +355,7 @@ public class Agent : GridEntity
 
     private void OnCollisionEnter(Collision collision)
     {
-        var X = collision.collider.GetComponent<Boid>();
+        var X = collision.collider.GetComponent<Sheep>();
         if (X != null) X._IsAlive = false;
     }
 
