@@ -39727,7 +39727,7 @@ MonoBehaviour:
   _AllFood:
   - {fileID: 6834363477936721396, guid: b7f9f4f5ed842244892b531af33afa6e, type: 3}
   - {fileID: 4687764596052549810, guid: dea3d2b4c5088584ebda612619284254, type: 3}
-  - {fileID: 4686704610256757150, guid: 60bdf17c53baf8b46a7347cf4e24f50d, type: 3}
+  - {fileID: 6834363477936721396, guid: 0f8c4e26e99a56c4588dde46a19c6cb8, type: 3}
 --- !u!1 &625424356
 GameObject:
   m_ObjectHideFlags: 0
@@ -130848,6 +130848,7 @@ MonoBehaviour:
   Death: {fileID: 1338688594}
   particleHarvest: {fileID: 1935917947}
   _particleDeathObject: {fileID: 4374937912784042927, guid: 6dfb71ae6d9c32740ae4d53f28db7159, type: 3}
+  _foodCollected: []
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0
