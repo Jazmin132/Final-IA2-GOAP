@@ -37,7 +37,9 @@ public class Woodcutter : MonoBehaviour
         CUT,
         LoadWood
     }
+
     public EventFSM<CutterStates> _MyFSM;
+
     void Awake()
     {
     #region States & Transitions

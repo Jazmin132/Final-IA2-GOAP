@@ -14,10 +14,12 @@ public class FlowerManager : MonoBehaviour
         if (instance == null)
             instance = this;
     }
+
     public void AddBee(Bee b)
     {
         if (!_BeeTotal.Contains(b)) _BeeTotal.Add(b);
     }
+
     public void RemoveBee(Bee b)
     {
         if (_BeeTotal != null) _BeeTotal.Remove(b);
@@ -27,6 +29,7 @@ public class FlowerManager : MonoBehaviour
     {
         if (!_PlantTotal.Contains(p)) _PlantTotal.Add(p);
     }
+
     public void RemoveFlower(Plant p)
     {
         if (_PlantTotal != null) _PlantTotal.Remove(p);

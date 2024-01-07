@@ -241,6 +241,7 @@ public class Agent : GridEntity
                 _currentWaypoint = 0;
         }
     }
+
     void CheckForOveja()//IA2-LINQ
     {
         Debug.Log("CheckingSheep");
@@ -286,10 +287,12 @@ public class Agent : GridEntity
             //return;
         }
     }
+
     public void AlertFoxes(Agent fox)
     {
         GameManager.instance.CallFoxes(fox);
     }
+
     void PathToFollow(float Speed)
     {
         Vector3 nextP = _pathToFollow[0].transform.position;
@@ -302,6 +305,7 @@ public class Agent : GridEntity
         else
             _pathToFollow.RemoveAt(0);
     }
+
     Vector3 NowPursuit()//IA2-LINQ
     {
         var boid = Query().OfType<Boid>();
@@ -320,6 +324,7 @@ public class Agent : GridEntity
 
         return Vector3.zero;
     }
+
     void AddForce(Vector3 force)
     {
         _velocity += force;
@@ -327,6 +332,7 @@ public class Agent : GridEntity
         if (_velocity.magnitude >= maxSpeed)
             _velocity = _velocity.normalized * maxSpeed;
     }
+
     public Vector3 GetVelocity()
     {
         return _velocity;
@@ -336,6 +342,7 @@ public class Agent : GridEntity
     {
         return Vector3.ClampMagnitude((desired.normalized * speed) - _velocity, maxForce);
     }
+
     public void SendInputToSFSM(AgentStates agent)
     {
         _eventFSM.SendInput(agent);

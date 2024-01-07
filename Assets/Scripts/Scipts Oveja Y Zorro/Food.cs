@@ -9,6 +9,7 @@ public class Food : GridEntity
     {
         GameManager.instance.ChangeFoodPos(this);
     }
+
     public void OnDeath()
     {
         GameManager.instance.ChangeFoodPos(this);
