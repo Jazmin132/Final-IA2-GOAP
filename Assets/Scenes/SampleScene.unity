@@ -22441,7 +22441,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1739711744}
+  - {fileID: 403770171}
   - {fileID: 1592526698}
   m_Father: {fileID: 268092241}
   m_RootOrder: 2
@@ -23287,6 +23287,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387122231}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &403770170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 403770171}
+  m_Layer: 0
+  m_Name: Constructors
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &403770171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403770170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1739711744}
+  m_Father: {fileID: 331551333}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &407081345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39651,7 +39683,7 @@ GameObject:
   - component: {fileID: 621824417}
   - component: {fileID: 621824418}
   m_Layer: 0
-  m_Name: FoodSpawner
+  m_Name: FoodSpawner(OLD_TreeSpawner)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50016,7 +50048,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: -3.721}
+  m_LocalPosition: {x: 0, y: 3, z: -3.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -108055,7 +108087,7 @@ Transform:
   - {fileID: 1825769365}
   - {fileID: 1308570478}
   - {fileID: 1344100162}
-  m_Father: {fileID: 331551333}
+  m_Father: {fileID: 403770171}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1739711746
@@ -132431,7 +132463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1129340073728493527, guid: a157336586af15448a5ccdf477f74af5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.46
+      value: 0.225
       objectReference: {fileID: 0}
     - target: {fileID: 1129340073728493527, guid: a157336586af15448a5ccdf477f74af5, type: 3}
       propertyPath: m_LocalPosition.z
