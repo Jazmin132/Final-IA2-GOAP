@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
         if (!allBoids.Contains(b)) allBoids.Add(b);
         sheepAlive = true;
     }
+
     public void RemoveBoid(Boid b)
     {
         //if (allBoids != null) 
@@ -75,14 +76,17 @@ public class GameManager : MonoBehaviour
         allBoids.Remove(b);//CAMBIO JULI
         StartCoroutine(RespawnBoid(respawnTime));//CAMBIO JULI
     }
+
     public void AddFood(NewFood b)
     {
         if (!allFood.Contains(b)) allFood.Add(b);
     }
+
     public void RemoveFood(NewFood b)
     {
         allFood.Remove(b);
     }
+
     private IEnumerator RespawnBoid(float delay)// Se usa para aparecer en aleatorio adentro de la zona de contencion CAMBIO JULI
     {
         yield return new WaitForSeconds(delay);
@@ -98,7 +102,7 @@ public class GameManager : MonoBehaviour
     public void InstaBoid()
     {
         Instantiate(BoidPrefab.gameObject, FoodPoints[0].transform);
-        Debug.Log("Instanciar Obeja");
+        Debug.Log("Instanciar Oveja");
     }
 
     public void ChangeFoodPos(Food food)
@@ -107,6 +111,7 @@ public class GameManager : MonoBehaviour
         IndeX++;
         if (IndeX >= FoodPoints.Length) IndeX = 0;
     }
+
     public void CallFoxes(Agent fox)//IA2 LINQ
     {
         //var Foxes = allFoxes.Where(x => x != fox).ToList(); // Original
