@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4686704610256757151}
   - component: {fileID: 7142559170740432626}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Aceite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 4686704611746291193}
   - component: {fileID: 4686704611746291192}
   - component: {fileID: 4686704611746291199}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
