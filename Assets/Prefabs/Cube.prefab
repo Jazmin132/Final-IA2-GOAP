@@ -104,7 +104,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   speed: 5
-  maxSpeed: 10
+  maxSpeed: 7
   maxForce: 0.0486
   energy: 0
   maxEnergy: 100

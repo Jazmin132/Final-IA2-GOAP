@@ -102,8 +102,8 @@ MonoBehaviour:
   hunter: {fileID: 3281520262244374348, guid: 82bc37dc9672e5547babf051a0c15bf7, type: 3}
   agent2: {fileID: 3281520262244374350, guid: 82bc37dc9672e5547babf051a0c15bf7, type: 3}
   targetGrid2: {fileID: 0}
-  maxSpeed2: 0
-  maxForce2: 0.144
+  maxSpeed2: 15
+  maxForce2: 0.177
   viewRadius2: 5
   separationRadius2: 3
   arriveRadius2: 2
