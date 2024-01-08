@@ -5,7 +5,7 @@ using UnityEngine;
 public class Canteen : MonoBehaviour
 {
     public float foodQuantity;
-    public GameObject food;
+    public GameObject foodView;
 
     public List<Apple> appleListQuantity = new List<Apple>();
     public List<Coconut> coconutListQuantity = new List<Coconut>();
@@ -24,7 +24,7 @@ public class Canteen : MonoBehaviour
     {
         if (foodQuantity > 0)
         {
-            food.SetActive(true);
+            foodView.SetActive(true);
         }
         foodQuantity += quantity;
     }
@@ -33,7 +33,7 @@ public class Canteen : MonoBehaviour
     {
         if (foodQuantity >= 0)
         {
-            food.SetActive(false);
+            foodView.SetActive(false);
         }
         foodQuantity -= quantity;
     }
