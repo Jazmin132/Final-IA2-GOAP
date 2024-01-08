@@ -14,7 +14,7 @@ TagManager:
   - PermanentObject
   - TreeLayer
   - StoreLayer
-  - VegetablePatchLayer
+  - FoodPatchLayer
   - FoodLayer
   - SleepLayer
   - BuildingLayer

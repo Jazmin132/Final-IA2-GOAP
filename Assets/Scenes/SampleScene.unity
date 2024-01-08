@@ -262,8 +262,9 @@ GameObject:
   m_Component:
   - component: {fileID: 10881733}
   - component: {fileID: 10881735}
+  - component: {fileID: 10881736}
   m_Layer: 9
-  m_Name: VegetablePatch
+  m_Name: FoodPatch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -303,6 +304,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 2, z: 5}
   m_Center: {x: 0, y: 1.225, z: 0}
+--- !u!114 &10881736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10881732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a63173d5f52a4d8a514a129ab2de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &19766644
 GameObject:
   m_ObjectHideFlags: 0
@@ -39728,6 +39741,7 @@ MonoBehaviour:
   - {fileID: 6834363477936721396, guid: b7f9f4f5ed842244892b531af33afa6e, type: 3}
   - {fileID: 4687764596052549810, guid: dea3d2b4c5088584ebda612619284254, type: 3}
   - {fileID: 6834363477936721396, guid: 0f8c4e26e99a56c4588dde46a19c6cb8, type: 3}
+  - {fileID: 6834363477936721396, guid: 20bfe91b06bef704fa9fd4018bf3147b, type: 3}
 --- !u!1 &625424356
 GameObject:
   m_ObjectHideFlags: 0
