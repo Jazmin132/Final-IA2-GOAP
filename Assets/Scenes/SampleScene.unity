@@ -90612,6 +90612,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodQuantity: 500
   food: {fileID: 1234879101}
+  appleQuantity: []
+  coconutQuantity: []
+  beanQuantity: []
+  maxQuantityOfFood: 5
+  maxTypesOfFood: 2
+  randomNumFood: 0
 --- !u!1 &1394101394
 GameObject:
   m_ObjectHideFlags: 0
