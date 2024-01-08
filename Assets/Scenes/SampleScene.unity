@@ -277,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10881732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -44.03, y: -0.23, z: -35.08}
+  m_LocalPosition: {x: -44.03, y: -0.2, z: -35.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -90441,7 +90441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390915736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35, y: -0.15, z: -35}
+  m_LocalPosition: {x: -35, y: 0, z: -35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -90485,12 +90485,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodQuantity: 500
   food: {fileID: 1234879101}
-  appleQuantity: []
-  coconutQuantity: []
-  beanQuantity: []
+  appleListQuantity: []
+  coconutListQuantity: []
+  beanListQuantity: []
   maxQuantityOfFood: 5
-  maxTypesOfFood: 2
-  randomNumFood: 0
+  maxTypesOfFood: 3
 --- !u!1 &1394101394
 GameObject:
   m_ObjectHideFlags: 0
