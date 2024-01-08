@@ -68,6 +68,7 @@ public class Sheep : GridEntity
 
         if (Vector3.Distance(transform.position, hunter.transform.position) <= hunterRadius2)
         {
+            Debug.Log("DEBERIA MORIR");
             TrazynTheInfinite.instance.SheepDestroyed(this);
             Destroy(gameObject);
             return;
