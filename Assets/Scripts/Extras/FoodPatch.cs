@@ -31,7 +31,7 @@ public class FoodPatch : MonoBehaviour
     //    TransferFood(foodNum, food);
     //}
 
-    public void TransferFood(List<Apple> chefAppleList, List<Coconut> chefCoconutList, List<Bean> chefBeanList)
+    public void TransferFoodToFoodPath(List<Apple> chefAppleList, List<Coconut> chefCoconutList, List<Bean> chefBeanList)
     {
         if(chefAppleList.Count > 0)
         {
@@ -48,4 +48,9 @@ public class FoodPatch : MonoBehaviour
             beanListQuantityFP.Concat(chefBeanList);
         }
     }
+
+    //public void TransferFoodToChef()
+    //{
+    //
+    //}
 }
