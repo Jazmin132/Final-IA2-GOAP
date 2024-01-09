@@ -119,6 +119,9 @@ public class Chef : MonoBehaviour
             
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
 
+            if (!_restartFoodTime)
+                _restartFoodTime = true;
+
             //if (_gameManager.allFood.Count > 0)
             //{
             //    if (_finalDest == Vector3.zero)
@@ -140,10 +143,7 @@ public class Chef : MonoBehaviour
             //    }
             //}
             //
-            //if (!_restartFoodTime)
-            //    _restartFoodTime = true;
-            //
-            //_myTransform.LookAt(_finalDest);
+            //_myTransform.LookAt(new Vector3(_finalDest.x, 0, _finalDest.z));
             //
             //_myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
