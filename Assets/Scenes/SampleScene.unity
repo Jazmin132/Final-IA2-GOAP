@@ -131081,6 +131081,7 @@ MonoBehaviour:
   _appleQuantity: []
   _coconutQuantity: []
   _beanQuantity: []
+  _gameManager: {fileID: 233913637}
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0

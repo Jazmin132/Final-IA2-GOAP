@@ -50,6 +50,10 @@ public class Chef : MonoBehaviour
     [SerializeField] List<Coconut> _coconutQuantity = new List<Coconut>();
     [SerializeField] List<Bean> _beanQuantity = new List<Bean>();
 
+    [SerializeField] GameManager _gameManager;
+
+    [SerializeField] Vector3 _finalDest;
+
     #region ChefStates
     public enum ChefStates
     {
@@ -104,18 +108,51 @@ public class Chef : MonoBehaviour
 
         _LookingForFood.OnEnter += x => 
         { 
-            _stateLoadFood = true; 
+            _stateLoadFood = true;
         }; 
         _LookingForFood.OnFixedUpdate += () => 
         {
             if (!_restartFoodTime)
                 _restartFoodTime = true;
-
+            
             _myTransform.LookAt(new Vector3(_vegetablePatchToGoTo.transform.position.x, 0, _vegetablePatchToGoTo.transform.position.z));
-
+            
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+
+            //if (_gameManager.allFood.Count > 0)
+            //{
+            //    if (_finalDest == Vector3.zero)
+            //    {
+            //        _finalDest = _gameManager.allFood[0].transform.position - transform.position;
+            //    }
+            //
+            //    if (_gameManager.allFood.Count > 1)
+            //    {
+            //        for (int i = 0; i < _gameManager.allFood.Count; i++)
+            //        {
+            //            Vector3 dist = _gameManager.allFood[i].transform.position - transform.position;
+            //
+            //            if (dist.sqrMagnitude < _finalDest.sqrMagnitude)
+            //            {
+            //                _finalDest = dist;
+            //            }
+            //        }
+            //    }
+            //}
+            //
+            //if (!_restartFoodTime)
+            //    _restartFoodTime = true;
+            //
+            //_myTransform.LookAt(_finalDest);
+            //
+            //_myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
-        _LookingForFood.OnExit += x => { _stateLoadFood = false; };
+        _LookingForFood.OnExit += x => 
+        {
+            _finalDest = Vector3.zero;
+
+            _stateLoadFood = false; 
+        };
 
         _Collect.OnEnter += x => 
         {
