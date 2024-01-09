@@ -11356,7 +11356,7 @@ GameObject:
   - component: {fileID: 193730005}
   - component: {fileID: 193730007}
   - component: {fileID: 193730006}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17383,7 +17383,7 @@ GameObject:
   - component: {fileID: 306476916}
   - component: {fileID: 306476918}
   - component: {fileID: 306476917}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23152,7 +23152,7 @@ GameObject:
   - component: {fileID: 384781536}
   - component: {fileID: 384781538}
   - component: {fileID: 384781537}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Arm (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23235,7 +23235,7 @@ GameObject:
   - component: {fileID: 387122232}
   - component: {fileID: 387122234}
   - component: {fileID: 387122233}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Detail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23519,7 +23519,7 @@ GameObject:
   - component: {fileID: 429421827}
   - component: {fileID: 429421829}
   - component: {fileID: 429421828}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Spatula_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33937,7 +33937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 504738007}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Arms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34712,7 +34712,7 @@ GameObject:
   - component: {fileID: 563905905}
   - component: {fileID: 563905907}
   - component: {fileID: 563905906}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Cooking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39804,14 +39804,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 438e6496e204c754a8c429e8b61945d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _treeSpawnerLimitMapRL: 15
-  _treeSpawnerLimitMapUD: 15
+  _treeSpawnerLimitMapRL: 20
+  _treeSpawnerLimitMapUD: 20
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnRotation: {x: 0, y: 0, z: 0, w: 0}
   _canCountTimeSpawn: 1
   _restartSpawnTime: 0
   _timeSpawn: 0
-  _timerSpawn: 5
+  _timerSpawn: 10
   _AllFood:
   - {fileID: 6834363477936721396, guid: b7f9f4f5ed842244892b531af33afa6e, type: 3}
   - {fileID: 4687764596052549810, guid: dea3d2b4c5088584ebda612619284254, type: 3}
@@ -56693,7 +56693,7 @@ GameObject:
   - component: {fileID: 871096416}
   - component: {fileID: 871096418}
   - component: {fileID: 871096417}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Leg (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62244,7 +62244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 945531814}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62277,7 +62277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 950829336}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Details
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62396,7 +62396,7 @@ GameObject:
   - component: {fileID: 989691599}
   - component: {fileID: 989691601}
   - component: {fileID: 989691600}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Spatula_Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63454,7 +63454,7 @@ GameObject:
   - component: {fileID: 1098999090}
   - component: {fileID: 1098999092}
   - component: {fileID: 1098999091}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75035,7 +75035,7 @@ GameObject:
   - component: {fileID: 1321001867}
   - component: {fileID: 1321001869}
   - component: {fileID: 1321001868}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75480,7 +75480,7 @@ GameObject:
   - component: {fileID: 1338688592}
   - component: {fileID: 1338688594}
   - component: {fileID: 1338688593}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Muerte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93750,7 +93750,7 @@ GameObject:
   - component: {fileID: 1667879903}
   - component: {fileID: 1667879905}
   - component: {fileID: 1667879904}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Hunger Chef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108379,7 +108379,7 @@ MonoBehaviour:
   _hungerMaxCapacity: 100
   _hungerMinCapacity: 70
   _hungerToLose: 10
-  _hungerToGain: 3
+  _hungerToGain: 2
   _canCountTimeHunger: 1
   _restartHungerTime: 0
   _timeHunger: 0
@@ -108490,7 +108490,7 @@ GameObject:
   - component: {fileID: 1761719110}
   - component: {fileID: 1761719112}
   - component: {fileID: 1761719111}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120453,7 +120453,7 @@ GameObject:
   - component: {fileID: 1935917945}
   - component: {fileID: 1935917947}
   - component: {fileID: 1935917946}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Harvest Chef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130968,7 +130968,7 @@ GameObject:
   - component: {fileID: 2039341662}
   - component: {fileID: 2039341661}
   - component: {fileID: 2039341663}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Chef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131049,8 +131049,8 @@ MonoBehaviour:
   _foodMaxCapacity: 100
   _foodToGain: 10
   _canteenToLoad: {fileID: 1390915739}
-  _speed: 3
-  _speedOriginal: 3
+  _speed: 5
+  _speedOriginal: 5
   _vegetablePatchToGoTo: {fileID: 10881733}
   _canCountTimeFood: 1
   _restartFoodTime: 0
@@ -131060,7 +131060,7 @@ MonoBehaviour:
   _hungerMaxCapacity: 100
   _hungerMinCapacity: 70
   _hungerToLose: 10
-  _hungerToGain: 3
+  _hungerToGain: 2
   _canCountTimeHunger: 1
   _restartHungerTime: 0
   _timeHunger: 0
@@ -131456,7 +131456,7 @@ GameObject:
   - component: {fileID: 2053812038}
   - component: {fileID: 2053812040}
   - component: {fileID: 2053812039}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131537,7 +131537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2064298524}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Spatula
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131572,7 +131572,7 @@ GameObject:
   - component: {fileID: 2071344691}
   - component: {fileID: 2071344693}
   - component: {fileID: 2071344692}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: View_Detail (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
