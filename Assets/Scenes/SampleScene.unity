@@ -131082,6 +131082,8 @@ MonoBehaviour:
   _coconutQuantity: []
   _beanQuantity: []
   _gameManager: {fileID: 233913637}
+  _finalDest: {x: 0, y: 0, z: 0}
+  _maxQuantityFoodCarried: 5
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,6 +54,8 @@ public class Chef : MonoBehaviour
 
     [SerializeField] Vector3 _finalDest;
 
+    [SerializeField] int _maxQuantityFoodCarried;
+
     #region ChefStates
     public enum ChefStates
     {
@@ -122,30 +124,30 @@ public class Chef : MonoBehaviour
             if (!_restartFoodTime)
                 _restartFoodTime = true;
 
-            //if (_gameManager.allFood.Count > 0)
-            //{
-            //    if (_finalDest == Vector3.zero)
-            //    {
-            //        _finalDest = _gameManager.allFood[0].transform.position - transform.position;
-            //    }
-            //
-            //    if (_gameManager.allFood.Count > 1)
-            //    {
-            //        for (int i = 0; i < _gameManager.allFood.Count; i++)
-            //        {
-            //            Vector3 dist = _gameManager.allFood[i].transform.position - transform.position;
-            //
-            //            if (dist.sqrMagnitude < _finalDest.sqrMagnitude)
-            //            {
-            //                _finalDest = dist;
-            //            }
-            //        }
-            //    }
-            //}
-            //
-            //_myTransform.LookAt(new Vector3(_finalDest.x, 0, _finalDest.z));
-            //
-            //_myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+            if (_gameManager.allFood.Count > 0)
+            {
+                if (_finalDest == Vector3.zero)
+                {
+                    _finalDest = _gameManager.allFood[0].transform.position;
+                }
+            
+                if (_gameManager.allFood.Count > 1)
+                {
+                    for (int i = 0; i < _gameManager.allFood.Count; i++)
+                    {
+                        Vector3 dist = _gameManager.allFood[i].transform.position;
+                
+                        if ((dist - _myTransform.position).sqrMagnitude < (_finalDest - _myTransform.position).sqrMagnitude)
+                        {
+                            _finalDest = dist;
+                        }
+                    }
+                }
+            }
+            
+            _myTransform.LookAt(new Vector3(_finalDest.x, 0, _finalDest.z));
+            
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
         _LookingForFood.OnExit += x => 
         {
