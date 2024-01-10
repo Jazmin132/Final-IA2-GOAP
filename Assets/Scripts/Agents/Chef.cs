@@ -536,7 +536,20 @@ public class Chef : MonoBehaviour
     {
         if (collision.gameObject.layer == 9)
         {
-            SentToFSM(ChefStates.Collect);
+            var foodpath = collision.gameObject.GetComponent<FoodPatch>();
+
+            if(foodpath != null)
+            {
+                foodpath.TransferFoodToFoodPath(appleQuantity, coconutQuantity, beanQuantity);
+
+                appleQuantity.Clear();
+                coconutQuantity.Clear();
+                beanQuantity.Clear();
+
+                SentToFSM(ChefStates.Collect);
+            }
+
+            //SentToFSM(ChefStates.Collect);
         }
         else if (collision.gameObject.layer == 10)
         {
