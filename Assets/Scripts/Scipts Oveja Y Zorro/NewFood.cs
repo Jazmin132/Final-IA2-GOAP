@@ -30,20 +30,20 @@ public class NewFood : MonoBehaviour
 
             if (gameObject.GetComponent<Apple>())
             {
-
+                chef.appleQuantity.Add(gameObject.GetComponent<Apple>());
             }
             else if (gameObject.GetComponent<Coconut>())
             {
-
+                chef.coconutQuantity.Add(gameObject.GetComponent<Coconut>());
             }
             else if (gameObject.GetComponent<Bean>())
             {
-
+                chef.beanQuantity.Add(gameObject.GetComponent<Bean>());
             }
     
             OnDeath();
     
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
