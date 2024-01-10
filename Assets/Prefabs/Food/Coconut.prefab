@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4687764596052549811}
   - component: {fileID: -7409208380839042202}
+  - component: {fileID: 3264547147559806951}
   m_Layer: 13
   m_Name: Coconut
   m_TagString: Untagged
@@ -46,6 +47,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodValue: 35
+--- !u!135 &3264547147559806951
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687764596052549810}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 1.225, z: 0}
 --- !u!1 &4687764596445583608
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +71,6 @@ GameObject:
   - component: {fileID: 4687764596445583604}
   - component: {fileID: 4687764596445583607}
   - component: {fileID: 4687764596445583606}
-  - component: {fileID: 4687764596445583609}
   m_Layer: 13
   m_Name: View_Main
   m_TagString: Untagged
@@ -130,16 +143,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4687764596445583609
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687764596445583608}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

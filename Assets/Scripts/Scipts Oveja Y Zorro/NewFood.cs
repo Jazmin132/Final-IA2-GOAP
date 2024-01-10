@@ -16,15 +16,15 @@ public class NewFood : MonoBehaviour
         GameManager.instance.RemoveFood(this);
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if(collision.gameObject.layer == 14)
-    //    {
-    //        Debug.Log("Chef has collided");
-    //
-    //        OnDeath();
-    //
-    //        Destroy(gameObject);
-    //    }
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer == 14)
+        {
+            Debug.Log("Chef has collided");
+    
+            OnDeath();
+    
+            Destroy(gameObject);
+        }
+    }
 }

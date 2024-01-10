@@ -114,12 +114,12 @@ public class Chef : MonoBehaviour
         }; 
         _LookingForFood.OnFixedUpdate += () => 
         {
-            if (!_restartFoodTime)
-                _restartFoodTime = true;
-            
-            _myTransform.LookAt(new Vector3(_vegetablePatchToGoTo.transform.position.x, 0, _vegetablePatchToGoTo.transform.position.z));
-            
-            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+            //if (!_restartFoodTime)
+            //    _restartFoodTime = true;
+            //
+            //_myTransform.LookAt(new Vector3(_vegetablePatchToGoTo.transform.position.x, 0, _vegetablePatchToGoTo.transform.position.z));
+            //
+            //_myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
 
             if (!_restartFoodTime)
                 _restartFoodTime = true;
