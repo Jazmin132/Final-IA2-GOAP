@@ -131532,12 +131532,12 @@ MonoBehaviour:
   Death: {fileID: 1338688594}
   particleHarvest: {fileID: 1935917947}
   _particleDeathObject: {fileID: 4374937912784042927, guid: 6dfb71ae6d9c32740ae4d53f28db7159, type: 3}
-  _appleQuantity: []
-  _coconutQuantity: []
-  _beanQuantity: []
+  appleQuantity: []
+  coconutQuantity: []
+  beanQuantity: []
   _gameManager: {fileID: 233913637}
   finalDest: {x: 0, y: 0, z: 0}
-  _maxQuantityFoodCarried: 5
+  maxQuantityFoodCarried: 5
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0

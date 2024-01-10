@@ -6,8 +6,6 @@ public class NewFood : MonoBehaviour
 {
     public int foodValue;
 
-    public int foodNum;
-
     void Start()
     {
         GameManager.instance.AddFood(this);
@@ -24,26 +22,31 @@ public class NewFood : MonoBehaviour
 
         if (chef != null && collision.gameObject.layer == 14)
         {
-            Debug.Log("Chef has collided");
+            //Debug.Log("Chef has collided");
 
-            chef.finalDest = Vector3.zero;
-
-            if (gameObject.GetComponent<Apple>())
+            if (chef.appleQuantity.Count + chef.coconutQuantity.Count + chef.beanQuantity.Count < chef.maxQuantityFoodCarried)
             {
+                chef.finalDest = Vector3.zero;
 
-            }
-            else if (gameObject.GetComponent<Coconut>())
-            {
+                if (gameObject.GetComponent<Apple>())
+                {
+                    chef.appleQuantity.Add(gameObject.GetComponent<Apple>());
+                }
+                else if (gameObject.GetComponent<Coconut>())
+                {
+                    chef.coconutQuantity.Add(gameObject.GetComponent<Coconut>());
+                }
+                else if (gameObject.GetComponent<Bean>())
+                {
+                    chef.beanQuantity.Add(gameObject.GetComponent<Bean>());
+                }
 
-            }
-            else if (gameObject.GetComponent<Bean>())
-            {
+                OnDeath();
 
+                //Destroy(gameObject);
+
+                gameObject.SetActive(false);
             }
-    
-            OnDeath();
-    
-            Destroy(gameObject);
         }
     }
 }

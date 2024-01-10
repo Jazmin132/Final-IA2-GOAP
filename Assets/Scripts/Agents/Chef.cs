@@ -46,15 +46,15 @@ public class Chef : MonoBehaviour
 
     //[SerializeField] NewFood[] _foodCollected;
 
-    [SerializeField] List<Apple> _appleQuantity = new List<Apple>();
-    [SerializeField] List<Coconut> _coconutQuantity = new List<Coconut>();
-    [SerializeField] List<Bean> _beanQuantity = new List<Bean>();
+    public List<Apple> appleQuantity = new List<Apple>();
+    public List<Coconut> coconutQuantity = new List<Coconut>();
+    public List<Bean> beanQuantity = new List<Bean>();
 
     [SerializeField] GameManager _gameManager;
 
     public Vector3 finalDest;
 
-    [SerializeField] int _maxQuantityFoodCarried;
+    public int maxQuantityFoodCarried;
 
     #region ChefStates
     public enum ChefStates
@@ -244,6 +244,11 @@ public class Chef : MonoBehaviour
 
         if (_isEating)
             CountTimerEatFood();
+
+        if(appleQuantity.Count + coconutQuantity.Count + beanQuantity.Count >= maxQuantityFoodCarried)
+        {
+            //SentToFSM(ChefStates.LoadFood);
+        }
 
     #region Before
         /*
@@ -531,7 +536,20 @@ public class Chef : MonoBehaviour
     {
         if (collision.gameObject.layer == 9)
         {
-            SentToFSM(ChefStates.Collect);
+            var foodpath = collision.gameObject.GetComponent<FoodPatch>();
+
+            if(foodpath != null)
+            {
+                foodpath.TransferFoodToFoodPath(appleQuantity, coconutQuantity, beanQuantity);
+
+                appleQuantity.Clear();
+                coconutQuantity.Clear();
+                beanQuantity.Clear();
+
+                SentToFSM(ChefStates.Collect);
+            }
+
+            //SentToFSM(ChefStates.Collect);
         }
         else if (collision.gameObject.layer == 10)
         {
