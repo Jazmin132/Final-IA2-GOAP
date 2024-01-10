@@ -27,6 +27,19 @@ public class NewFood : MonoBehaviour
             Debug.Log("Chef has collided");
 
             chef.finalDest = Vector3.zero;
+
+            if (gameObject.GetComponent<Apple>())
+            {
+
+            }
+            else if (gameObject.GetComponent<Coconut>())
+            {
+
+            }
+            else if (gameObject.GetComponent<Bean>())
+            {
+
+            }
     
             OnDeath();
     
