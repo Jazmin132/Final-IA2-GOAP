@@ -10,11 +10,14 @@ public class UIManager : MonoBehaviour
     int _SheepCount;
     int _BeeCount;
 
-    private void Start()
+    private void Awake()
     {
         GameManager.instance.UI = this;
         FlowerManager.instance.UI = this;
+    }
 
+    private void Start()
+    {
         _SheepCount = GameManager.instance.allBoids.Count();
         _BeeCount = FlowerManager.instance.BeeTotal.Count();
 
