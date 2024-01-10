@@ -108376,7 +108376,7 @@ MonoBehaviour:
   _storeToGrabWood: {fileID: 1218544089}
   _buildingZoneToBuild: {fileID: 1528926745}
   _hunger: 0
-  _hungerMaxCapacity: 100
+  _hungerMaxCapacity: 200
   _hungerMinCapacity: 70
   _hungerToLose: 10
   _hungerToGain: 2
@@ -131057,7 +131057,7 @@ MonoBehaviour:
   _timeFood: 0
   _timerFood: 2
   _hunger: 0
-  _hungerMaxCapacity: 100
+  _hungerMaxCapacity: 200
   _hungerMinCapacity: 70
   _hungerToLose: 10
   _hungerToGain: 2
