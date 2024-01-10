@@ -6,6 +6,8 @@ public class NewFood : MonoBehaviour
 {
     public int foodValue;
 
+    public int foodNum;
+
     void Start()
     {
         GameManager.instance.AddFood(this);
@@ -18,9 +20,13 @@ public class NewFood : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == 14)
+        var chef = collision.gameObject.GetComponent<Chef>();
+
+        if (chef != null && collision.gameObject.layer == 14)
         {
             Debug.Log("Chef has collided");
+
+            chef.finalDest = Vector3.zero;
     
             OnDeath();
     

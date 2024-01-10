@@ -52,7 +52,7 @@ public class Chef : MonoBehaviour
 
     [SerializeField] GameManager _gameManager;
 
-    [SerializeField] Vector3 _finalDest;
+    public Vector3 finalDest;
 
     [SerializeField] int _maxQuantityFoodCarried;
 
@@ -126,9 +126,9 @@ public class Chef : MonoBehaviour
 
             if (_gameManager.allFood.Count > 0)
             {
-                if (_finalDest == Vector3.zero)
+                if (finalDest == Vector3.zero)
                 {
-                    _finalDest = _gameManager.allFood[0].transform.position;
+                    finalDest = _gameManager.allFood[0].transform.position;
                 }
             
                 if (_gameManager.allFood.Count > 1)
@@ -137,21 +137,21 @@ public class Chef : MonoBehaviour
                     {
                         Vector3 dist = _gameManager.allFood[i].transform.position;
                 
-                        if ((dist - _myTransform.position).sqrMagnitude < (_finalDest - _myTransform.position).sqrMagnitude)
+                        if ((dist - _myTransform.position).sqrMagnitude < (finalDest - _myTransform.position).sqrMagnitude)
                         {
-                            _finalDest = dist;
+                            finalDest = dist;
                         }
                     }
                 }
             }
             
-            _myTransform.LookAt(new Vector3(_finalDest.x, 0, _finalDest.z));
+            _myTransform.LookAt(new Vector3(finalDest.x, 0, finalDest.z));
             
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
         _LookingForFood.OnExit += x => 
         {
-            _finalDest = Vector3.zero;
+            finalDest = Vector3.zero;
 
             _stateLoadFood = false; 
         };
