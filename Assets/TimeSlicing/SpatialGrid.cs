@@ -183,8 +183,11 @@ public class SpatialGrid : MonoBehaviour
             {
                 foreach(var neighbour in allElems.Where(x => x != ent))
                 {
-                    Gizmos.DrawLine(ent.transform.position, neighbour.transform.position);//Error tira aca
-                    connections++;
+                    if (ent != null && neighbour != null)
+                    {
+                        Gizmos.DrawLine(ent.transform.position, neighbour.transform.position);
+                        connections++;
+                    }
                 }
                 if(showLogs)
                     Debug.Log("tengo " + connections + " conexiones por individuo");

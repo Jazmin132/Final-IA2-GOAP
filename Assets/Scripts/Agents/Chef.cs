@@ -143,11 +143,11 @@ public class Chef : MonoBehaviour
                         }
                     }
                 }
+
+                _myTransform.LookAt(new Vector3(finalDest.x, 0, finalDest.z));
+
+                _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
             }
-            
-            _myTransform.LookAt(new Vector3(finalDest.x, 0, finalDest.z));
-            
-            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
         _LookingForFood.OnExit += x => 
         {

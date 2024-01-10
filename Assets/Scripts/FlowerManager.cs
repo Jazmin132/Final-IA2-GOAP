@@ -19,12 +19,14 @@ public class FlowerManager : MonoBehaviour
     public void AddBee(Bee b)
     {
         if (!BeeTotal.Contains(b)) BeeTotal.Add(b);
+
         UI.ChangeText(1, "bee");
     }
 
     public void RemoveBee(Bee b)
     {
         if (BeeTotal != null) BeeTotal.Remove(b);
+
         UI.ChangeText(-1, "bee");
     }
 
