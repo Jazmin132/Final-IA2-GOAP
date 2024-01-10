@@ -90,7 +90,9 @@ public class Boid : GridEntity
             if(_IsAlive == false) SentToFSM(BoidStates.DIE);
         };
 
-        _Evade.OnEnter += x => { particleScared.Play(); };
+        _Evade.OnEnter += x => {
+            Debug.Log("ASUSTADO");
+            particleScared.Play(); };
         _Evade.OnFixedUpdate += () => 
         {
             AddForce(Evade() * evadeWeight);
@@ -117,7 +119,6 @@ public class Boid : GridEntity
 
         _Death.OnEnter += x => 
         {
-            Debug.Log("Me morí");
             GameManager.instance.RemoveBoid(this);
             Destroy(gameObject);
         };
@@ -165,8 +166,8 @@ public class Boid : GridEntity
     public override void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
     {
         MoveTest();
-
-        if(Vector3.Distance(transform.position, agent.transform.position) <= hunterRadius)
+        OnDrawGizmos();
+        if (Vector3.Distance(transform.position, agent.transform.position) <= hunterRadius)
         {
             GameManager.instance.RemoveBoid(this);
             Destroy(gameObject);
@@ -330,7 +331,7 @@ public class Boid : GridEntity
         }
     }//CAMBIO JULI
 
-    private void OnDrawGizmos2()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, viewRadius);
