@@ -166,7 +166,6 @@ public class Boid : GridEntity
     public override void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
     {
         MoveTest();
-        OnDrawGizmos();
         if (Vector3.Distance(transform.position, agent.transform.position) <= hunterRadius)
         {
             GameManager.instance.RemoveBoid(this);
