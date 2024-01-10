@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     public int respawnTime;//CAMBIO JULI
     public Quaternion spawnRotation;//CAMBIO JULI
+    public UIManager UI;
 
     public bool sheepAlive;
 
@@ -65,16 +66,15 @@ public class GameManager : MonoBehaviour
     public void AddBoid(Boid b)
     {
         if (!allBoids.Contains(b)) allBoids.Add(b);
-        sheepAlive = true;
+        UI.ChangeText(1, "sheep");
     }
 
     public void RemoveBoid(Boid b)
     {
-        //if (allBoids != null) 
-        //{allBoids.Remove(b);}
-        sheepAlive = false;
         allBoids.Remove(b);//CAMBIO JULI
         StartCoroutine(RespawnBoid(respawnTime));//CAMBIO JULI
+
+        UI.ChangeText(-1, "sheep");
     }
 
     public void AddFood(NewFood b)

@@ -47,23 +47,23 @@ public class Canteen : MonoBehaviour
             switch (_randomNumFood)
             {
                 case 0:
-                    Debug.Log("appleListQuantity Capacity+");
+                    //Debug.Log("appleListQuantity Capacity+");
                     appleListQuantity.Add(null);
                     break;
                 case 1:
-                    Debug.Log("coconutListQuantity Capacity+");
+                    //Debug.Log("coconutListQuantity Capacity+");
                     coconutListQuantity.Add(null);
                     break;
                 case 2:
-                    Debug.Log("beanListQuantity Capacity+");
+                    //Debug.Log("beanListQuantity Capacity+");
                     beanListQuantity.Add(null);
                     break;
                 default:
-                    Debug.Log("ERROR, no se encuentra una comida de el número " + _randomNumFood);
+                    //Debug.Log("ERROR, no se encuentra una comida de el número " + _randomNumFood);
                     break;
             }
 
-            Debug.Log(i);
+           // Debug.Log(i);
         }
     }
 }

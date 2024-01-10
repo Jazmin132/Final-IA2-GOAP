@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FlowerManager : MonoBehaviour
 {
-    List<Bee> _BeeTotal = new List<Bee>();
+    public List<Bee> BeeTotal = new List<Bee>();
     List<Plant> _PlantTotal = new List<Plant>();
+    public UIManager UI;
 
     public static FlowerManager instance;
 
@@ -17,12 +18,14 @@ public class FlowerManager : MonoBehaviour
 
     public void AddBee(Bee b)
     {
-        if (!_BeeTotal.Contains(b)) _BeeTotal.Add(b);
+        if (!BeeTotal.Contains(b)) BeeTotal.Add(b);
+        UI.ChangeText(1, "bee");
     }
 
     public void RemoveBee(Bee b)
     {
-        if (_BeeTotal != null) _BeeTotal.Remove(b);
+        if (BeeTotal != null) BeeTotal.Remove(b);
+        UI.ChangeText(-1, "bee");
     }
 
     public void AddFlower(Plant p)
@@ -37,10 +40,10 @@ public class FlowerManager : MonoBehaviour
 
     public void CallBees(Plant plant)//IA2 LINQ
     {
-        for (int i = 0; i < _BeeTotal.Count; i++)
+        for (int i = 0; i < BeeTotal.Count; i++)
         {
-            _BeeTotal[i].TargetPlant = plant.transform.position;
-            _BeeTotal[i].SentToFSM(BeeStates.Defend);
+            BeeTotal[i].TargetPlant = plant.transform.position;
+            BeeTotal[i].SentToFSM(BeeStates.Defend);
         }
     }
 }

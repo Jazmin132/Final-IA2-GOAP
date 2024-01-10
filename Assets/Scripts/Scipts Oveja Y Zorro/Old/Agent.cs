@@ -244,11 +244,11 @@ public class Agent : GridEntity
 
     void CheckForOveja()//IA2-LINQ
     {
-        Debug.Log("CheckingSheep");
+       // Debug.Log("CheckingSheep");
 
         if (GameManager.instance.sheepAlive)
         {
-            Debug.Log("CheckingSheepWithAlive");
+           // Debug.Log("CheckingSheepWithAlive");
 
             MoveTest();
 
