@@ -54,7 +54,7 @@ public class Chef : MonoBehaviour
 
     public Vector3 finalDest;
 
-    [SerializeField] int _maxQuantityFoodCarried;
+    public int maxQuantityFoodCarried;
 
     #region ChefStates
     public enum ChefStates
@@ -244,6 +244,11 @@ public class Chef : MonoBehaviour
 
         if (_isEating)
             CountTimerEatFood();
+
+        if(appleQuantity.Count + coconutQuantity.Count + beanQuantity.Count >= maxQuantityFoodCarried)
+        {
+            //SentToFSM(ChefStates.LoadFood);
+        }
 
     #region Before
         /*
