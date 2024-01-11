@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     public void AddBoid(Boid b)
     {
         if (!allBoids.Contains(b)) allBoids.Add(b);
+
         UI.ChangeText(1, "sheep");
     }
 
