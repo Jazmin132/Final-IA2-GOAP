@@ -134749,6 +134749,10 @@ PrefabInstance:
       propertyPath: hunter
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5499290305119165745, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 233913637}
     - target: {fileID: 5499290305119165746, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
       propertyPath: m_RootOrder
       value: 0

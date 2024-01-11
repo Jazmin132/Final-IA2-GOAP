@@ -9,7 +9,7 @@ public class Boid : GridEntity
 {
     List<Food> _closestFood;
     //public GameObject hunter;
-    public Agent agent;
+    //public Agent agent;
 
     private Vector3 _velocity;
     public float maxSpeed;
@@ -44,6 +44,10 @@ public class Boid : GridEntity
     [Range(0f, 3f)]
     public float evadeWeight;
 
+    [SerializeField] GameManager _gameManager;
+
+    [SerializeField] Agent _selectedAgent;
+
     public enum BoidStates
     {
         ALIGNMENT,
@@ -54,6 +58,8 @@ public class Boid : GridEntity
     public EventFSM<BoidStates> _MyFSM;
     private void Awake()
     {
+        if (_gameManager == null) _gameManager = FindObjectOfType<GameManager>();
+
         var _Alignment = new State<BoidStates>("Idle");
         var _Evade = new State<BoidStates>("Move");
         var _Arrive = new State<BoidStates>("Arrive");
@@ -82,10 +88,24 @@ public class Boid : GridEntity
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * maxSpeed * Time.fixedDeltaTime);
             CountTimerMoving();
 
-            if (Vector3.Distance(transform.position, agent.transform.position) <= viewRadius)
-                SentToFSM(BoidStates.EVADE);
-            else if ((GameManager.instance.food.transform.position - transform.position).magnitude <= arriveRadius)
-                SentToFSM(BoidStates.ARRIVE);
+            if(_gameManager.allFoxes.Count > 0)
+            {
+                for (int i = 0; i < _gameManager.allFoxes.Count; i++)
+                {
+                    if (Vector3.Distance(transform.position, _gameManager.allFoxes[i].transform.position) <= viewRadius)
+                    {
+                        //Debug.Log("Allignment to Evade");
+
+                        _selectedAgent = _gameManager.allFoxes[i];
+
+                        SentToFSM(BoidStates.EVADE);
+
+                        //Debug.Log("Allignment to Evade IS DONE");
+                    }
+                    else if ((GameManager.instance.food.transform.position - transform.position).magnitude <= arriveRadius)
+                        SentToFSM(BoidStates.ARRIVE);
+                }
+            }
                 
             if(_IsAlive == false) SentToFSM(BoidStates.DIE);
         };
@@ -96,8 +116,15 @@ public class Boid : GridEntity
         _Evade.OnFixedUpdate += () => 
         {
             AddForce(Evade() * evadeWeight);
-            if (Vector3.Distance(transform.position, agent.transform.position) > viewRadius)
-                SentToFSM(BoidStates.ALIGNMENT);
+            
+            if(_gameManager.allFoxes.Count > 0)
+            {
+                for (int i = 0; i < _gameManager.allFoxes.Count; i++)
+                {
+                    if (Vector3.Distance(transform.position, _gameManager.allFoxes[i].transform.position) > viewRadius)
+                        SentToFSM(BoidStates.ALIGNMENT);
+                }
+            }
 
             if (_IsAlive == false) SentToFSM(BoidStates.DIE);
         };
@@ -108,10 +135,24 @@ public class Boid : GridEntity
         {
             AddForce(Arrive(GameManager.instance.food) * arriveWeight);
 
-            if (Vector3.Distance(transform.position, agent.transform.position) <= viewRadius)
-                SentToFSM(BoidStates.EVADE);
-            else if((GameManager.instance.food.transform.position - transform.position).magnitude > arriveRadius)
-                SentToFSM(BoidStates.ALIGNMENT);
+            if(_gameManager.allFoxes.Count > 0)
+            {
+                for (int i = 0; i < _gameManager.allFoxes.Count; i++)
+                {
+                    if (Vector3.Distance(transform.position, _gameManager.allFoxes[i].transform.position) <= viewRadius)
+                    {
+                        //Debug.Log("Arrive to Evade");
+
+                        _selectedAgent = _gameManager.allFoxes[i];
+
+                        //SentToFSM(BoidStates.EVADE);
+
+                        Debug.Log("Arrive to Evade IS DONE");
+                    }
+                    else if ((GameManager.instance.food.transform.position - transform.position).magnitude > arriveRadius)
+                        SentToFSM(BoidStates.ALIGNMENT);
+                }
+            }
 
             if (_IsAlive == false) SentToFSM(BoidStates.DIE);
         };
@@ -166,11 +207,19 @@ public class Boid : GridEntity
     public override void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
     {
         MoveTest();
-        if (Vector3.Distance(transform.position, agent.transform.position) <= hunterRadius)
+
+        if(_gameManager.allFoxes.Count > 0)
         {
-            GameManager.instance.RemoveBoid(this);
-            Destroy(gameObject);
-            return;
+            for (int i = 0; i < _gameManager.allFoxes.Count; i++)
+            {
+                if (Vector3.Distance(transform.position, _gameManager.allFoxes[i].transform.position) <= hunterRadius)
+                {
+                    //Debug.Log("Yo, oveja, me muero.");
+                    GameManager.instance.RemoveBoid(this);
+                    Destroy(gameObject);
+                    return;
+                }
+            }
         }
     }//CAMBIO JULI
 
@@ -279,10 +328,10 @@ public class Boid : GridEntity
 
     Vector3 Evade()
     {
-        Vector3 futurePos = agent.transform.position + agent.GetVelocity();
-        Vector3 desired = futurePos + agent.transform.position;
+        Vector3 futurePos = _selectedAgent.transform.position + _selectedAgent.GetVelocity();
+        Vector3 desired = futurePos + _selectedAgent.transform.position;
         desired.Normalize();
-        desired *= agent.maxSpeed;
+        desired *= _selectedAgent.maxSpeed;
         return CalculateSteering(desired);
     }
 
