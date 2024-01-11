@@ -149,7 +149,7 @@ public class Agent : GridEntity
         {
             energy -= Time.deltaTime;
             if (energy <= 0) SendInputToSFSM(AgentStates.IDLE);
-
+            Debug.Log("ACTUALIZANDO");
             NowPatrol();
             CheckForOveja();
         };
@@ -181,10 +181,7 @@ public class Agent : GridEntity
                 SendInputToSFSM(AgentStates.IDLE);
 
             if (target == null)//CAMBIO JULI
-            {
-                Debug.Log("NO ANDA AAAAAAH");
-                SendInputToSFSM(AgentStates.RETURN);
-            } //CAMBIO JULI
+                SendInputToSFSM(AgentStates.RETURN);//CAMBIO JULI
 
             if (target != null)
                 if ((target.position - transform.position).magnitude > pursuitRadius)
@@ -246,13 +243,13 @@ public class Agent : GridEntity
     {
        // Debug.Log("CheckingSheep");
 
-        if (GameManager.instance.sheepAlive)
-        {
+        //if (GameManager.instance.sheepAlive)
+        //{
            // Debug.Log("CheckingSheepWithAlive");
 
             MoveTest();
 
-            Debug.Log(target); //CAMBIO JULI
+            Debug.Log("ACTUALIZANDO"); //CAMBIO JULI
             var Num = Query().OfType<Boid>()
             .Select(x => x.transform)
             .OrderBy(x => x.position - transform.position)
@@ -285,7 +282,7 @@ public class Agent : GridEntity
             //    }
             //}
             //return;
-        }
+        //}
     }
 
     public void AlertFoxes(Agent fox)
