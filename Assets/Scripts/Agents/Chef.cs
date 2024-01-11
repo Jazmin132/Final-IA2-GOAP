@@ -20,7 +20,7 @@ public class Chef : MonoBehaviour
 
     [SerializeField] float _speed, _speedOriginal;
 
-    [SerializeField] Transform _vegetablePatchToGoTo;
+    [SerializeField] Transform _foodPatchToGoTo;
 
     [SerializeField] bool _canCountTimeFood, _restartFoodTime;
     [SerializeField] float _timeFood, _timerFood;
@@ -163,7 +163,7 @@ public class Chef : MonoBehaviour
         };
         _Collect.OnFixedUpdate += () => 
         {
-            CountTimerCollectFood();
+            //CountTimerCollectFood();
         };
         _Collect.OnExit += x =>
         {
@@ -178,7 +178,9 @@ public class Chef : MonoBehaviour
         };
         _LoadFood.OnFixedUpdate += () => 
         {
-            _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
+            //_myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
+
+            _myTransform.LookAt(new Vector3(_foodPatchToGoTo.transform.position.x, 0, _foodPatchToGoTo.transform.position.z));
 
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
@@ -247,7 +249,7 @@ public class Chef : MonoBehaviour
 
         if(appleQuantity.Count + coconutQuantity.Count + beanQuantity.Count >= maxQuantityFoodCarried)
         {
-            //SentToFSM(ChefStates.LoadFood);
+            SentToFSM(ChefStates.LoadFood);
         }
 
     #region Before
@@ -283,6 +285,7 @@ public class Chef : MonoBehaviour
     }
 
     #region CountTimer
+    /*
     void CountTimerCollectFood()
     {
         if (!_canCountTimeFood)
@@ -315,6 +318,7 @@ public class Chef : MonoBehaviour
             _timeFood = 0;
         }
     }
+    */
 
     void CountTimerEatFood()
     {
