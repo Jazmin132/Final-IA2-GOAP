@@ -79,7 +79,11 @@ public class Agent : GridEntity
         #endregion
 
    #region IDLE
-        Idle.OnEnter += x => { particleTired.Play(); _Idle = true; };
+        Idle.OnEnter += x => 
+        {
+            //UIManager.instance.AssignFoxesFaces(this, "Dormido");
+            particleTired.Play(); _Idle = true; 
+        };
         Idle.OnUpdate += () =>
         {
             energy += Time.deltaTime;
@@ -94,6 +98,7 @@ public class Agent : GridEntity
    #region GOTODEST
         GotoDest.OnEnter += x =>
         {
+            UIManager.instance.AssignFoxesFaces(this, "Yendo");
             _GotoDest = true;
             if (_pathToFollow.Count == 0)
             {
@@ -120,6 +125,7 @@ public class Agent : GridEntity
         Return.OnEnter += x => 
         {
             _Return = true;
+            UIManager.instance.AssignFoxesFaces(this, "Yendo");
             transform.position += new Vector3(3.5f, 0, 2);
             if (_pathToFollow.Count == 0)
             {
@@ -144,7 +150,11 @@ public class Agent : GridEntity
         #endregion
 
    #region PATROL
-        Patrol.OnEnter += x => { _Patrol = true; };
+        Patrol.OnEnter += x => 
+        {
+            _Patrol = true; 
+            UIManager.instance.AssignFoxesFaces(this, "Normal");
+        };
         Patrol.OnUpdate += () =>//IA2-LINQ
         {
             energy -= Time.deltaTime;
@@ -163,7 +173,7 @@ public class Agent : GridEntity
             _Pursuit = true;
             AlertFoxes(this);
             particleEnojo.Play();
-
+            UIManager.instance.AssignFoxesFaces(this, "Enojado");
             var Num = Query()
             .OfType<Boid>()
             .Select(x => x.transform)//Agregué el where

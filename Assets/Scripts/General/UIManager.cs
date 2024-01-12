@@ -18,6 +18,13 @@ public class UIManager : MonoBehaviour
     int _SheepCount;
     int _BeeCount;
 
+    public static UIManager instance;
+
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
     private void Start()
     {
         _SheepCount = GameManager.instance.allBoids.Count();
