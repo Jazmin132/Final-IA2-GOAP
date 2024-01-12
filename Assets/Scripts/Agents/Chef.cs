@@ -540,11 +540,15 @@ public class Chef : MonoBehaviour
     {
         if (collision.gameObject.layer == 9)
         {
+            //Debug.Log("Colisiona con FoodPatch");
+
             var foodpath = collision.gameObject.GetComponent<FoodPatch>();
 
             if(foodpath != null)
             {
-                foodpath.TransferFoodToFoodPath(appleQuantity, coconutQuantity, beanQuantity);
+                //Debug.Log("Chequea que FoodPatch tenga código");
+
+                foodpath.TransferFoodToFoodPatch(appleQuantity, coconutQuantity, beanQuantity);
 
                 appleQuantity.Clear();
                 coconutQuantity.Clear();
