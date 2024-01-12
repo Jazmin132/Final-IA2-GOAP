@@ -41,6 +41,8 @@ public class Agent : GridEntity
 
     public List<Transform> _listTransforms;
 
+    [SerializeField] bool _canChangeToSleepyFace;
+
     public bool _Idle, _Patrol, _Pursuit, _GotoDest, _Return;
     void Awake()
     {
@@ -81,8 +83,12 @@ public class Agent : GridEntity
    #region IDLE
         Idle.OnEnter += x => 
         {
-            //UIManager.instance.AssignFoxesFaces(this, "Dormido");
-            particleTired.Play(); _Idle = true; 
+            if(_canChangeToSleepyFace)
+                UIManager.instance.AssignFoxesFaces(this, "Dormido");
+
+            particleTired.Play(); _Idle = true;
+
+            Debug.Log("Entra en IDLE");
         };
         Idle.OnUpdate += () =>
         {
@@ -91,7 +97,7 @@ public class Agent : GridEntity
                 SendInputToSFSM(AgentStates.PATROL);
             return;
         };
-        Idle.OnExit += x => { particleTired.Stop(); _Idle = false; };
+        Idle.OnExit += x => { particleTired.Stop(); _Idle = false; _canChangeToSleepyFace = true; };
 
         #endregion
 
