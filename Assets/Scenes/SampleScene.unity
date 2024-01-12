@@ -132744,7 +132744,7 @@ MonoBehaviour:
   _canteenToLoad: {fileID: 1390915739}
   _speed: 5
   _speedOriginal: 5
-  _foodPatchToGoTo: {fileID: 10881733}
+  _foodPatch: {fileID: 10881736}
   _canCountTimeFood: 1
   _restartFoodTime: 0
   _timeFood: 0
@@ -132776,7 +132776,7 @@ MonoBehaviour:
   beanQuantity: []
   _gameManager: {fileID: 233913637}
   finalDest: {x: 0, y: 0, z: 0}
-  maxQuantityFoodCarried: 1
+  maxQuantityFoodCarried: 5
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0

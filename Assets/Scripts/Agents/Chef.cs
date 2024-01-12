@@ -20,7 +20,7 @@ public class Chef : MonoBehaviour
 
     [SerializeField] float _speed, _speedOriginal;
 
-    [SerializeField] Transform _foodPatchToGoTo;
+    [SerializeField] FoodPatch _foodPatch;
 
     [SerializeField] bool _canCountTimeFood, _restartFoodTime;
     [SerializeField] float _timeFood, _timerFood;
@@ -180,7 +180,7 @@ public class Chef : MonoBehaviour
         {
             //_myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
 
-            _myTransform.LookAt(new Vector3(_foodPatchToGoTo.transform.position.x, 0, _foodPatchToGoTo.transform.position.z));
+            _myTransform.LookAt(new Vector3(_foodPatch.transform.position.x, 0, _foodPatch.transform.position.z));
 
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
@@ -554,7 +554,12 @@ public class Chef : MonoBehaviour
                 coconutQuantity.Clear();
                 beanQuantity.Clear();
 
-                SentToFSM(ChefStates.Collect);
+                if (_foodPatch.appleListQuantityFP.Count >= _canteenToLoad.appleListQuantity.Count && _foodPatch.coconutListQuantityFP.Count >= _canteenToLoad.coconutListQuantity.Count && _foodPatch.beanListQuantityFP.Count >= _canteenToLoad.beanListQuantity.Count)
+                {
+                    //SentToFSM(ChefStates.Eat);
+                }
+                else
+                    SentToFSM(ChefStates.LookingForFood);
             }
 
             //SentToFSM(ChefStates.Collect);

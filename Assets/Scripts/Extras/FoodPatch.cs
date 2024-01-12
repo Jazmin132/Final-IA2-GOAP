@@ -35,17 +35,32 @@ public class FoodPatch : MonoBehaviour
     {
         if(chefAppleList.Count > 0)
         {
-            appleListQuantityFP.Concat(chefAppleList);
+            //appleListQuantityFP.Concat(chefAppleList);
+
+            for (int i = 0; i < chefAppleList.Count; i++)
+            {
+                appleListQuantityFP.Add(chefAppleList[i]);
+            }
         }
 
         if(chefCoconutList.Count > 0)
         {
-            coconutListQuantityFP.Concat(chefCoconutList);
+            //coconutListQuantityFP.Concat(chefCoconutList);
+
+            for (int i = 0; i < chefCoconutList.Count; i++)
+            {
+                coconutListQuantityFP.Add(chefCoconutList[i]);
+            }
         }
 
         if(chefBeanList.Count > 0)
         {
-            beanListQuantityFP.Concat(chefBeanList);
+            //beanListQuantityFP.Concat(chefBeanList);
+
+            for (int i = 0; i < chefBeanList.Count; i++)
+            {
+                beanListQuantityFP.Add(chefBeanList[i]);
+            }
         }
 
         //Debug.Log("Termina TransferFoodToFoodPatch");
