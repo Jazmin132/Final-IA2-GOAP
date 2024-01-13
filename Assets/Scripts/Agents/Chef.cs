@@ -284,6 +284,42 @@ public class Chef : MonoBehaviour
         #endregion
     }
 
+    public void TransferFoodToChef(List<Apple> FPAppleList, List<Coconut> FPCoconutList, List<Bean> FPBeanList)
+    {
+        if(FPAppleList.Count > 0)
+        {
+            if(_canteenToLoad.appleListQuantity.Count > 0)
+            {
+                for (int i = 0; i < _canteenToLoad.appleListQuantity.Count; i++)
+                {
+                    appleQuantity.Add(FPAppleList[i]);
+                }
+            }
+        }
+
+        if (FPCoconutList.Count > 0)
+        {
+            if (_canteenToLoad.coconutListQuantity.Count > 0)
+            {
+                for (int i = 0; i < _canteenToLoad.coconutListQuantity.Count; i++)
+                {
+                    coconutQuantity.Add(FPCoconutList[i]);
+                }
+            }
+        }
+
+        if (FPBeanList.Count > 0)
+        {
+            if (_canteenToLoad.beanListQuantity.Count > 0)
+            {
+                for (int i = 0; i < _canteenToLoad.beanListQuantity.Count; i++)
+                {
+                    beanQuantity.Add(FPBeanList[i]);
+                }
+            }
+        }
+    }
+
     #region CountTimer
     /*
     void CountTimerCollectFood()
@@ -542,13 +578,13 @@ public class Chef : MonoBehaviour
         {
             //Debug.Log("Colisiona con FoodPatch");
 
-            var foodpath = collision.gameObject.GetComponent<FoodPatch>();
+            var foodpatch = collision.gameObject.GetComponent<FoodPatch>();
 
-            if(foodpath != null)
+            if(foodpatch != null)
             {
                 //Debug.Log("Chequea que FoodPatch tenga código");
 
-                foodpath.TransferFoodToFoodPatch(appleQuantity, coconutQuantity, beanQuantity);
+                foodpatch.TransferFoodToFoodPatch(appleQuantity, coconutQuantity, beanQuantity);
 
                 appleQuantity.Clear();
                 coconutQuantity.Clear();
@@ -556,6 +592,12 @@ public class Chef : MonoBehaviour
 
                 if (_foodPatch.appleListQuantityFP.Count >= _canteenToLoad.appleListQuantity.Count && _foodPatch.coconutListQuantityFP.Count >= _canteenToLoad.coconutListQuantity.Count && _foodPatch.beanListQuantityFP.Count >= _canteenToLoad.beanListQuantity.Count)
                 {
+                    TransferFoodToChef(_foodPatch.appleListQuantityFP, _foodPatch.coconutListQuantityFP, _foodPatch.beanListQuantityFP);
+
+                    _foodPatch.appleListQuantityFP.RemoveRange(0, _canteenToLoad.appleListQuantity.Count);
+                    _foodPatch.coconutListQuantityFP.RemoveRange(0, _canteenToLoad.coconutListQuantity.Count);
+                    _foodPatch.beanListQuantityFP.RemoveRange(0, _canteenToLoad.beanListQuantity.Count);
+
                     //SentToFSM(ChefStates.Eat);
                 }
                 else
