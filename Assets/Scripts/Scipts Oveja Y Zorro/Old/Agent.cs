@@ -88,7 +88,7 @@ public class Agent : GridEntity
 
             particleTired.Play(); _Idle = true;
 
-            Debug.Log("Entra en IDLE");
+            //Debug.Log("Entra en IDLE");
         };
         Idle.OnUpdate += () =>
         {
@@ -366,10 +366,20 @@ public class Agent : GridEntity
         return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad));
     }
 
+    public void UpdateKillStreak(int value)
+    {
+        UIManager.instance.UpdateFoxKillStreak(this, value);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         var X = collision.collider.GetComponent<Boid>();
-        if (X != null) X._IsAlive = false;
+        if (X != null) 
+        {
+            UIManager.instance.UpdateFoxKillStreak(this, 1);
+
+            X.isAlive = false;
+        }
     }
 
     private void OnDrawGizmos()

@@ -5547,7 +5547,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
   onGrid: 0
-  agent: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
   maxSpeed: 8
   maxForce: 0.25
   viewRadius: 5
@@ -5572,6 +5571,9 @@ MonoBehaviour:
   cohesionWeight: 2.2
   arriveWeight: 2.3
   evadeWeight: 2.75
+  _gameManager: {fileID: 0}
+  _selectedAgent: {fileID: 0}
+  _sheepValue: 1
 --- !u!54 &5499290305119165743
 Rigidbody:
   m_ObjectHideFlags: 0

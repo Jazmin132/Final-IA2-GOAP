@@ -20,6 +20,9 @@ public class UIManager : MonoBehaviour
 
     public static UIManager instance;
 
+    public Text[] textFoxKills;
+    public int[] foxKillsNum;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -68,6 +71,28 @@ public class UIManager : MonoBehaviour
                 face.gameObject.SetActive(true);
             else 
                 face.gameObject.SetActive(false);
+        }
+    }
+
+    public void UpdateFoxKillStreak(Agent fox, int value)
+    {
+        if (fox == Foxes[0])
+        {
+            foxKillsNum[0] += value;
+
+            textFoxKills[0].text = "X " + foxKillsNum[0];
+        }
+        else if (fox == Foxes[1])
+        {
+            foxKillsNum[1] += value;
+
+            textFoxKills[1].text = "X " + foxKillsNum[1];
+        }
+        else
+        {
+            foxKillsNum[2] += value;
+
+            textFoxKills[2].text = "X " + foxKillsNum[2];
         }
     }
 }

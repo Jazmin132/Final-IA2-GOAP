@@ -64968,6 +64968,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 280139272}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: pursitSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: PatrolWaypoints.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -99652,6 +99656,11 @@ MonoBehaviour:
   - {fileID: 2008623637}
   - {fileID: 1170615139}
   - {fileID: 1533069708}
+  textFoxKills:
+  - {fileID: 14029401}
+  - {fileID: 1081226007}
+  - {fileID: 352367257}
+  foxKillsNum: 000000000000000000000000
 --- !u!4 &1672737918
 Transform:
   m_ObjectHideFlags: 0

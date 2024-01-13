@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
 
     public void RemoveBoid(Boid b)
     {
+        //Debug.Log("Remuevo Boid");
+
         allBoids.Remove(b);//CAMBIO JULI
         StartCoroutine(RespawnBoid(respawnTime));//CAMBIO JULI
 

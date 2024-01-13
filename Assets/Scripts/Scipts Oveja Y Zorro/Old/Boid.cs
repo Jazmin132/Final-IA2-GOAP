@@ -33,7 +33,7 @@ public class Boid : GridEntity
     [SerializeField] bool _canCountTimeMove, _restartMoveTime;
     [SerializeField] float _timeMove, _timerMove;
     [SerializeField] float _timerToMove;
-    public bool _IsAlive = true;
+    public bool isAlive = true;
 
     [Range(0f, 3f)]
     public float separationWeight;
@@ -47,6 +47,8 @@ public class Boid : GridEntity
     [SerializeField] GameManager _gameManager;
 
     [SerializeField] Agent _selectedAgent;
+
+    [SerializeField] int _sheepValue;
 
     public enum BoidStates
     {
@@ -107,7 +109,7 @@ public class Boid : GridEntity
                 }
             }
                 
-            if(_IsAlive == false) SentToFSM(BoidStates.DIE);
+            if(isAlive == false) SentToFSM(BoidStates.DIE);
         };
 
         _Evade.OnEnter += x => {
@@ -126,7 +128,7 @@ public class Boid : GridEntity
                 }
             }
 
-            if (_IsAlive == false) SentToFSM(BoidStates.DIE);
+            if (isAlive == false) SentToFSM(BoidStates.DIE);
         };
         _Evade.OnExit += x => { particleScared.Stop(); };
 
@@ -154,7 +156,7 @@ public class Boid : GridEntity
                 }
             }
 
-            if (_IsAlive == false) SentToFSM(BoidStates.DIE);
+            if (isAlive == false) SentToFSM(BoidStates.DIE);
         };
         _Arrive.OnExit += x => { particleHungry.Stop(); };
 
@@ -169,7 +171,7 @@ public class Boid : GridEntity
     private void Start()
     {
         GameManager.instance.AddBoid(this);
-        _IsAlive = true;
+        isAlive = true;
         Vector3 randomDir = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         randomDir.Normalize();
         randomDir *= maxSpeed;
@@ -214,7 +216,12 @@ public class Boid : GridEntity
             {
                 if (Vector3.Distance(transform.position, _gameManager.allFoxes[i].transform.position) <= hunterRadius)
                 {
+                    //Debug.Log("Yo, oveja, estoy a punto de morir.");
+
+                    _gameManager.allFoxes[i].UpdateKillStreak(_sheepValue);
+
                     //Debug.Log("Yo, oveja, me muero.");
+
                     GameManager.instance.RemoveBoid(this);
                     Destroy(gameObject);
                     return;
