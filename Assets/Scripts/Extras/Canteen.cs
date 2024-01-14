@@ -15,6 +15,8 @@ public class Canteen : MonoBehaviour
 
     int _randomNumFood;
 
+    public List<NewFood> listNewFoodQuantity = new List<NewFood>();
+
     void Start()
     {
         FoodIngredients();
@@ -105,5 +107,15 @@ public class Canteen : MonoBehaviour
     public void CalculateFood()
     {
         //Tema Concat + Aggregate para sumar el valor de food de cada tipo de comida
+
+        //listNewFoodQuantity =
+
+        appleListQuantity.Clear();
+        coconutListQuantity.Clear();
+        beanListQuantity.Clear();
+
+        listNewFoodQuantity.Clear();
+
+        FoodIngredients();
     }
 }

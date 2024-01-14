@@ -45,6 +45,8 @@ public class Constructor : MonoBehaviour
 
     public bool isReadyToEat;
 
+    [SerializeField] bool _goingToEat;
+
     #region ConstructorStates
     public enum ConstructorStates
     {
@@ -121,6 +123,7 @@ public class Constructor : MonoBehaviour
 
         _goToTable.OnEnter += x =>
         {
+            _goingToEat = true;
             //Partículas de yendo a la mesa? ON
         };
         _goToTable.OnFixedUpdate += () =>
@@ -166,6 +169,7 @@ public class Constructor : MonoBehaviour
             _isEating = false;
             _stateEat = false;
             isReadyToEat = false;
+            _goingToEat = false;
             particleHunger.Stop();
         };
 
@@ -498,7 +502,7 @@ public class Constructor : MonoBehaviour
             if (!_isWorking)
                 _isWorking = true;
         }
-        else if (collision.gameObject.layer == 10)
+        else if (collision.gameObject.layer == 10 && _goingToEat)
         {
             //var canteen = collision.gameObject.GetComponent<Canteen>();
             //
