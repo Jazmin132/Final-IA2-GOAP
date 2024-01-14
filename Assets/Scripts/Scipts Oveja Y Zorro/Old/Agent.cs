@@ -31,7 +31,7 @@ public class Agent : GridEntity
     //public Transform WhereToGo;
     private Nodes _NodoFinal;
     private Nodes _NodoInicial;
-    public float Angle;
+    //public float Angle;
 
     [Header("Visual Values")]
     public ParticleSystem particleTired;
@@ -365,10 +365,10 @@ public class Agent : GridEntity
         _eventFSM.SendInput(agent);
     }
 
-    Vector3 GetDirFromAngle(float Angle)
-    {
-        return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad));
-    }
+    //Vector3 GetDirFromAngle(float Angle)
+    //{
+    //    return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad));
+    //}
 
     public void UpdateKillStreak(int value)
     {
@@ -391,11 +391,11 @@ public class Agent : GridEntity
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, pursuitRadius);
 
-        Vector3 LineaA = GetDirFromAngle(-Angle / 2 + transform.eulerAngles.y);
-        Vector3 LineaB = GetDirFromAngle(Angle / 2 + transform.eulerAngles.y);
+        //Vector3 LineaA = GetDirFromAngle(-Angle / 2 + transform.eulerAngles.y);
+        //Vector3 LineaB = GetDirFromAngle(Angle / 2 + transform.eulerAngles.y);
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + LineaA * pursuitRadius);
-        Gizmos.DrawLine(transform.position, transform.position + LineaB * pursuitRadius);
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawLine(transform.position, transform.position + LineaA * pursuitRadius);
+        //Gizmos.DrawLine(transform.position, transform.position + LineaB * pursuitRadius);
     }
 }
