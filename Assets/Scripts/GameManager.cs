@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public Quaternion spawnRotation;//CAMBIO JULI
     public UIManager UI;
 
-    public bool sheepAlive;
+    //public bool sheepAlive;
 
     public GameObject gridObject;
 
@@ -120,7 +120,11 @@ public class GameManager : MonoBehaviour
     public void CallFoxes(Agent fox)//IA2 LINQ
     {
         //var Foxes = allFoxes.Where(x => x != fox).ToList(); // Original
+
+        allFoxes = allFoxes.OrderBy(x => x == fox).ToList();
+
         var Foxes = allFoxes.TakeWhile(x => x != fox).ToList();
+        Debug.Log(Foxes.Count);
         for (int i = 0; i < Foxes.Count; i++)
         {
             //allFoxes[i].WhereToGo= fox.transform;

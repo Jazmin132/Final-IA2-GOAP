@@ -12344,7 +12344,6 @@ MonoBehaviour:
   respawnTime: 2
   spawnRotation: {x: 0, y: 0, z: 0, w: 0}
   UI: {fileID: 1672737917}
-  sheepAlive: 0
   gridObject: {fileID: 280139271}
 --- !u!4 &233913638
 Transform:
@@ -12621,7 +12620,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293133313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

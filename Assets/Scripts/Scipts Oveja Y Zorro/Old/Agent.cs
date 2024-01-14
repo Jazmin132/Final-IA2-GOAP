@@ -124,7 +124,7 @@ public class Agent : GridEntity
             else if (_pathToFollow.Count <= 0)
                 SendInputToSFSM(AgentStates.RETURN);
         };
-        GotoDest.OnExit += x => { _pathToFollow.Clear(); _GotoDest = false; };
+        GotoDest.OnExit += x => { _pathToFollow.Clear(); _GotoDest = false; target = null; };
    #endregion
 
    #region RETURN
@@ -152,7 +152,7 @@ public class Agent : GridEntity
                 SendInputToSFSM(AgentStates.PATROL);
             }
         };
-        Return.OnExit += x => { _pathToFollow.Clear(); _Return = false; };
+        Return.OnExit += x => { _pathToFollow.Clear(); _Return = false; target = null; };
         #endregion
 
    #region PATROL
@@ -265,11 +265,13 @@ public class Agent : GridEntity
 
             MoveTest();
 
-            Debug.Log("ACTUALIZANDO"); //CAMBIO JULI
+            //Debug.Log("ACTUALIZANDO"); //CAMBIO JULI
             var Num = Query().OfType<Boid>()
             .Select(x => x.transform)
             .OrderBy(x => x.position - transform.position)
             .ToList();
+
+        Debug.LogWarning("Query DONE " + gameObject.name);
             
             //Debug.Log(Num);
             _listTransforms = Num;
