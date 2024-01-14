@@ -66,4 +66,44 @@ public class Canteen : MonoBehaviour
             //Debug.Log(i);
         }
     }
+
+    public void TransferFoodToCanteen(List<Apple> chefAppleList, List<Coconut> chefCoconutList, List<Bean> chefBeanList)
+    {
+        if (chefAppleList.Count > 0)
+        {
+            //appleListQuantityFP.Concat(chefAppleList);
+
+            for (int i = 0; i < chefAppleList.Count; i++)
+            {
+                appleListQuantity.Add(chefAppleList[i]);
+            }
+        }
+
+        if (chefCoconutList.Count > 0)
+        {
+            //coconutListQuantityFP.Concat(chefCoconutList);
+
+            for (int i = 0; i < chefCoconutList.Count; i++)
+            {
+                coconutListQuantity.Add(chefCoconutList[i]);
+            }
+        }
+
+        if (chefBeanList.Count > 0)
+        {
+            //beanListQuantityFP.Concat(chefBeanList);
+
+            for (int i = 0; i < chefBeanList.Count; i++)
+            {
+                beanListQuantity.Add(chefBeanList[i]);
+            }
+        }
+
+        CalculateFood();
+    }
+
+    public void CalculateFood()
+    {
+        //Tema Concat + Aggregate para sumar el valor de food de cada tipo de comida
+    }
 }

@@ -58,6 +58,8 @@ public class Chef : MonoBehaviour
 
     [SerializeField] Constructor _constructor;
 
+    [SerializeField] bool _maxCapacityFoodReached, _foodForCanteenReady;
+
     #region ChefStates
     public enum ChefStates
     {
@@ -279,6 +281,8 @@ public class Chef : MonoBehaviour
 
         if(appleQuantity.Count + coconutQuantity.Count + beanQuantity.Count >= maxQuantityFoodCarried)
         {
+            _maxCapacityFoodReached = true;
+
             SentToFSM(ChefStates.LoadFood);
         }
 
@@ -606,7 +610,7 @@ public class Chef : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 9)
+        if (collision.gameObject.layer == 9 && _maxCapacityFoodReached)
         {
             //Debug.Log("Colisiona con FoodPatch");
 
@@ -630,17 +634,36 @@ public class Chef : MonoBehaviour
                     _foodPatch.coconutListQuantityFP.RemoveRange(0, _canteenToLoad.coconutListQuantity.Count);
                     _foodPatch.beanListQuantityFP.RemoveRange(0, _canteenToLoad.beanListQuantity.Count);
 
+                    _foodForCanteenReady = true;
+
                     SentToFSM(ChefStates.GoToTable);
                 }
                 else
                     SentToFSM(ChefStates.LookingForFood);
             }
 
+            _maxCapacityFoodReached = false;
+
             //SentToFSM(ChefStates.Collect);
         }
-        else if (collision.gameObject.layer == 10)
+        else if (collision.gameObject.layer == 10 && _foodForCanteenReady)
         {
-            SentToFSM(ChefStates.WaitForCompany);
+            var canteen = collision.gameObject.GetComponent<Canteen>();
+
+            if(canteen != null)
+            {
+                canteen.TransferFoodToCanteen(appleQuantity, coconutQuantity, beanQuantity);
+
+                appleQuantity.Clear();
+                coconutQuantity.Clear();
+                beanQuantity.Clear();
+
+                SentToFSM(ChefStates.WaitForCompany);
+            }
+
+            _foodForCanteenReady = false;
+
+            //SentToFSM(ChefStates.WaitForCompany);
 
             //var canteen = collision.gameObject.GetComponent<Canteen>();
             //
