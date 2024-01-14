@@ -109,7 +109,7 @@ public class Canteen : MonoBehaviour
     {
         //Tema Concat + Aggregate para sumar el valor de food de cada tipo de comida
 
-        //listNewFoodQuantity
+        //var listFood = FList.Create(listNewFoodQuantity) + appleListQuantity + coconutListQuantity + beanListQuantity;
 
         appleListQuantity.Clear();
         coconutListQuantity.Clear();
