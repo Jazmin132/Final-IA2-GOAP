@@ -76,7 +76,9 @@ public class Agent : GridEntity
            .Done();
 
         StateConfigurer.Create(Return)
-            .SetTransition(AgentStates.PATROL, Patrol).Done();//Si no ve a las ovejas
+            .SetTransition(AgentStates.PATROL, Patrol)
+            .SetTransition(AgentStates.PURSUIT, Pursuit)
+            .Done();//Si no ve a las ovejas
 
         #endregion
 
@@ -152,7 +154,7 @@ public class Agent : GridEntity
                 SendInputToSFSM(AgentStates.PATROL);
             }
         };
-        Return.OnExit += x => { _pathToFollow.Clear(); _Return = false; target = null; };
+        Return.OnExit += x => { _pathToFollow.Clear(); _Return = false;};
         #endregion
 
    #region PATROL
