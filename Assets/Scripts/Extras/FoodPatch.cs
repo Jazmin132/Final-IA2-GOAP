@@ -5,7 +5,7 @@ using System.Linq;
 
 public class FoodPatch : MonoBehaviour
 {
-    public float foodQuantity;
+    //public float foodQuantity;
 
     //public List<NewFood> foodListToAdd = new List<NewFood>();
     //public NewFood food;

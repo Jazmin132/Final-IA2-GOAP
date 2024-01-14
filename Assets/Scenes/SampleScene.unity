@@ -91675,8 +91675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ada7f0fd80bbe146aa931422b66c8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodQuantity: 500
-  foodView: {fileID: 0}
+  foodQuantity: 0
+  foodView: {fileID: 1234879101}
   appleListQuantity: []
   coconutListQuantity: []
   beanListQuantity: []
@@ -109783,6 +109783,7 @@ MonoBehaviour:
   particleHunger: {fileID: 1825769367}
   particleDeath: {fileID: 1308570480}
   _particleDeathObject: {fileID: 4374937912784042927, guid: 6dfb71ae6d9c32740ae4d53f28db7159, type: 3}
+  isReadyToEat: 0
 --- !u!1 &1741503117
 GameObject:
   m_ObjectHideFlags: 0
@@ -132747,9 +132748,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _myTransform: {fileID: 2039341659}
   _myRgbd: {fileID: 2039341661}
-  _food: 0
-  _foodMaxCapacity: 100
-  _foodToGain: 10
   _canteenToLoad: {fileID: 1390915739}
   _speed: 5
   _speedOriginal: 5
@@ -132786,6 +132784,7 @@ MonoBehaviour:
   _gameManager: {fileID: 233913637}
   finalDest: {x: 0, y: 0, z: 0}
   maxQuantityFoodCarried: 5
+  _constructor: {fileID: 0}
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0

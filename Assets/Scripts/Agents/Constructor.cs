@@ -43,44 +43,53 @@ public class Constructor : MonoBehaviour
 
     [SerializeField] GameObject _particleDeathObject;
 
+    public bool isReadyToEat;
+
     #region ConstructorStates
-    public enum ContructorStates
+    public enum ConstructorStates
     {
         GrabingWood,
         Construct,
+        GoToTable,
         WaitForFood,
         Eat,
         stateDeath
     }
-    public EventFSM<ContructorStates> _MyFSM;
+    public EventFSM<ConstructorStates> _MyFSM;
 
     void Awake()
     {
-        var _GrabingWood = new State<ContructorStates>("GrabingWood");
-        var _Construct = new State<ContructorStates>("Construct");
-        var _WaitForFood = new State<ContructorStates>("WaitForFood");
-        var _Eat = new State<ContructorStates>("Eat");
-        var _stateDeath = new State<ContructorStates>("stateDeath");
+        var _GrabingWood = new State<ConstructorStates>("GrabingWood");
+        var _Construct = new State<ConstructorStates>("Construct");
+        var _goToTable = new State<ConstructorStates>("GoToTable");
+        var _waitForFood = new State<ConstructorStates>("WaitForFood");
+        var _Eat = new State<ConstructorStates>("Eat");
+        var _stateDeath = new State<ConstructorStates>("stateDeath");
 
         StateConfigurer.Create(_GrabingWood)
-            .SetTransition(ContructorStates.Eat, _Eat)
-            .SetTransition(ContructorStates.Construct, _Construct)
-            .SetTransition(ContructorStates.stateDeath, _stateDeath).Done();
+            .SetTransition(ConstructorStates.Eat, _Eat)
+            .SetTransition(ConstructorStates.Construct, _Construct)
+            .SetTransition(ConstructorStates.stateDeath, _stateDeath).Done();
 
         StateConfigurer.Create(_Construct)
-            .SetTransition(ContructorStates.Eat, _Eat)      
-            .SetTransition(ContructorStates.stateDeath, _stateDeath)
-            .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
+            .SetTransition(ConstructorStates.Eat, _Eat)      
+            .SetTransition(ConstructorStates.stateDeath, _stateDeath)
+            .SetTransition(ConstructorStates.GrabingWood, _GrabingWood).Done();
 
-        StateConfigurer.Create(_WaitForFood)
-            .SetTransition(ContructorStates.Eat, _Eat)
-            .SetTransition(ContructorStates.stateDeath, _stateDeath)
-            .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
+        StateConfigurer.Create(_goToTable)
+            .SetTransition(ConstructorStates.Eat, _Eat)
+            .SetTransition(ConstructorStates.stateDeath, _stateDeath)
+            .SetTransition(ConstructorStates.GrabingWood, _GrabingWood).Done();
+
+        StateConfigurer.Create(_waitForFood)
+            .SetTransition(ConstructorStates.Eat, _Eat)
+            .SetTransition(ConstructorStates.stateDeath, _stateDeath)
+            .SetTransition(ConstructorStates.GrabingWood, _GrabingWood).Done();
 
         StateConfigurer.Create(_Eat)
-            .SetTransition(ContructorStates.Construct, _Construct)
-            .SetTransition(ContructorStates.stateDeath, _stateDeath)
-            .SetTransition(ContructorStates.GrabingWood, _GrabingWood).Done();
+            .SetTransition(ConstructorStates.Construct, _Construct)
+            .SetTransition(ConstructorStates.stateDeath, _stateDeath)
+            .SetTransition(ConstructorStates.GrabingWood, _GrabingWood).Done();
 
 
         StateConfigurer.Create(_stateDeath).Done();
@@ -110,34 +119,53 @@ public class Constructor : MonoBehaviour
             particleBuilding.Stop();
         };
 
-        _WaitForFood.OnEnter += x =>
+        _goToTable.OnEnter += x =>
         {
-
+            //Partículas de yendo a la mesa? ON
         };
-        _WaitForFood.OnFixedUpdate += () =>
+        _goToTable.OnFixedUpdate += () =>
         {
-
+            _myTransform.LookAt(new Vector3(_canteenToEat.transform.position.x, 0, _canteenToEat.transform.position.z));
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
-        _WaitForFood.OnExit += x =>
+        _goToTable.OnExit += x =>
         {
+            //Partículas de yendo a la mesa? OFF
+        };
 
+        _waitForFood.OnEnter += x =>
+        {
+            //Partículas de enojo ON
+        };
+        _waitForFood.OnFixedUpdate += () =>
+        {
+            if(_canteenToEat.foodQuantity > _hunger)
+            {
+                SentToFSM(ConstructorStates.Eat);
+            }
+        };
+        _waitForFood.OnExit += x =>
+        {
+            //Partículas de enojo OFF
         };
 
         _Eat.OnEnter += x => 
         { 
-            _stateEat = true; 
+            _stateEat = true;
+            isReadyToEat = true;
             particleHunger.Play();
         };
         _Eat.OnFixedUpdate += () =>
         {
             if(_isEating == true)CountTimerEatFood();
-            _myTransform.LookAt(new Vector3(_canteenToEat.transform.position.x, 0, _canteenToEat.transform.position.z));
-            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+            //_myTransform.LookAt(new Vector3(_canteenToEat.transform.position.x, 0, _canteenToEat.transform.position.z));
+            //_myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
         _Eat.OnExit += x => 
         { 
             _isEating = false;
             _stateEat = false;
+            isReadyToEat = false;
             particleHunger.Stop();
         };
 
@@ -149,7 +177,7 @@ public class Constructor : MonoBehaviour
             Destroy(gameObject);
         };
 
-        _MyFSM = new EventFSM<ContructorStates>(_GrabingWood);
+        _MyFSM = new EventFSM<ConstructorStates>(_GrabingWood);
     }
     #endregion
 
@@ -257,13 +285,13 @@ public class Constructor : MonoBehaviour
                 {
                     //if (!_stateGrabingWoodForWork)
                     //    _stateGrabingWoodForWork = true;
-                    SentToFSM(ContructorStates.GrabingWood);
+                    SentToFSM(ConstructorStates.GrabingWood);
                 }
                 else
                 {
                     //if (!_stateConstruct)
                     //    _stateConstruct = true;
-                    SentToFSM(ContructorStates.Construct);
+                    SentToFSM(ConstructorStates.Construct);
                 }
 
                 if (!_restartEatFoodTime)
@@ -308,7 +336,9 @@ public class Constructor : MonoBehaviour
                 //if (_isWorking)
                 //    _isWorking = false;
 
-                SentToFSM(ContructorStates.Eat);
+                //SentToFSM(ContructorStates.Eat);
+
+                SentToFSM(ConstructorStates.GoToTable);
             }
             else if (_hunger >= _hungerMaxCapacity)
             {
@@ -323,7 +353,7 @@ public class Constructor : MonoBehaviour
                 //
                 //if (!_stateDeath)
                 //    _stateDeath = true;
-                SentToFSM(ContructorStates.stateDeath);
+                SentToFSM(ConstructorStates.stateDeath);
             }
 
             _timeHunger = 0;
@@ -392,7 +422,7 @@ public class Constructor : MonoBehaviour
                 //
                 //if (_isWorking)
                 //    _isWorking = false;
-                SentToFSM(ContructorStates.GrabingWood);
+                SentToFSM(ConstructorStates.GrabingWood);
             }
 
             _timeWood = 0;
@@ -456,7 +486,7 @@ public class Constructor : MonoBehaviour
     //}
     #endregion
 
-    void SentToFSM(ContructorStates states)
+    void SentToFSM(ConstructorStates states)
     {
         _MyFSM.SendInput(states);
     }
@@ -470,6 +500,13 @@ public class Constructor : MonoBehaviour
         }
         else if (collision.gameObject.layer == 10)
         {
+            //var canteen = collision.gameObject.GetComponent<Canteen>();
+            //
+            //if(canteen != null)
+            //{
+            //
+            //}
+
             if (_stateEat)
             {
                 if (_hungerActive)
@@ -478,6 +515,8 @@ public class Constructor : MonoBehaviour
                 if (!_isEating)
                     _isEating = true;
             }
+
+            SentToFSM(ConstructorStates.WaitForFood);
         }
         else if (collision.gameObject.layer == 8)
         {
@@ -498,7 +537,7 @@ public class Constructor : MonoBehaviour
             //    _stateGrabingWoodForWork = false;
             //if (!_stateConstruct)
             //    _stateConstruct = true;
-            SentToFSM(ContructorStates.Construct);
+            SentToFSM(ConstructorStates.Construct);
         }
     }
 }

@@ -14,8 +14,8 @@ public class Chef : MonoBehaviour
     //[SerializeField] Vector3 _newVector3Rotation;
 
     [Header("ImportantValues")]
-    [SerializeField] float _food;
-    [SerializeField] float _foodMaxCapacity, _foodToGain;
+    //[SerializeField] float _food;
+    //[SerializeField] float _foodMaxCapacity, _foodToGain;
     [SerializeField] Canteen _canteenToLoad;
 
     [SerializeField] float _speed, _speedOriginal;
@@ -55,6 +55,8 @@ public class Chef : MonoBehaviour
     public Vector3 finalDest;
 
     public int maxQuantityFoodCarried;
+
+    [SerializeField] Constructor _constructor;
 
     #region ChefStates
     public enum ChefStates
@@ -208,27 +210,39 @@ public class Chef : MonoBehaviour
 
         _WaitForCompany.OnEnter += x =>
         {
-
+            //Partículas de enojo ON
         };
         _WaitForCompany.OnFixedUpdate += () =>
         {
-
+            if (_constructor.isReadyToEat)
+            {
+                SentToFSM(ChefStates.Eat);
+            }
         };
         _WaitForCompany.OnExit += x =>
         {
-
+            //Partículas de enojo OFF
         };
 
         _Eat.OnEnter += x =>
         {
             particleHungry.Play();
             _stateEat = true;
+
+            if (_stateEat)
+            {
+                if (_hungerActive)
+                    _hungerActive = false;
+                
+                if (!_isEating)
+                    _isEating = true;
+            }
         };
         _Eat.OnFixedUpdate += () => 
         {
-            _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
-
-            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+            //_myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
+            //
+            //_myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
         _Eat.OnExit += x =>
         {
@@ -452,14 +466,16 @@ public class Chef : MonoBehaviour
                 if (!_hungerActive)
                     _hungerActive = true;
 
-                if (_food < _foodMaxCapacity)
-                {
-                    SentToFSM(ChefStates.LookingForFood);
-                }
-                else
-                {
-                    SentToFSM(ChefStates.LoadFood);
-                }
+                //if (_food < _foodMaxCapacity)
+                //{
+                //    SentToFSM(ChefStates.LookingForFood);
+                //}
+                //else
+                //{
+                //    SentToFSM(ChefStates.LoadFood);
+                //}
+
+                SentToFSM(ChefStates.LookingForFood);
 
                 if (!_restartEatFoodTime)
                     _restartEatFoodTime = true;
@@ -626,12 +642,12 @@ public class Chef : MonoBehaviour
         {
             SentToFSM(ChefStates.WaitForCompany);
 
-            var canteen = collision.gameObject.GetComponent<Canteen>();
-
-            if(canteen != null)
-            {
-
-            }
+            //var canteen = collision.gameObject.GetComponent<Canteen>();
+            //
+            //if(canteen != null)
+            //{
+            //
+            //}
 
             //if (_stateLoadFood)
             //{
