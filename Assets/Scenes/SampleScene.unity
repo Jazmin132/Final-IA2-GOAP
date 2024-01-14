@@ -316,7 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1a63173d5f52a4d8a514a129ab2de8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodQuantity: 0
   appleListQuantityFP: []
   coconutListQuantityFP: []
   beanListQuantityFP: []
@@ -12346,6 +12345,7 @@ MonoBehaviour:
   spawnRotation: {x: 0, y: 0, z: 0, w: 0}
   UI: {fileID: 1672737917}
   sheepAlive: 0
+  gridObject: {fileID: 280139271}
 --- !u!4 &233913638
 Transform:
   m_ObjectHideFlags: 0
@@ -91682,6 +91682,7 @@ MonoBehaviour:
   beanListQuantity: []
   maxQuantityOfFood: 5
   maxTypesOfFood: 3
+  listNewFoodQuantity: []
 --- !u!1 &1394101394
 GameObject:
   m_ObjectHideFlags: 0
@@ -109784,6 +109785,7 @@ MonoBehaviour:
   particleDeath: {fileID: 1308570480}
   _particleDeathObject: {fileID: 4374937912784042927, guid: 6dfb71ae6d9c32740ae4d53f28db7159, type: 3}
   isReadyToEat: 0
+  _goingToEat: 0
 --- !u!1 &1741503117
 GameObject:
   m_ObjectHideFlags: 0
@@ -132785,6 +132787,8 @@ MonoBehaviour:
   finalDest: {x: 0, y: 0, z: 0}
   maxQuantityFoodCarried: 5
   _constructor: {fileID: 0}
+  _maxCapacityFoodReached: 0
+  _foodForCanteenReady: 0
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0

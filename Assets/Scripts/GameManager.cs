@@ -36,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     public bool sheepAlive;
 
+    public GameObject gridObject;
+
     private void Awake() 
     { 
         if (instance == null) 
@@ -96,7 +98,7 @@ public class GameManager : MonoBehaviour
 
         Vector3 respawnPosition = new Vector3(Random.Range(-boundWidth / 2, boundWidth / 2), 0, Random.Range(-boundHeight / 2, boundHeight / 2));
 
-        GameObject newBoidObject = Instantiate(boidPrefab, respawnPosition, spawnRotation);
+        GameObject newBoidObject = Instantiate(boidPrefab, respawnPosition, spawnRotation, gridObject.transform);
         Boid newBoid = newBoidObject.GetComponent<Boid>();
 
         allBoids.Add(newBoid);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Canteen : MonoBehaviour
 {
@@ -108,7 +109,7 @@ public class Canteen : MonoBehaviour
     {
         //Tema Concat + Aggregate para sumar el valor de food de cada tipo de comida
 
-        //listNewFoodQuantity =
+        //listNewFoodQuantity
 
         appleListQuantity.Clear();
         coconutListQuantity.Clear();
