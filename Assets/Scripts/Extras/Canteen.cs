@@ -12,11 +12,17 @@ public class Canteen : MonoBehaviour
     public List<Coconut> coconutListQuantity = new List<Coconut>();
     public List<Bean> beanListQuantity = new List<Bean>();
 
+    public IEnumerable<Apple> appleIEnumerableQuantity;
+    public IEnumerable<Coconut> coconutIEnumerableQuantity;
+    public IEnumerable<Bean> beanIEnumerableQuantity;
+
     public int maxQuantityOfFood, maxTypesOfFood;
 
     int _randomNumFood;
 
     public List<NewFood> listNewFoodQuantity = new List<NewFood>();
+
+    public IEnumerable<NewFood> iEnumerableNewFoodQuantity;
 
     void Start()
     {
@@ -108,6 +114,12 @@ public class Canteen : MonoBehaviour
     public void CalculateFood()
     {
         //Tema Concat + Aggregate para sumar el valor de food de cada tipo de comida
+
+        appleIEnumerableQuantity = appleListQuantity;
+        coconutIEnumerableQuantity = coconutListQuantity;
+        beanIEnumerableQuantity = beanListQuantity;
+
+        var listFood = FList.Create(iEnumerableNewFoodQuantity) + appleIEnumerableQuantity + coconutIEnumerableQuantity + beanIEnumerableQuantity;
 
         //var listFood = FList.Create(listNewFoodQuantity) + appleListQuantity + coconutListQuantity + beanListQuantity;
 
