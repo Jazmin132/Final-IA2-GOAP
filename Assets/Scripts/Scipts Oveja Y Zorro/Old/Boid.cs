@@ -187,6 +187,7 @@ public class Boid : GridEntity
         if (spatialGrid != null)
         {
             targetGrid = spatialGrid;
+            spatialGrid.UpdateEntity(this);
             UpdateGrid();
         }
         else
@@ -213,8 +214,8 @@ public class Boid : GridEntity
 
     public override void Update()//ESTO ES NUEVO ES EL DESTROY CAMBIO JULI
     {
-        MoveTest();
-
+        //MoveTest();
+        UpdateGrid();
         //if(_gameManager.allFoxes.Count > 0)
         //{
         //    for (int i = 0; i < _gameManager.allFoxes.Count; i++)
