@@ -210,24 +210,24 @@ public class Boid : GridEntity
     {
         MoveTest();
 
-        if(_gameManager.allFoxes.Count > 0)
-        {
-            for (int i = 0; i < _gameManager.allFoxes.Count; i++)
-            {
-                if (Vector3.Distance(transform.position, _gameManager.allFoxes[i].transform.position) <= hunterRadius)
-                {
-                    //Debug.Log("Yo, oveja, estoy a punto de morir.");
-
-                    _gameManager.allFoxes[i].UpdateKillStreak(_sheepValue);
-
-                    //Debug.Log("Yo, oveja, me muero.");
-
-                    GameManager.instance.RemoveBoid(this);
-                    Destroy(gameObject);
-                    return;
-                }
-            }
-        }
+        //if(_gameManager.allFoxes.Count > 0)
+        //{
+        //    for (int i = 0; i < _gameManager.allFoxes.Count; i++)
+        //    {
+        //        if (Vector3.Distance(transform.position, _gameManager.allFoxes[i].transform.position) <= hunterRadius)
+        //        {
+        //            //Debug.Log("Yo, oveja, estoy a punto de morir.");
+        //
+        //            _gameManager.allFoxes[i].UpdateKillStreak(_sheepValue);
+        //
+        //            //Debug.Log("Yo, oveja, me muero.");
+        //
+        //            GameManager.instance.RemoveBoid(this);
+        //            Destroy(gameObject);
+        //            return;
+        //        }
+        //    }
+        //}
     }//CAMBIO JULI
 
     #region Separation

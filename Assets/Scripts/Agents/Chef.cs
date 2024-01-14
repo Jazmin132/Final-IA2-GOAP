@@ -60,7 +60,7 @@ public class Chef : MonoBehaviour
     public enum ChefStates
     {
         LookingForFood,
-        Collect,
+        GoToTable,
         LoadFood,
         WaitForCompany,
         Eat,
@@ -71,27 +71,28 @@ public class Chef : MonoBehaviour
     void Awake()
     {
         var _LookingForFood = new State<ChefStates>("LookingForFood");
-        var _Collect = new State<ChefStates>("Collect");
+        var _goToTable = new State<ChefStates>("GoToTable");
         var _LoadFood = new State<ChefStates>("LoadFood");
         var _WaitForCompany = new State<ChefStates>("WaitForCompany");
         var _Eat = new State<ChefStates>("Eat");
         var _stateDeath = new State<ChefStates>("stateDeath");
 
         StateConfigurer.Create(_LookingForFood)
-            .SetTransition(ChefStates.Collect, _Collect)
+            .SetTransition(ChefStates.GoToTable, _goToTable)
             .SetTransition(ChefStates.Eat, _Eat)
             .SetTransition(ChefStates.LoadFood, _LoadFood)
             .SetTransition(ChefStates.stateDeath, _stateDeath).Done();
 
-        StateConfigurer.Create(_Collect)
+        StateConfigurer.Create(_goToTable)
             .SetTransition(ChefStates.Eat, _Eat)
             .SetTransition(ChefStates.LoadFood, _LoadFood)
             .SetTransition(ChefStates.stateDeath, _stateDeath)
-            .SetTransition(ChefStates.LookingForFood, _LookingForFood).Done();
+            .SetTransition(ChefStates.LookingForFood, _LookingForFood)
+            .SetTransition(ChefStates.WaitForCompany, _WaitForCompany).Done();
 
         StateConfigurer.Create(_LoadFood)
             .SetTransition(ChefStates.Eat, _Eat)
-            .SetTransition(ChefStates.Collect, _Collect)
+            .SetTransition(ChefStates.GoToTable, _goToTable)
             .SetTransition(ChefStates.stateDeath, _stateDeath)
             .SetTransition(ChefStates.LookingForFood, _LookingForFood).Done();
 
@@ -101,7 +102,7 @@ public class Chef : MonoBehaviour
             .SetTransition(ChefStates.stateDeath, _stateDeath).Done();
 
         StateConfigurer.Create(_Eat)
-            .SetTransition(ChefStates.Collect, _Collect)
+            .SetTransition(ChefStates.GoToTable, _goToTable)
             .SetTransition(ChefStates.LoadFood, _LoadFood)
             .SetTransition(ChefStates.stateDeath, _stateDeath)
             .SetTransition(ChefStates.LookingForFood, _LookingForFood).Done();
@@ -156,19 +157,34 @@ public class Chef : MonoBehaviour
             _stateLoadFood = false; 
         };
 
-        _Collect.OnEnter += x => 
+        //_Collect.OnEnter += x => 
+        //{
+        //    particleHarvest.Play();
+        //    _stateLookingForFood = true; 
+        //};
+        //_Collect.OnFixedUpdate += () => 
+        //{
+        //    //CountTimerCollectFood();
+        //};
+        //_Collect.OnExit += x =>
+        //{
+        //    particleHarvest.Stop();
+        //    _stateLookingForFood = false;
+        //};
+
+        _goToTable.OnEnter += x =>
         {
-            particleHarvest.Play();
-            _stateLookingForFood = true; 
+
         };
-        _Collect.OnFixedUpdate += () => 
+        _goToTable.OnFixedUpdate += () => 
         {
-            //CountTimerCollectFood();
+            _myTransform.LookAt(new Vector3(_canteenToLoad.transform.position.x, 0, _canteenToLoad.transform.position.z));
+
+            _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
-        _Collect.OnExit += x =>
+        _goToTable.OnExit += x =>
         {
-            particleHarvest.Stop();
-            _stateLookingForFood = false;
+
         };
 
         _LoadFood.OnEnter += x => 
@@ -598,7 +614,7 @@ public class Chef : MonoBehaviour
                     _foodPatch.coconutListQuantityFP.RemoveRange(0, _canteenToLoad.coconutListQuantity.Count);
                     _foodPatch.beanListQuantityFP.RemoveRange(0, _canteenToLoad.beanListQuantity.Count);
 
-                    //SentToFSM(ChefStates.Eat);
+                    SentToFSM(ChefStates.GoToTable);
                 }
                 else
                     SentToFSM(ChefStates.LookingForFood);
@@ -608,21 +624,30 @@ public class Chef : MonoBehaviour
         }
         else if (collision.gameObject.layer == 10)
         {
-            if (_stateLoadFood)
-            {
-                _canteenToLoad.AddFood(_food);
+            SentToFSM(ChefStates.WaitForCompany);
 
-                _food = 0;
-                SentToFSM(ChefStates.LookingForFood);
-            }
-            else if (_stateEat)
+            var canteen = collision.gameObject.GetComponent<Canteen>();
+
+            if(canteen != null)
             {
-                if (_hungerActive)
-                    _hungerActive = false;
-                
-                if (!_isEating)
-                    _isEating = true;
+
             }
+
+            //if (_stateLoadFood)
+            //{
+            //    _canteenToLoad.AddFood(_food);
+            //
+            //    _food = 0;
+            //    SentToFSM(ChefStates.LookingForFood);
+            //}
+            //else if (_stateEat)
+            //{
+            //    if (_hungerActive)
+            //        _hungerActive = false;
+            //    
+            //    if (!_isEating)
+            //        _isEating = true;
+            //}
         }
     }
 }
