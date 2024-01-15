@@ -132958,7 +132958,7 @@ MonoBehaviour:
   _gameManager: {fileID: 233913637}
   finalDest: {x: 0, y: 0, z: 0}
   maxQuantityFoodCarried: 5
-  _constructor: {fileID: 0}
+  _constructor: {fileID: 1739711748}
   _maxCapacityFoodReached: 0
   _foodForCanteenReady: 0
 --- !u!1 &2039743256
