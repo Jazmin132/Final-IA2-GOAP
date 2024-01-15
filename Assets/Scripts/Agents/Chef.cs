@@ -279,7 +279,7 @@ public class Chef : MonoBehaviour
         if (_isEating)
             CountTimerEatFood();
 
-        if(appleQuantity.Count + coconutQuantity.Count + beanQuantity.Count >= maxQuantityFoodCarried)
+        if(appleQuantity.Count + coconutQuantity.Count + beanQuantity.Count >= maxQuantityFoodCarried && !_foodForCanteenReady)
         {
             _maxCapacityFoodReached = true;
 
