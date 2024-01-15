@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NewFood : MonoBehaviour
 {
-    public int foodValue;
+    public float foodValue;
 
     void Start()
     {

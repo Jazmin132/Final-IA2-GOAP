@@ -123,6 +123,12 @@ public class Canteen : MonoBehaviour
 
         //foodQuantity = (FList.Create(iEnumerableNewFoodQuantity) + appleIEnumerableQuantity + coconutIEnumerableQuantity + beanIEnumerableQuantity).OfType<NewFood>().Aggregate);
 
+        //foodQuantity = (FList.Create(iEnumerableNewFoodQuantity) + appleIEnumerableQuantity + coconutIEnumerableQuantity + beanIEnumerableQuantity).OfType<NewFood>().Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
+
+        //NewFoodValue = (FList.Create<NewFood>() + appleIEnumQuantity + coconutIEnumQuantity + beanIEnumQuantity).OfType<NewFood>().Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
+
+        foodQuantity = (FList.Create<NewFood>() + appleIEnumerableQuantity + coconutIEnumerableQuantity + beanIEnumerableQuantity).Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
+
         //var listFood = FList.Create(listNewFoodQuantity) + appleListQuantity + coconutListQuantity + beanListQuantity;
 
         appleListQuantity.Clear();
