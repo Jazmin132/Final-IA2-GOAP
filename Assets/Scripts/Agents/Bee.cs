@@ -125,7 +125,7 @@ public class Bee : MonoBehaviour
          };
         GotoPlant.OnEnter += x => 
         {
-            Debug.Log("MUST PROTECT PLANT");
+            //Debug.Log("MUST PROTECT PLANT");
         };
         GotoPlant.OnFixedUpdate += () =>
         {

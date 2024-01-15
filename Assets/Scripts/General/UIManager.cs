@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
 
     int _SheepCount;
     int _BeeCount;
+    int biggest = 0;
+    int latestsN;
 
     public static UIManager instance;
 
@@ -79,27 +81,32 @@ public class UIManager : MonoBehaviour
     public void UpdateFoxKillStreak(Agent fox, int value)
     {
         Tuple<Agent[], int[]> tupla = Tuple.Create(Foxes, foxKillsNum);
-        int biggest = 0;
-        int latests;
 
         for (int i = 0; i < Foxes.Length; i++)
         {
-            //if (fox == Foxes[i])
             if (fox == tupla.Item1[i])
             {
                 foxKillsNum[i] += value;
-                latests = foxKillsNum[i];
+                //latestsN = foxKillsNum[i];
 
-                if (latests >= biggest)
+                Debug.Log("New Biggest: " + biggest);
+                Debug.Log("New latestsN: " + foxKillsNum[i]);
+                Debug.Log(foxKillsNum[i] >= biggest);
+                if (foxKillsNum[i] >= biggest)
                 {
-                    biggest = latests;
+                    biggest = foxKillsNum[i];
                     Crowns[i].gameObject.SetActive(true);
                 }
-                else
+                else if (foxKillsNum[i] < biggest)
+                {
                     Crowns[i].gameObject.SetActive(false);
-
+                    Debug.Log("Else Biggest: " + biggest);
+                    Debug.Log("Else latestsN: " + foxKillsNum[i]);
+                }
+                Debug.Log(i + " foxKill: " + foxKillsNum[i]);
+                //Actualizo el la tupla con las nuevas kills
                 tupla = Tuple.Create(tupla.Item1, foxKillsNum);
-                //textFoxKills[i].text = "X " + foxKillsNum[i];
+                //Actualizo el texto del zorro
                 textFoxKills[i].text = "X " + tupla.Item2[i];
             }
         }

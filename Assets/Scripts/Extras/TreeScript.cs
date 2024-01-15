@@ -36,7 +36,7 @@ public class TreeScript : MonoBehaviour
                 if (Random.Range(0, 1) == 0)
                 {
                     Instantiate(_Bee);
-                    Debug.Log("CrearAbeja");
+                    //Debug.Log("CrearAbeja");
                 }
                 
                 Destroy(gameObject);

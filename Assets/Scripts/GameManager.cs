@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
         allFoxes = allFoxes.OrderBy(x => x == fox).ToList();
 
         var Foxes = allFoxes.TakeWhile(x => x != fox).ToList();
-        Debug.Log(Foxes.Count);
+        //Debug.Log(Foxes.Count);
         for (int i = 0; i < Foxes.Count; i++)
         {
             //allFoxes[i].WhereToGo= fox.transform;

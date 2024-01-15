@@ -167,7 +167,7 @@ public class Agent : GridEntity
         {
             energy -= Time.deltaTime;
             if (energy <= 0) SendInputToSFSM(AgentStates.IDLE);
-            Debug.Log("ACTUALIZANDO");
+            //Debug.Log("ACTUALIZANDO");
             NowPatrol();
             CheckForOveja();
         };
@@ -273,7 +273,7 @@ public class Agent : GridEntity
             .OrderBy(x => x.position - transform.position)
             .ToList();
 
-        Debug.LogWarning("Query DONE " + gameObject.name);
+        //Debug.LogWarning("Query DONE " + gameObject.name);
             
             //Debug.Log(Num);
             _listTransforms = Num;
@@ -284,7 +284,7 @@ public class Agent : GridEntity
                 if (dist.magnitude <= pursuitRadius)
                 {
                     target = boid.transform;//CAMBIO JULI
-                    Debug.Log(target);
+                    //Debug.Log(target);
                     SendInputToSFSM(AgentStates.PURSUIT);
                 }
             }
@@ -370,18 +370,13 @@ public class Agent : GridEntity
     //    return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad));
     //}
 
-    public void UpdateKillStreak(int value)
-    {
-        UIManager.instance.UpdateFoxKillStreak(this, value);
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         var X = collision.collider.GetComponent<Boid>();
         if (X != null) 
         {
+            //UIManager.instance.UpdateFoxKillStreak(this, 1);
             UIManager.instance.UpdateFoxKillStreak(this, 1);
-
             X.isAlive = false;
         }
     }

@@ -118,7 +118,7 @@ public class Boid : GridEntity
         };
 
         _Evade.OnEnter += x => {
-            Debug.Log("ASUSTADO");
+            //Debug.Log("ASUSTADO");
             particleScared.Play(); };
         _Evade.OnFixedUpdate += () => 
         {
