@@ -154,7 +154,7 @@ public class Boid : GridEntity
 
                         //SentToFSM(BoidStates.EVADE);
 
-                        Debug.Log("Arrive to Evade IS DONE");
+                        //Debug.Log("Arrive to Evade IS DONE");
                     }
                     else if ((GameManager.instance.food.transform.position - transform.position).magnitude > arriveRadius)
                         SentToFSM(BoidStates.ALIGNMENT);

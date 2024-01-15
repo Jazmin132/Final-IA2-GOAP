@@ -19,8 +19,7 @@ public class UIManager : MonoBehaviour
 
     int _SheepCount;
     int _BeeCount;
-    int biggest = 0;
-    int latestsN;
+    int biggest = 1;
 
     public static UIManager instance;
 
@@ -85,30 +84,22 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < Foxes.Length; i++)
         {
             if (fox == tupla.Item1[i])
-            {
+            {//Cuando la kill es del zorro que recibí
                 foxKillsNum[i] += value;
-                //latestsN = foxKillsNum[i];
 
-                Debug.Log("New Biggest: " + biggest);
-                Debug.Log("New latestsN: " + foxKillsNum[i]);
-                Debug.Log(foxKillsNum[i] >= biggest);
-                if (foxKillsNum[i] >= biggest)
-                {
-                    biggest = foxKillsNum[i];
-                    Crowns[i].gameObject.SetActive(true);
-                }
-                else if (foxKillsNum[i] < biggest)
-                {
-                    Crowns[i].gameObject.SetActive(false);
-                    Debug.Log("Else Biggest: " + biggest);
-                    Debug.Log("Else latestsN: " + foxKillsNum[i]);
-                }
-                Debug.Log(i + " foxKill: " + foxKillsNum[i]);
-                //Actualizo el la tupla con las nuevas kills
+                //Actualizo la tupla con las nuevas kills
                 tupla = Tuple.Create(tupla.Item1, foxKillsNum);
                 //Actualizo el texto del zorro
                 textFoxKills[i].text = "X " + tupla.Item2[i];
             }
+
+            if (foxKillsNum[i] >= biggest)
+            {//Si la kill de este zorro es mayor o igual al número más grande de Kills  
+                biggest = foxKillsNum[i];//Actualizo el número mas grande de Kills
+                Crowns[i].gameObject.SetActive(true);//Ativo la corona correspondiente
+            }
+            else
+                Crowns[i].gameObject.SetActive(false);
         }
     }
 }
