@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f427142475244be41aad61d3c007f06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodValue: 35
+  foodValue: 50
 --- !u!135 &3264547147559806951
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -72,15 +72,18 @@ public class Constructor : MonoBehaviour
         StateConfigurer.Create(_GrabingWood)
             .SetTransition(ConstructorStates.Eat, _Eat)
             .SetTransition(ConstructorStates.Construct, _Construct)
+            .SetTransition(ConstructorStates.GoToTable, _goToTable)
             .SetTransition(ConstructorStates.stateDeath, _stateDeath).Done();
 
         StateConfigurer.Create(_Construct)
-            .SetTransition(ConstructorStates.Eat, _Eat)      
+            .SetTransition(ConstructorStates.Eat, _Eat)
+            .SetTransition(ConstructorStates.GoToTable, _goToTable)
             .SetTransition(ConstructorStates.stateDeath, _stateDeath)
             .SetTransition(ConstructorStates.GrabingWood, _GrabingWood).Done();
 
         StateConfigurer.Create(_goToTable)
             .SetTransition(ConstructorStates.Eat, _Eat)
+            .SetTransition(ConstructorStates.WaitForFood, _waitForFood)
             .SetTransition(ConstructorStates.stateDeath, _stateDeath)
             .SetTransition(ConstructorStates.GrabingWood, _GrabingWood).Done();
 
@@ -125,6 +128,7 @@ public class Constructor : MonoBehaviour
         _goToTable.OnEnter += x =>
         {
             _goingToEat = true;
+            //Debug.Log("Entre en GoToTable");
             //Partículas de yendo a la mesa? ON
         };
         _goToTable.OnFixedUpdate += () =>
@@ -140,6 +144,7 @@ public class Constructor : MonoBehaviour
         _waitForFood.OnEnter += x =>
         {
             //Partículas de enojo ON
+            //Debug.Log("WaitForFood ON");
             particleAnger.Play();
 
         };
@@ -334,17 +339,19 @@ public class Constructor : MonoBehaviour
             {
                 //if (_stateGrabingWoodForWork)
                 //    _stateGrabingWoodForWork = false;
-                //
-                //if (_stateConstruct)
-                //    _stateConstruct = false;
-                //
-                //if (!_stateEat)
-                //    _stateEat = true;
-                //
-                //if (_isWorking)
-                //    _isWorking = false;
+
+                if (_stateConstruct)
+                    _stateConstruct = false;
+                
+                if (!_stateEat)
+                    _stateEat = true;
+                
+                if (_isWorking)
+                    _isWorking = false;
 
                 //SentToFSM(ContructorStates.Eat);
+
+                //Debug.Log("Voy a prender el estado GoToTable");
 
                 SentToFSM(ConstructorStates.GoToTable);
             }
@@ -352,13 +359,13 @@ public class Constructor : MonoBehaviour
             {
                 //if (_stateGrabingWoodForWork)
                 //    _stateGrabingWoodForWork = false;
-                //
-                //if (_stateConstruct)
-                //    _stateConstruct = false;
-                //
-                //if (_stateEat)
-                //    _stateEat = false;
-                //
+                
+                if (_stateConstruct)
+                    _stateConstruct = false;
+                
+                if (_stateEat)
+                    _stateEat = false;
+                
                 //if (!_stateDeath)
                 //    _stateDeath = true;
                 SentToFSM(ConstructorStates.stateDeath);
@@ -543,8 +550,8 @@ public class Constructor : MonoBehaviour
 
             //if (_stateGrabingWoodForWork)
             //    _stateGrabingWoodForWork = false;
-            //if (!_stateConstruct)
-            //    _stateConstruct = true;
+            if (!_stateConstruct)
+                _stateConstruct = true;
             SentToFSM(ConstructorStates.Construct);
         }
     }

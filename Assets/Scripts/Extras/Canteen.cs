@@ -82,6 +82,8 @@ public class Canteen : MonoBehaviour
         {
             //appleListQuantityFP.Concat(chefAppleList);
 
+            appleListQuantity.Clear();
+
             for (int i = 0; i < chefAppleList.Count; i++)
             {
                 appleListQuantity.Add(chefAppleList[i]);
@@ -92,6 +94,8 @@ public class Canteen : MonoBehaviour
         {
             //coconutListQuantityFP.Concat(chefCoconutList);
 
+            coconutListQuantity.Clear();
+
             for (int i = 0; i < chefCoconutList.Count; i++)
             {
                 coconutListQuantity.Add(chefCoconutList[i]);
@@ -101,6 +105,8 @@ public class Canteen : MonoBehaviour
         if (chefBeanList.Count > 0)
         {
             //beanListQuantityFP.Concat(chefBeanList);
+
+            beanListQuantity.Clear();
 
             for (int i = 0; i < chefBeanList.Count; i++)
             {

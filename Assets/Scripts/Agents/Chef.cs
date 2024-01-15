@@ -216,7 +216,11 @@ public class Chef : MonoBehaviour
         };
         _WaitForCompany.OnFixedUpdate += () =>
         {
-            if (_constructor.isReadyToEat)
+            if (_constructor == null)
+            {
+                SentToFSM(ChefStates.Eat);
+            }
+            else if (_constructor.isReadyToEat)
             {
                 SentToFSM(ChefStates.Eat);
             }
