@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     public Image[] FacesFoxes2;
     public Image[] FacesFoxes3;
 
+    public Image[] Crowns;
+
     public Agent[] Foxes;
 
     int _SheepCount;
@@ -35,7 +37,7 @@ public class UIManager : MonoBehaviour
 
         TextCount[0].text = "X "+ _SheepCount;
 
-        TextCount[1].text = "X " + _BeeCount;
+        TextCount[1].text = "X " + _BeeCount; 
     }
 
     public void ChangeText(int newvalue, string forwho)
@@ -76,23 +78,30 @@ public class UIManager : MonoBehaviour
 
     public void UpdateFoxKillStreak(Agent fox, int value)
     {
-        if (fox == Foxes[0])
-        {
-            foxKillsNum[0] += value;
+        Tuple<Agent[], int[]> tupla = Tuple.Create(Foxes, foxKillsNum);
+        int biggest = 0;
+        int latests;
 
-            textFoxKills[0].text = "X " + foxKillsNum[0];
-        }
-        else if (fox == Foxes[1])
+        for (int i = 0; i < Foxes.Length; i++)
         {
-            foxKillsNum[1] += value;
+            //if (fox == Foxes[i])
+            if (fox == tupla.Item1[i])
+            {
+                foxKillsNum[i] += value;
+                latests = foxKillsNum[i];
 
-            textFoxKills[1].text = "X " + foxKillsNum[1];
-        }
-        else
-        {
-            foxKillsNum[2] += value;
+                if (latests >= biggest)
+                {
+                    biggest = latests;
+                    Crowns[i].gameObject.SetActive(true);
+                }
+                else
+                    Crowns[i].gameObject.SetActive(false);
 
-            textFoxKills[2].text = "X " + foxKillsNum[2];
+                tupla = Tuple.Create(tupla.Item1, foxKillsNum);
+                //textFoxKills[i].text = "X " + foxKillsNum[i];
+                textFoxKills[i].text = "X " + tupla.Item2[i];
+            }
         }
     }
 }
