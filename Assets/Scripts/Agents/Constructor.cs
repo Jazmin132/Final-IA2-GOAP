@@ -40,6 +40,7 @@ public class Constructor : MonoBehaviour
     public ParticleSystem particleBuilding;
     public ParticleSystem particleHunger;
     public ParticleSystem particleDeath;
+    public ParticleSystem particleAnger;
 
     [SerializeField] GameObject _particleDeathObject;
 
@@ -139,6 +140,8 @@ public class Constructor : MonoBehaviour
         _waitForFood.OnEnter += x =>
         {
             //Partículas de enojo ON
+            particleAnger.Play();
+
         };
         _waitForFood.OnFixedUpdate += () =>
         {
@@ -150,6 +153,7 @@ public class Constructor : MonoBehaviour
         _waitForFood.OnExit += x =>
         {
             //Partículas de enojo OFF
+            particleAnger.Stop();
         };
 
         _Eat.OnEnter += x => 
