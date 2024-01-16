@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coconut : NewFood
+public class Coconut : Fruits
 {
     //public int foodValue;
 

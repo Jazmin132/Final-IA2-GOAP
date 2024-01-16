@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bean : NewFood
+public class Bean : Legumes
 {
     //public int foodValue;
 
