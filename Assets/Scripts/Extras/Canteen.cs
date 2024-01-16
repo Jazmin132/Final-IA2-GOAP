@@ -20,9 +20,9 @@ public class Canteen : MonoBehaviour
 
     int _randomNumFood;
 
-    public List<NewFood> listNewFoodQuantity = new List<NewFood>();
-
-    public IEnumerable<NewFood> iEnumerableNewFoodQuantity;
+    //public List<NewFood> listNewFoodQuantity = new List<NewFood>();
+    //
+    //public IEnumerable<NewFood> iEnumerableNewFoodQuantity;
 
     void Start()
     {
@@ -117,7 +117,7 @@ public class Canteen : MonoBehaviour
         CalculateFood();
     }
 
-    public void CalculateFood()
+    public void CalculateFood() //IA2-LINQ
     {
         //Tema Concat + Aggregate para sumar el valor de food de cada tipo de comida
 
@@ -141,7 +141,7 @@ public class Canteen : MonoBehaviour
         coconutListQuantity.Clear();
         beanListQuantity.Clear();
 
-        listNewFoodQuantity.Clear();
+        //listNewFoodQuantity.Clear();
 
         FoodIngredients();
     }
