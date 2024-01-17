@@ -45600,7 +45600,7 @@ MonoBehaviour:
   _canCountTimeSpawn: 1
   _restartSpawnTime: 0
   _timeSpawn: 0
-  _timerSpawn: 6.5
+  _timerSpawn: 8
   _AllFood:
   - {fileID: 6834363477936721396, guid: 20bfe91b06bef704fa9fd4018bf3147b, type: 3}
   - {fileID: 4687764596052549810, guid: dea3d2b4c5088584ebda612619284254, type: 3}
@@ -97247,6 +97247,7 @@ MonoBehaviour:
   beanListQuantity: []
   maxQuantityOfFood: 5
   maxTypesOfFood: 3
+  listNewFoodQuantity: []
 --- !u!1 &1391587352
 GameObject:
   m_ObjectHideFlags: 0
