@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11243,7 +11243,7 @@ GameObject:
   - component: {fileID: 166303205}
   - component: {fileID: 166303204}
   m_Layer: 5
-  m_Name: Text-Beam2
+  m_Name: Text-Bean2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69183,7 +69183,7 @@ GameObject:
   - component: {fileID: 1066040228}
   - component: {fileID: 1066040227}
   m_Layer: 5
-  m_Name: Text-Beam
+  m_Name: Text-Bean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105391,6 +105391,12 @@ MonoBehaviour:
   - {fileID: 1081226007}
   - {fileID: 352367257}
   foxKillsNum: 000000000000000000000000
+  foodTexts:
+  - {fileID: 789405505}
+  - {fileID: 1994029226}
+  - {fileID: 1066040227}
+  AllFoodText: {fileID: 1844861172}
+  _gameManager: {fileID: 233913637}
 --- !u!4 &1672737918
 Transform:
   m_ObjectHideFlags: 0

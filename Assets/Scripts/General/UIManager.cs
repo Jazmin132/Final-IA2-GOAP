@@ -26,6 +26,12 @@ public class UIManager : MonoBehaviour
     public Text[] textFoxKills;
     public int[] foxKillsNum;
 
+    public Text[] foodTexts;
+
+    public Text AllFoodText;
+
+    [SerializeField] GameManager _gameManager;
+
     private void Awake()
     {
         if (instance == null) instance = this;
