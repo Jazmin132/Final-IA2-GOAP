@@ -8,11 +8,43 @@ public class NewFood : MonoBehaviour
 
     void Start()
     {
+        if (gameObject.GetComponent<Apple>())
+        {
+            GameManager.instance.AllFruits++;
+            GameManager.instance.AllApples++;
+        }
+        else if (gameObject.GetComponent<Coconut>())
+        {
+            GameManager.instance.AllFruits++;
+            GameManager.instance.AllCoconuts++;
+        }
+        else if (gameObject.GetComponent<Bean>())
+        {
+            GameManager.instance.AllLegumes++;
+            GameManager.instance.AllBeans++;
+        }
+
         GameManager.instance.AddFood(this);
     }
 
     public void OnDeath()
     {
+        if (gameObject.GetComponent<Apple>())
+        {
+            GameManager.instance.AllFruits--;
+            GameManager.instance.AllApples--;
+        }
+        else if (gameObject.GetComponent<Coconut>())
+        {
+            GameManager.instance.AllFruits--;
+            GameManager.instance.AllCoconuts--;
+        }
+        else if (gameObject.GetComponent<Bean>())
+        {
+            GameManager.instance.AllLegumes--;
+            GameManager.instance.AllBeans--;
+        }
+
         GameManager.instance.RemoveFood(this);
     }
 

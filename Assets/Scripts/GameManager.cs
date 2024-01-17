@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     [Header("FOOD Related Values")]
     public List<NewFood> allFood = new List<NewFood>();
+    //public List<Fruits> allFruits = new List<Fruits>();
+    //public List<Legumes> allLegumes = new List<Legumes>();
+    public int AllFruits, AllLegumes;
+    public int AllApples, AllCoconuts, AllBeans;
 
     [Header("FOX Related Values")]
     public List<Agent> allFoxes = new List<Agent>();
@@ -91,6 +95,26 @@ public class GameManager : MonoBehaviour
     {
         allFood.Remove(b);
     }
+
+    //public void AddFruit(Fruits f)
+    //{
+    //    if (!allFruits.Contains(f)) allFruits.Add(f);
+    //}
+    //
+    //public void RemoveFruit(Fruits f)
+    //{
+    //    allFruits.Remove(f);
+    //}
+    //
+    //public void AddLegume(Legumes l)
+    //{
+    //    if (!allLegumes.Contains(l)) allLegumes.Add(l);
+    //}
+    //
+    //public void RemoveLegume(Legumes l)
+    //{
+    //    allLegumes.Remove(l);
+    //}
 
     private IEnumerator RespawnBoid(float delay)// Se usa para aparecer en aleatorio adentro de la zona de contencion CAMBIO JULI
     {

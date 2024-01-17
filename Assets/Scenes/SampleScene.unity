@@ -12339,6 +12339,8 @@ MonoBehaviour:
   - {fileID: 805149321}
   - {fileID: 921547077}
   - {fileID: 548997273}
+  AllFruits: 0
+  AllLegumes: 0
   allFoxes: []
   boidPrefab: {fileID: 5499290305119165747, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
   respawnTime: 2
