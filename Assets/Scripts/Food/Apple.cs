@@ -6,13 +6,13 @@ public class Apple : Fruits
 {
     //public int foodValue;
 
-    //void Start()
-    //{
-    //    GameManager.instance.AddFood(this);
-    //}
-    //
-    //public void OnDeath()
-    //{
-    //    GameManager.instance.RemoveFood(this);
-    //}
+    void Start()
+    {
+        GameManager.instance.AddApple(this);
+    }
+    
+    public void OnDeathApple()
+    {
+        GameManager.instance.RemoveApple(this);
+    }
 }

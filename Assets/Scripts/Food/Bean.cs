@@ -6,13 +6,13 @@ public class Bean : Legumes
 {
     //public int foodValue;
 
-    //void Start()
-    //{
-    //    GameManager.instance.AddFood(this);
-    //}
-    //
-    //public void OnDeath()
-    //{
-    //    GameManager.instance.RemoveFood(this);
-    //}
+    void Start()
+    {
+        GameManager.instance.AddBean(this);
+    }
+
+    public void OnDeathBean()
+    {
+        GameManager.instance.RemoveBean(this);
+    }
 }

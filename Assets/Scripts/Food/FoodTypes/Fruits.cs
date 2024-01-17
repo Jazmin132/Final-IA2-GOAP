@@ -4,5 +4,13 @@ using UnityEngine;
 
 public class Fruits : NewFood
 {
+    void Start()
+    {
+        GameManager.instance.AddFruit(this);
+    }
 
+    public void OnDeathFruit()
+    {
+        GameManager.instance.RemoveFruit(this);
+    }
 }

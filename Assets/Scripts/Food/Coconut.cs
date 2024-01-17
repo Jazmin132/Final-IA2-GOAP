@@ -6,13 +6,13 @@ public class Coconut : Fruits
 {
     //public int foodValue;
 
-    //void Start()
-    //{
-    //    GameManager.instance.AddFood(this);
-    //}
-    //
-    //public void OnDeath()
-    //{
-    //    GameManager.instance.RemoveFood(this);
-    //}
+    void Start()
+    {
+        GameManager.instance.AddCoconut(this);
+    }
+
+    public void OnDeathCoconut()
+    {
+        GameManager.instance.RemoveCoconut(this);
+    }
 }

@@ -8,44 +8,35 @@ public class NewFood : MonoBehaviour
 
     void Start()
     {
-        if (gameObject.GetComponent<Apple>())
-        {
-            GameManager.instance.AllFruits++;
-            GameManager.instance.AllApples++;
-        }
-        else if (gameObject.GetComponent<Coconut>())
-        {
-            GameManager.instance.AllFruits++;
-            GameManager.instance.AllCoconuts++;
-        }
-        else if (gameObject.GetComponent<Bean>())
-        {
-            GameManager.instance.AllLegumes++;
-            GameManager.instance.AllBeans++;
-        }
-
         GameManager.instance.AddFood(this);
     }
 
     public void OnDeath()
     {
-        if (gameObject.GetComponent<Apple>())
-        {
-            GameManager.instance.AllFruits--;
-            GameManager.instance.AllApples--;
-        }
-        else if (gameObject.GetComponent<Coconut>())
-        {
-            GameManager.instance.AllFruits--;
-            GameManager.instance.AllCoconuts--;
-        }
-        else if (gameObject.GetComponent<Bean>())
-        {
-            GameManager.instance.AllLegumes--;
-            GameManager.instance.AllBeans--;
-        }
-
         GameManager.instance.RemoveFood(this);
+
+        if (gameObject.GetComponent<Fruits>())
+        {
+            gameObject.GetComponent<Fruits>().OnDeathFruit();
+
+            if (gameObject.GetComponent<Apple>())
+            {
+                gameObject.GetComponent<Apple>().OnDeathApple();
+            }
+            else if (gameObject.GetComponent<Coconut>())
+            {
+                gameObject.GetComponent<Coconut>().OnDeathCoconut();
+            }
+        }
+        else if (gameObject.GetComponent<Legumes>())
+        {
+            gameObject.GetComponent<Legumes>().OnDeathLegume();
+
+            if (gameObject.GetComponent<Bean>())
+            {
+                gameObject.GetComponent<Bean>().OnDeathBean();
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
