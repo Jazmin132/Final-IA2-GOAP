@@ -63,18 +63,46 @@ public class Woodcutter : MonoBehaviour
         LookTree.OnEnter += x =>
         {
             _LookingForTree = true;
+            //_treeList = LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x));
+            ////if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())
+            //if (_treeList.Any()) //IA2-LINQ
+            //{
+            //    if (_shortestDistanceToTree != 10000)
+            //        _shortestDistanceToTree = 10000;
+            //
+            //    var FirstTree = _treeList.Where(x => (x.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree)
+            //    .OrderBy(x => (x.transform.position - _myTransform.position).sqrMagnitude).First();
+            //    
+            //    //Debug.Log(FirstTree + "Primer arbol");
+            //    
+            //    _treeToGoTo = FirstTree;
+            //
+            //    //foreach (var tree in _treeList)
+            //    //{
+            //    //    if ((tree.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree && tree != null)
+            //    //        _shortestDistanceToTree = (tree.transform.position - _myTransform.position).sqrMagnitude;
+            //    //        _treeToGoTo = tree;
+            //    //}
+            //}
+            //else
+            //{
+            //    Debug.Log("No hay algo en la lista");
+            //}
+        };
+        LookTree.OnFixedUpdate += () => //IA2-LINQ
+        {
             _treeList = LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x));
             //if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())
-            if (_treeList.Any())// IA2 - LINQ
+            if (_treeList.Any()) //IA2-LINQ
             {
                 if (_shortestDistanceToTree != 10000)
                     _shortestDistanceToTree = 10000;
 
                 var FirstTree = _treeList.Where(x => (x.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree)
                 .OrderBy(x => (x.transform.position - _myTransform.position).sqrMagnitude).First();
-                
+
                 //Debug.Log(FirstTree + "Primer arbol");
-                
+
                 _treeToGoTo = FirstTree;
 
                 //foreach (var tree in _treeList)
@@ -88,9 +116,7 @@ public class Woodcutter : MonoBehaviour
             {
                 Debug.Log("No hay algo en la lista");
             }
-        };
-        LookTree.OnFixedUpdate += () => 
-        {
+
             if (_treeToGoTo != null)
             {
                 _myTransform.LookAt(new Vector3(_treeToGoTo.transform.position.x, 0, _treeToGoTo.transform.position.z));

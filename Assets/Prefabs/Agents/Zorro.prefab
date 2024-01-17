@@ -720,7 +720,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227656666880515936}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: fc89c90bc3b05b14b8a2c3b066e0aeda, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -753,10 +753,10 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 1408
-  Angle: 120
   particleTired: {fileID: 227656667539640491}
   particleEnojo: {fileID: 227656667509331075}
   _listTransforms: []
+  _canChangeToSleepyFace: 0
   _Idle: 0
   _Patrol: 0
   _Pursuit: 0

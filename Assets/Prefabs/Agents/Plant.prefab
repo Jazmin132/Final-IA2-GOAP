@@ -368,7 +368,7 @@ MonoBehaviour:
   _newVector3Rotation: {x: 0, y: 0, z: 0}
   _life: 100
   _lifeOriginal: 100
-  _lifeToLose: 3
+  _lifeToLose: 2.75
   _speed: 0.25
   _speedOriginal: 0.25
   _canCountTimeLife: 1

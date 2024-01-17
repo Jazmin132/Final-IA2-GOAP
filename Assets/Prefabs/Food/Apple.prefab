@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6834363477936721397}
   - component: {fileID: 5072403053096999687}
   - component: {fileID: -8006380008557287843}
+  - component: {fileID: 8004626057181589326}
   m_Layer: 13
   m_Name: Apple
   m_TagString: Untagged
@@ -125,7 +126,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6834363477936721396}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1d3fbe01638a2c24eac86d9ddb02a8d2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -144,6 +145,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodValue: 75
+--- !u!54 &8004626057181589326
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6834363477936721396}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &6834363479888404116
 GameObject:
   m_ObjectHideFlags: 0
