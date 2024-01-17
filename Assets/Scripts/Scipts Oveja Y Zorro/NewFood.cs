@@ -6,7 +6,12 @@ public class NewFood : MonoBehaviour
 {
     public float foodValue;
 
-    void Start()
+    //void Start()
+    //{
+    //    GameManager.instance.AddFood(this);
+    //}
+
+    public void AddThisFood()
     {
         GameManager.instance.AddFood(this);
     }
@@ -37,6 +42,8 @@ public class NewFood : MonoBehaviour
                 gameObject.GetComponent<Bean>().OnDeathBean();
             }
         }
+
+        UIManager.instance.UpdateFoodValue();
     }
 
     private void OnCollisionEnter(Collision collision)

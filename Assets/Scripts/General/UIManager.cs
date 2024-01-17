@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameManager _gameManager;
 
+    public int AllFoodValue, AllFruitsValue, AllLegumesValue, AllApplesValue, AllCoconutsValue, AllBeansValue;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -106,6 +108,37 @@ public class UIManager : MonoBehaviour
             }
             else
                 Crowns[i].gameObject.SetActive(false);
+        }
+    }
+
+    public void UpdateFoodValue()
+    {
+        if(_gameManager.allFood.Count != AllFoodValue)
+        {
+            AllFoodValue = _gameManager.allFood.Count;
+
+            AllFoodText.text = AllFoodValue.ToString();
+        }
+
+        if(_gameManager.allApples.Count != AllApplesValue)
+        {
+            AllApplesValue = _gameManager.allApples.Count;
+
+            foodTexts[0].text = AllApplesValue.ToString();
+        }
+
+        if (_gameManager.allCoconuts.Count != AllCoconutsValue)
+        {
+            AllCoconutsValue = _gameManager.allCoconuts.Count;
+
+            foodTexts[1].text = AllCoconutsValue.ToString();
+        }
+
+        if (_gameManager.allBeans.Count != AllBeansValue)
+        {
+            AllBeansValue = _gameManager.allBeans.Count;
+
+            foodTexts[2].text = AllBeansValue.ToString();
         }
     }
 }

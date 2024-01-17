@@ -8,9 +8,13 @@ public class Apple : Fruits
 
     void Start()
     {
+        AddThisFood();
+
         GameManager.instance.AddApple(this);
 
         AddThisFruit();
+
+        UIManager.instance.UpdateFoodValue();
     }
     
     public void OnDeathApple()

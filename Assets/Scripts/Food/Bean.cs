@@ -8,9 +8,13 @@ public class Bean : Legumes
 
     void Start()
     {
+        AddThisFood();
+
         GameManager.instance.AddBean(this);
 
         AddThisLegume();
+
+        UIManager.instance.UpdateFoodValue();
     }
 
     public void OnDeathBean()
