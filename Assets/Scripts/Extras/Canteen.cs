@@ -22,7 +22,7 @@ public class Canteen : MonoBehaviour
 
     //public List<NewFood> listNewFoodQuantity = new List<NewFood>();
     //
-    //public IEnumerable<NewFood> iEnumerableNewFoodQuantity;
+    public IEnumerable<NewFood> iEnumerableNewFoodQuantity;
 
     void Start()
     {
@@ -134,6 +134,10 @@ public class Canteen : MonoBehaviour
         //NewFoodValue = (FList.Create<NewFood>() + appleIEnumQuantity + coconutIEnumQuantity + beanIEnumQuantity).OfType<NewFood>().Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
 
         foodQuantity += (FList.Create<NewFood>() + appleIEnumerableQuantity + coconutIEnumerableQuantity + beanIEnumerableQuantity).Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
+
+        //var NewFoodListQuantity = iEnumerableNewFoodQuantity.Concat(appleIEnumerableQuantity).Concat(coconutIEnumerableQuantity).Concat(beanIEnumerableQuantity);
+        //
+        //foodQuantity += NewFoodListQuantity.Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
 
         //var listFood = FList.Create(listNewFoodQuantity) + appleListQuantity + coconutListQuantity + beanListQuantity;
 
