@@ -45672,7 +45672,7 @@ MonoBehaviour:
   _canCountTimeSpawn: 1
   _restartSpawnTime: 0
   _timeSpawn: 0
-  _timerSpawn: 6.5
+  _timerSpawn: 8
   _AllFood:
   - {fileID: 6834363477936721396, guid: 20bfe91b06bef704fa9fd4018bf3147b, type: 3}
   - {fileID: 4687764596052549810, guid: dea3d2b4c5088584ebda612619284254, type: 3}
@@ -69633,18 +69633,18 @@ MonoBehaviour:
   _myRgbd: {fileID: 1076425518}
   _wood: 0
   _woodMaxCapacity: 100
-  _woodToGain: 5
+  _woodToGain: 7.5
   _storeToLoad: {fileID: 1218544089}
   _woodsObject: {fileID: 2146963939}
-  _speed: 3.5
-  _speedOriginal: 3.5
+  _speed: 4.5
+  _speedOriginal: 4.5
   _shortestDistanceToTree: 1000000
   _treeToGoTo: {fileID: 0}
   _doOnce: 1
   _canCountTimeWood: 1
   _restartWoodTime: 0
   _timeWood: 0
-  _timerWood: 3
+  _timerWood: 2
   _treeToCut: {fileID: 0}
   _LookingForTree: 0
   _Cut: 0
