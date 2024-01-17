@@ -69485,18 +69485,18 @@ MonoBehaviour:
   _myRgbd: {fileID: 1076425518}
   _wood: 0
   _woodMaxCapacity: 100
-  _woodToGain: 5
+  _woodToGain: 7.5
   _storeToLoad: {fileID: 1218544089}
   _woodsObject: {fileID: 2146963939}
-  _speed: 3.5
-  _speedOriginal: 3.5
+  _speed: 4.5
+  _speedOriginal: 4.5
   _shortestDistanceToTree: 1000000
   _treeToGoTo: {fileID: 0}
   _doOnce: 1
   _canCountTimeWood: 1
   _restartWoodTime: 0
   _timeWood: 0
-  _timerWood: 3
+  _timerWood: 2
   _treeToCut: {fileID: 0}
   _LookingForTree: 0
   _Cut: 0
