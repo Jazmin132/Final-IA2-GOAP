@@ -9,6 +9,8 @@ public class Coconut : Fruits
     void Start()
     {
         GameManager.instance.AddCoconut(this);
+
+        AddThisFruit();
     }
 
     public void OnDeathCoconut()

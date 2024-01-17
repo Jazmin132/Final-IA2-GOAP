@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Fruits : NewFood
 {
-    void Start()
+    //void Start()
+    //{
+    //    GameManager.instance.AddFruit(this);
+    //}
+
+    public void AddThisFruit()
     {
         GameManager.instance.AddFruit(this);
     }
