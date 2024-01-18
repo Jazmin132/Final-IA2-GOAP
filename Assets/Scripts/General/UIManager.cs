@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public Text[] TextCount;
     public string[] FoxesNames;
+    public string[] foxesNamesAndKills;
 
     public Image[] FacesFoxes1;
     public Image[] FacesFoxes2;
@@ -49,11 +50,11 @@ public class UIManager : MonoBehaviour
 
         TextCount[1].text = "X " + _BeeCount;
 
-        FoxesNames = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray();
+        foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray();
 
         for (int i = 0; i < Foxes.Length; i++)
         {
-            textFoxKills[i].text = FoxesNames[i];
+            textFoxKills[i].text = foxesNamesAndKills[i];
         }
     }
 
@@ -107,8 +108,8 @@ public class UIManager : MonoBehaviour
                 tupla = Tuple.Create(tupla.Item1, foxKillsNum);
                 //Actualizo el texto del zorro
                 //textFoxKills[i].text = "X " + tupla.Item2[i];
-                FoxesNames = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray();
-                textFoxKills[i].text = FoxesNames[i];
+                foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray(); //IA-P2
+                textFoxKills[i].text = foxesNamesAndKills[i];
             }
 
             if (foxKillsNum[i] >= biggest)
