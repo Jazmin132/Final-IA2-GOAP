@@ -63,12 +63,12 @@ public class UIManager : MonoBehaviour
         if (forwho == "sheep")
         {
             _SheepCount += newvalue;
-            TextCount[0].text = "X " + _SheepCount;
+            TextCount[0].text = _SheepCount.ToString();
         }
         else if (forwho == "bee")
         {
             _BeeCount += newvalue;
-            TextCount[1].text = "X " + _BeeCount;
+            TextCount[1].text = _BeeCount.ToString();
         }
     }
 
@@ -97,19 +97,18 @@ public class UIManager : MonoBehaviour
     public void UpdateFoxKillStreak(Agent fox, int value)
     {
         //Tuple<Agent[], int[]> tupla = Tuple.Create(Foxes, foxKillsNum);
-
         for (int i = 0; i < Foxes.Length; i++)
         {
             //if (fox == tupla.Item1[i])
             if (fox == Foxes[i])
             {//Cuando la kill es del zorro que recibí
                 foxKillsNum[i] += value;
-
-                //Actualizo la tupla con las nuevas kills
-                //tupla = Tuple.Create(tupla.Item1, foxKillsNum);
-                //Actualizo el texto del zorro
-                //textFoxKills[i].text = "X " + tupla.Item2[i];
-
+                /*
+                Actualizo la tupla con las nuevas kills
+                tupla = Tuple.Create(tupla.Item1, foxKillsNum);
+                Actualizo el texto del zorro
+                textFoxKills[i].text = "X " + tupla.Item2[i];
+                */
                 foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray(); //IA-P2
                 textFoxKills[i].text = foxesNamesAndKills[i];
             }
