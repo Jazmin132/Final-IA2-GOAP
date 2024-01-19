@@ -12,16 +12,16 @@ public class Canteen : MonoBehaviour
     public List<Coconut> coconutListQuantity = new List<Coconut>();
     public List<Bean> beanListQuantity = new List<Bean>();
 
-    public IEnumerable<Apple> appleIEnumerableQuantity;
-    public IEnumerable<Coconut> coconutIEnumerableQuantity;
-    public IEnumerable<Bean> beanIEnumerableQuantity;
+    //public IEnumerable<Apple> appleIEnumerableQuantity;
+    //public IEnumerable<Coconut> coconutIEnumerableQuantity;
+    //public IEnumerable<Bean> beanIEnumerableQuantity;
 
     public int maxQuantityOfFood, maxTypesOfFood;
 
     int _randomNumFood;
 
-    public List<NewFood> listNewFoodQuantity = new List<NewFood>();
-    
+    //public List<NewFood> listNewFoodQuantity = new List<NewFood>(); //SI CONCAT DESCOMENTADO, DESCOMENTAR ESTO
+
     //public IEnumerable<NewFood> iEnumerableNewFoodQuantity;
 
     void Start()
@@ -121,9 +121,9 @@ public class Canteen : MonoBehaviour
     {
         //Tema Concat + Aggregate para sumar el valor de food de cada tipo de comida
 
-        appleIEnumerableQuantity = appleListQuantity;
-        coconutIEnumerableQuantity = coconutListQuantity;
-        beanIEnumerableQuantity = beanListQuantity;
+        //appleIEnumerableQuantity = appleListQuantity;
+        //coconutIEnumerableQuantity = coconutListQuantity;
+        //beanIEnumerableQuantity = beanListQuantity;
 
         //var listFood = FList.Create(iEnumerableNewFoodQuantity) + appleIEnumerableQuantity + coconutIEnumerableQuantity + beanIEnumerableQuantity;
 
@@ -133,13 +133,39 @@ public class Canteen : MonoBehaviour
 
         //NewFoodValue = (FList.Create<NewFood>() + appleIEnumQuantity + coconutIEnumQuantity + beanIEnumQuantity).OfType<NewFood>().Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
 
-        foodQuantity += (FList.Create<NewFood>() + appleIEnumerableQuantity + coconutIEnumerableQuantity + beanIEnumerableQuantity).Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
-        
+        foodQuantity += (FList.Create<NewFood>() + appleListQuantity + coconutListQuantity + beanListQuantity).Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
+
         //foodQuantity += listNewFoodQuantity.Concat(appleListQuantity).Concat(coconutListQuantity).Concat(beanListQuantity).Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y); //CONCAT
 
-        appleListQuantity.Clear();
-        coconutListQuantity.Clear();
-        beanListQuantity.Clear();
+        if(appleListQuantity.Count > 0)
+        {
+            for (int i = 0; i < appleListQuantity.Count; i++)
+            {
+                Destroy(appleListQuantity[i].gameObject);
+            }
+
+            appleListQuantity.Clear();
+        }
+
+        if (coconutListQuantity.Count > 0)
+        {
+            for (int i = 0; i < coconutListQuantity.Count; i++)
+            {
+                Destroy(coconutListQuantity[i].gameObject);
+            }
+
+            coconutListQuantity.Clear();
+        }
+
+        if (beanListQuantity.Count > 0)
+        {
+            for (int i = 0; i < beanListQuantity.Count; i++)
+            {
+                Destroy(beanListQuantity[i].gameObject);
+            }
+
+            beanListQuantity.Clear();
+        }
 
         //listNewFoodQuantity.Clear(); //SI CONCAT DESCOMENTADO, DESCOMENTAR ESTO
 
