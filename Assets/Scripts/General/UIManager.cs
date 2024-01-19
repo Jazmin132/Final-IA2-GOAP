@@ -96,18 +96,20 @@ public class UIManager : MonoBehaviour
 
     public void UpdateFoxKillStreak(Agent fox, int value)
     {
-        Tuple<Agent[], int[]> tupla = Tuple.Create(Foxes, foxKillsNum);
+        //Tuple<Agent[], int[]> tupla = Tuple.Create(Foxes, foxKillsNum);
 
         for (int i = 0; i < Foxes.Length; i++)
         {
-            if (fox == tupla.Item1[i])
+            //if (fox == tupla.Item1[i])
+            if (fox == Foxes[i])
             {//Cuando la kill es del zorro que recibí
                 foxKillsNum[i] += value;
 
                 //Actualizo la tupla con las nuevas kills
-                tupla = Tuple.Create(tupla.Item1, foxKillsNum);
+                //tupla = Tuple.Create(tupla.Item1, foxKillsNum);
                 //Actualizo el texto del zorro
                 //textFoxKills[i].text = "X " + tupla.Item2[i];
+
                 foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray(); //IA-P2
                 textFoxKills[i].text = foxesNamesAndKills[i];
             }
