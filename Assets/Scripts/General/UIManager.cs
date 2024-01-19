@@ -121,6 +121,8 @@ public class UIManager : MonoBehaviour
             else
                 Crowns[i].gameObject.SetActive(false);
         }
+
+        //Debug.Log("El número max es " + foxKillsNum.Max());
     }
 
     public void UpdateFoodValue()
