@@ -46,11 +46,11 @@ public class UIManager : MonoBehaviour
         _SheepCount = GameManager.instance.allBoids.Count();
         _BeeCount = FlowerManager.instance.BeeTotal.Count();
 
-        TextCount[0].text = "X "+ _SheepCount;
+        TextCount[0].text = _SheepCount.ToString();
 
-        TextCount[1].text = "X " + _BeeCount;
+        TextCount[1].text = _BeeCount.ToString();
 
-        foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray();
+        foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray(); //IA-P2
 
         for (int i = 0; i < Foxes.Length; i++)
         {
