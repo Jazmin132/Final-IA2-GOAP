@@ -84,12 +84,13 @@ public class Plant : MonoBehaviour
             else
                 SentToFSM(PlantStates.Death);
 
+            //Poner un timer que blockee esta parte por unos segundos después de detectar una oveja
             List<Boid> _Boids = GameManager.instance.allBoids;
             for (int i = 0; i < _Boids.Count; i++)
             {
                 if (Vector3.Distance(transform.position, _Boids[i].transform.position) <= _viewRadius)
                 {
-                    //Debug.Log("SHEEP-DETECTED");
+                    Debug.Log("SHEEP-DETECTED" + this);
                     FlowerManager.instance.CallBees(this);
                 }
             }

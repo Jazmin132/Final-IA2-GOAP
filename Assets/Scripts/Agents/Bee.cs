@@ -125,19 +125,23 @@ public class Bee : MonoBehaviour
          };
         GotoPlant.OnEnter += x => 
         {
-            //Debug.Log("MUST PROTECT PLANT");
+            Debug.Log("MUST Go To PLANT");
         };
         GotoPlant.OnFixedUpdate += () =>
         {
             Vector3 dir = TargetPlant - transform.position;
             dir.y = 0;
+            Debug.Log(dir.magnitude + " DIR");
+            Debug.Log(dir.magnitude <= 0.3f);
+            //Por alguna razón Dir.Magnitude siempre tira falso
             if (dir.magnitude <= 0.3f)
             {
                 transform.forward = dir;
-                transform.position += transform.forward * (_speed + 3f) * Time.deltaTime;
+                transform.position += transform.forward * (_speed + 17f) * Time.deltaTime;
             }
             else SentToFSM(BeeStates.Moving);
         };
+        GotoPlant.OnExit += x => { Debug.Log("STOP PROTECTING PLANT"); };
 
         Death.OnEnter += x => 
         {

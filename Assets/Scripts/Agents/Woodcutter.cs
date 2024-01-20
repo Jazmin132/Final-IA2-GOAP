@@ -114,7 +114,7 @@ public class Woodcutter : MonoBehaviour
             }
             else
             {
-                Debug.Log("No hay algo en la lista");
+               // Debug.Log("No hay algo en la lista");
             }
 
             if (_treeToGoTo != null)
