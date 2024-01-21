@@ -5549,7 +5549,7 @@ MonoBehaviour:
   onGrid: 0
   maxSpeed: 8
   maxForce: 0.25
-  viewRadius: 5
+  viewRadius: 9
   separationRadius: 5.75
   arriveRadius: 8.45
   eatRadius: 3.65
