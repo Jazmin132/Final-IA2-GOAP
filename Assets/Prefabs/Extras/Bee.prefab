@@ -5273,8 +5273,10 @@ MonoBehaviour:
   _life: 100
   _lifeOriginal: 100
   _lifeToLose: 5
-  _speed: 1.5
-  _speedOriginal: 1.5
+  speed: 2
+  speedOriginal: 2
+  _speedMultiplier: 5
+  _speedMultiplierOriginal: 5
   _jumpForce: 100
   _jumpForceOriginal: 100
   _canCountTimeLife: 1

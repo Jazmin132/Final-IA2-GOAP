@@ -48,6 +48,9 @@ public class Boid : GridEntity
 
 
     [SerializeField] Agent _selectedAgent;
+    [SerializeField] Bee _selectedBee;
+
+    [SerializeField] bool _beeClose;
 
     [SerializeField] int _sheepValue;
 
@@ -104,6 +107,9 @@ public class Boid : GridEntity
                     {
                         //Debug.Log("Allignment to Evade");
 
+                        if (_beeClose)
+                            _beeClose = false;
+
                         _selectedAgent = _gameManager.allFoxes[i];
 
                         SentToFSM(BoidStates.EVADE);
@@ -113,10 +119,20 @@ public class Boid : GridEntity
                     else if ((GameManager.instance.food.transform.position - transform.position).magnitude <= arriveRadius)
                         SentToFSM(BoidStates.ARRIVE);
                 }
-                for (int i = 0; i < FlowerManager.instance.BeeTotal.Count; i++)
+                if(FlowerManager.instance.BeeTotal.Count > 0)
                 {
-                    if (Vector3.Distance(transform.position, FlowerManager.instance.BeeTotal[i].transform.position) > viewRadius)
-                        SentToFSM(BoidStates.ALIGNMENT);
+                    for (int i = 0; i < FlowerManager.instance.BeeTotal.Count; i++)
+                    {
+                        if (Vector3.Distance(transform.position, FlowerManager.instance.BeeTotal[i].transform.position) <= viewRadius)
+                        {
+                            _selectedBee = FlowerManager.instance.BeeTotal[i];
+
+                            if(!_beeClose)
+                                _beeClose = true;
+
+                            SentToFSM(BoidStates.EVADE);
+                        }
+                    }
                 }
             }
                 
@@ -347,11 +363,23 @@ public class Boid : GridEntity
 
     Vector3 Evade()
     {
-        Vector3 futurePos = _selectedAgent.transform.position + _selectedAgent.GetVelocity();
-        Vector3 desired = futurePos + _selectedAgent.transform.position;
-        desired.Normalize();
-        desired *= _selectedAgent.maxSpeed;
-        return CalculateSteering(desired);
+        if (!_beeClose)
+        {
+            Vector3 futurePos = _selectedAgent.transform.position + _selectedAgent.GetVelocity();
+            Vector3 desired = futurePos + _selectedAgent.transform.position;
+            desired.Normalize();
+            desired *= _selectedAgent.maxSpeed;
+            return CalculateSteering(desired);
+        }
+        else
+        {
+            Vector3 futurePos = _selectedBee.transform.position + _selectedBee.GetVelocity();
+            Vector3 desired = futurePos + _selectedBee.transform.position;
+            desired.y = 0;
+            desired.Normalize();
+            desired *= _selectedBee.speed;
+            return CalculateSteering(desired);
+        }
     }
 
     public Vector3 GetVelocity()

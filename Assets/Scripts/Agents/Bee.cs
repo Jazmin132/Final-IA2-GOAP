@@ -29,7 +29,8 @@ public class Bee : MonoBehaviour
     [SerializeField] float _life;
     [SerializeField] float _lifeOriginal, _lifeToLose;
 
-    [SerializeField] float _speed, _speedOriginal;
+    public float speed, speedOriginal;
+    [SerializeField] float _speedMultiplier, _speedMultiplierOriginal;
 
     [SerializeField] float _jumpForce, _jumpForceOriginal;
 
@@ -50,6 +51,8 @@ public class Bee : MonoBehaviour
     public ParticleSystem particleDeath;
 
     [SerializeField] GameObject _particleDeathObject;
+
+    Vector3 _velocity;
 
     //[Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
     public EventFSM<BeeStates> _MyFSM;
@@ -103,7 +106,7 @@ public class Bee : MonoBehaviour
                 CountTimerLife();
                 CountTimerSpawner();
 
-                _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+                _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * speed * Time.fixedDeltaTime);
 
                 if (_myRgbd.useGravity)
                     _myRgbd.useGravity = false;
@@ -135,7 +138,7 @@ public class Bee : MonoBehaviour
             if (dir.magnitude >= 0.3f)
             {
                 transform.forward = dir;
-                transform.position += transform.forward * (_speed + 10f) * Time.deltaTime;
+                transform.position += transform.forward * (speed + _speedMultiplier) * Time.fixedDeltaTime;
             }
             else SentToFSM(BeeStates.Moving);
         };
@@ -261,6 +264,19 @@ public class Bee : MonoBehaviour
     void SpawnObject(GameObject objectToSpawn)
     {
         Instantiate(objectToSpawn, _spawnerPos.position, _spawnerPos.rotation);
+    }
+
+    void AddForce(Vector3 force)
+    {
+        _velocity += force;
+
+        if (_velocity.magnitude >= speed)
+            _velocity = _velocity.normalized * speed;
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return _velocity;
     }
 
     #region States
