@@ -46,6 +46,7 @@ public class Boid : GridEntity
 
     [SerializeField] GameManager _gameManager;
 
+
     [SerializeField] Agent _selectedAgent;
 
     [SerializeField] int _sheepValue;
@@ -111,6 +112,11 @@ public class Boid : GridEntity
                     }
                     else if ((GameManager.instance.food.transform.position - transform.position).magnitude <= arriveRadius)
                         SentToFSM(BoidStates.ARRIVE);
+                }
+                for (int i = 0; i < FlowerManager.instance.BeeTotal.Count; i++)
+                {
+                    if (Vector3.Distance(transform.position, FlowerManager.instance.BeeTotal[i].transform.position) > viewRadius)
+                        SentToFSM(BoidStates.ALIGNMENT);
                 }
             }
                 
