@@ -49,6 +49,7 @@ public class Bee : MonoBehaviour
     [SerializeField] Vector3 _vector3ToAddForce;
 
     public ParticleSystem particleDeath;
+    public ParticleSystem particleAnger;
 
     [SerializeField] GameObject _particleDeathObject;
 
@@ -129,6 +130,8 @@ public class Bee : MonoBehaviour
         GotoPlant.OnEnter += x => 
         {
             Debug.Log("MUST Go To PLANT");
+
+            particleAnger.Play();
         };
         GotoPlant.OnFixedUpdate += () =>
         {
@@ -142,7 +145,11 @@ public class Bee : MonoBehaviour
             }
             else SentToFSM(BeeStates.Moving);
         };
-        GotoPlant.OnExit += x => { Debug.Log("STOP PROTECTING PLANT"); };
+        GotoPlant.OnExit += x => 
+        { 
+            Debug.Log("STOP PROTECTING PLANT");
+            particleAnger.Stop();
+        };
 
         Death.OnEnter += x => 
         {

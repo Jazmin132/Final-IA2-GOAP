@@ -157,7 +157,7 @@ public class Boid : GridEntity
 
             if (isAlive == false) SentToFSM(BoidStates.DIE);
         };
-        _Evade.OnExit += x => { particleScared.Stop(); };
+        _Evade.OnExit += x => { particleScared.Stop(); /*Debug.Log("YA NO ESTOY ASUSTADO");*/ };
 
         _Arrive.OnEnter += x => { particleHungry.Play(); };
         _Arrive.OnFixedUpdate += () =>
