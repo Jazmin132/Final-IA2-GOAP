@@ -65,6 +65,7 @@ public class Plant : MonoBehaviour
             {
                 CountTimerLife();
                 CountTimerMoving();
+                CheckForSheep();
             }
             else
                 SentToFSM(PlantStates.Death);
@@ -77,23 +78,13 @@ public class Plant : MonoBehaviour
         {
             if (_life > 0)
             {
+                CheckForSheep();
                 CountTimerLife();
                 CountTimerMoving();
                 _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
             }
             else
                 SentToFSM(PlantStates.Death);
-
-            //Poner un timer que blockee esta parte por unos segundos después de detectar una oveja
-            List<Boid> _Boids = GameManager.instance.allBoids;
-            for (int i = 0; i < _Boids.Count; i++)
-            {
-                if (Vector3.Distance(transform.position, _Boids[i].transform.position) <= _viewRadius)
-                {
-                    Debug.Log("SHEEP-DETECTED" + this);
-                    FlowerManager.instance.CallBees(this);
-                }
-            }
         };
         Death.OnEnter += x =>
         {
@@ -172,6 +163,19 @@ public class Plant : MonoBehaviour
     }
     #endregion
 
+    void CheckForSheep()
+    {
+        //Poner un timer que blockee esta parte por unos segundos después de detectar una oveja
+        List<Boid> _Boids = GameManager.instance.allBoids;
+        for (int i = 0; i < _Boids.Count; i++)
+        {
+            if (Vector3.Distance(transform.position, _Boids[i].transform.position) <= _viewRadius)
+            {
+                Debug.Log("SHEEP-DETECTED" + this);
+                FlowerManager.instance.CallBees(this);
+            }
+        }
+    }
     void ChangeTransformRotationY(float value)
     {
         _newVector3Rotation = new Vector3(_myTransform.rotation.eulerAngles.x, value, _myTransform.rotation.eulerAngles.z);

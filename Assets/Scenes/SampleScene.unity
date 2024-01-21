@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97395,7 +97395,6 @@ MonoBehaviour:
   beanListQuantity: []
   maxQuantityOfFood: 5
   maxTypesOfFood: 3
-  listNewFoodQuantity: []
 --- !u!1 &1391587352
 GameObject:
   m_ObjectHideFlags: 0
@@ -140983,7 +140982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3907819722661048840, guid: 597235e19e68eac4ebc92b35ce82b5a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.65
+      value: -5.6
       objectReference: {fileID: 0}
     - target: {fileID: 3907819722661048840, guid: 597235e19e68eac4ebc92b35ce82b5a9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -140991,7 +140990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3907819722661048840, guid: 597235e19e68eac4ebc92b35ce82b5a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.66
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 3907819722661048840, guid: 597235e19e68eac4ebc92b35ce82b5a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -141141,7 +141140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5499290305119165746, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.73
+      value: 14.6
       objectReference: {fileID: 0}
     - target: {fileID: 5499290305119165746, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
       propertyPath: m_LocalPosition.y
@@ -141149,7 +141148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5499290305119165746, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 5.6
       objectReference: {fileID: 0}
     - target: {fileID: 5499290305119165746, guid: ad8f5b52a62c1f947bf377c376ea8519, type: 3}
       propertyPath: m_LocalRotation.w

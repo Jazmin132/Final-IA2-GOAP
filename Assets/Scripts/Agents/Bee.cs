@@ -131,13 +131,11 @@ public class Bee : MonoBehaviour
         {
             Vector3 dir = TargetPlant - transform.position;
             dir.y = 0;
-            Debug.Log(dir.magnitude + " DIR");
-            Debug.Log(dir.magnitude <= 0.3f);
-            //Por alguna razón Dir.Magnitude siempre tira falso
-            if (dir.magnitude <= 0.3f)
+
+            if (dir.magnitude >= 0.3f)
             {
                 transform.forward = dir;
-                transform.position += transform.forward * (_speed + 17f) * Time.deltaTime;
+                transform.position += transform.forward * (_speed + 10f) * Time.deltaTime;
             }
             else SentToFSM(BeeStates.Moving);
         };
