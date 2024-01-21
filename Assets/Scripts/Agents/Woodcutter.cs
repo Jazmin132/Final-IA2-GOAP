@@ -175,21 +175,34 @@ public class Woodcutter : MonoBehaviour
             _restartWoodTime = false;
         }
 
-        _timeWood += Time.fixedDeltaTime;
+        //CountScript.instance.WaitCounter(10);
+        //
+        //_treeToCut.RemoveWood(_woodToGain);
+        //_wood += _woodToGain;
+        //
+        //if (_wood >= _woodMaxCapacity)
+        //{
+        //    if (!_woodsObject.activeSelf)
+        //        _woodsObject.SetActive(true);
+        //
+        //    SentToFSM(CutterStates.LoadWood);
+        //}
 
+        _timeWood += Time.fixedDeltaTime;
+        
         if (_timeWood >= _timerWood)
         {
             _treeToCut.RemoveWood(_woodToGain);
             _wood += _woodToGain;
-
+        
             if (_wood >= _woodMaxCapacity)
             {
                 if (!_woodsObject.activeSelf)
                     _woodsObject.SetActive(true);
-
+        
                 SentToFSM(CutterStates.LoadWood);
             }
-
+        
             _timeWood = 0;
         }
     }

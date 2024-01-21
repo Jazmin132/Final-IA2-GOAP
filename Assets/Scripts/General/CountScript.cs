@@ -12,7 +12,7 @@ public class CountScript : MonoBehaviour
             instance = this;
     }
 
-    public IEnumerator WaitCounter(int num)
+    public IEnumerator WaitCounter(float num)
     {
         yield return new WaitForSeconds(num);
     }
