@@ -175,7 +175,7 @@ public class Woodcutter : MonoBehaviour
             _restartWoodTime = false;
         }
 
-        //CountScript.instance.WaitCounter(10);
+        //CountScript.instance.WaitCounter(_timerWood);
         //
         //_treeToCut.RemoveWood(_woodToGain);
         //_wood += _woodToGain;
