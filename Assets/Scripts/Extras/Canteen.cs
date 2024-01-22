@@ -7,6 +7,10 @@ public class Canteen : MonoBehaviour
 {
     public float foodQuantity;
     public GameObject foodView;
+    public CanteenFood PrefabDesire;
+    int HMApples;
+    int HMBeans;
+    int HMCoconuts;
 
     public List<Apple> appleListQuantity = new List<Apple>();
     public List<Coconut> coconutListQuantity = new List<Coconut>();
@@ -58,22 +62,25 @@ public class Canteen : MonoBehaviour
                 case 0:
                     //Debug.Log("appleListQuantity Capacity+");
                     appleListQuantity.Add(null);
+                    HMApples = appleListQuantity.Count();
                     break;
                 case 1:
                     //Debug.Log("coconutListQuantity Capacity+");
                     coconutListQuantity.Add(null);
+                    HMCoconuts = coconutListQuantity.Count();
                     break;
                 case 2:
                     //Debug.Log("beanListQuantity Capacity+");
                     beanListQuantity.Add(null);
+                    HMBeans = beanListQuantity.Count();
                     break;
                 default:
                     //Debug.Log("ERROR, no se encuentra una comida de el número " + _randomNumFood);
                     break;
             }
-
             //Debug.Log(i);
         }
+        PrefabDesire.HowMuchFoodIneed(HMApples, HMBeans, HMCoconuts);
     }
 
     public void TransferFoodToCanteen(List<Apple> chefAppleList, List<Coconut> chefCoconutList, List<Bean> chefBeanList)
