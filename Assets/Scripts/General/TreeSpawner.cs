@@ -20,9 +20,16 @@ public class TreeSpawner : MonoBehaviour
 
     //[SerializeField] CountScript _countScript;
 
+    //private void Start()
+    //{
+    //    SpawnTree();
+    //}
+
     void FixedUpdate()
     {
         CountTimerSpawner();
+
+        //SpawnTree();
     }
 
     #region CountTimer
@@ -62,7 +69,7 @@ public class TreeSpawner : MonoBehaviour
 
         var RN = Random.Range(0,3);
 
-        //_countScript.WaitCounter(_timerSpawn);
+        //StartCoroutine(_countScript.WaitCounter(_timerSpawn, "SpawnTree"));
 
         Instantiate(_AllFood[RN], spawnPoint, spawnRotation);
         //Instantiate(_treeToSpawn, spawnPoint, spawnRotation);
