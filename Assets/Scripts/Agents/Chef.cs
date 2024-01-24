@@ -61,6 +61,15 @@ public class Chef : MonoBehaviour
 
     [SerializeField] bool _maxCapacityFoodReached, _foodForCanteenReady;
 
+    [SerializeField] FlowerManager _flowerManager;
+
+    [SerializeField] bool _notScared;
+    [SerializeField] float _speedScared;
+
+    [SerializeField] float _beeCheckRadius;
+
+    [SerializeField] Bee _beeTarget;
+
     #region ChefStates
     public enum ChefStates
     {
@@ -291,7 +300,7 @@ public class Chef : MonoBehaviour
             SentToFSM(ChefStates.LoadFood);
         }
 
-    #region Before
+        #region Before
         /*
         if (_hunger < _hungerMaxCapacity)
         {
@@ -321,6 +330,41 @@ public class Chef : MonoBehaviour
         }
         */
         #endregion
+
+        if (_flowerManager.BeeTotal.Count > 0)
+        {
+            for (int i = 0; i < _flowerManager.BeeTotal.Count; i++)
+            {
+                Vector3 dist = _flowerManager.BeeTotal[i].transform.position - transform.position;
+                if (dist.magnitude <= _beeCheckRadius && _beeTarget == null)
+                {
+                    _beeTarget = _flowerManager.BeeTotal[i];
+
+                    if (_notScared)
+                    {
+                        //Mostrar asustado de este constructor/ Scared
+                        //UIManager.instance.ShowFear(this, Scared, true);
+
+                        _speed = _speedScared;
+
+                        _notScared = false;
+                    }
+                }
+            }
+        }
+
+        if (_beeTarget != null)
+        {
+            if (!_notScared)
+            {
+                //Esconder asustado de este constructor
+                //UIManager.instance.ShowFear(this, Scared, false);
+
+                _speed = _speedOriginal;
+
+                _notScared = true;
+            }
+        }
     }
 
     public void TransferFoodToChef(List<Apple> FPAppleList, List<Coconut> FPCoconutList, List<Bean> FPBeanList)
@@ -693,5 +737,11 @@ public class Chef : MonoBehaviour
             //        _isEating = true;
             //}
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, _beeCheckRadius);
     }
 }
