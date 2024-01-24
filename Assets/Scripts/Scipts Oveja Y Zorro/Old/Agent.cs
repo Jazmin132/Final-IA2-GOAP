@@ -43,6 +43,10 @@ public class Agent : GridEntity
 
     [SerializeField] bool _canChangeToSleepyFace;
 
+    [SerializeField] Woodcutter _woodCutter;
+    [SerializeField] bool _notScared;
+    [SerializeField] float _valueScared;
+
     public bool _Idle, _Patrol, _Pursuit, _GotoDest, _Return;
     void Awake()
     {
@@ -228,6 +232,32 @@ public class Agent : GridEntity
     {
         _eventFSM.Update();
         //AddForce(ObstacleAvoidance() * 5);
+
+        Vector3 dist = _woodCutter.transform.position - transform.position;
+        if (dist.magnitude <= pursuitRadius)
+        {
+            if (_notScared)
+            {
+                //Mostrar asustado de este agent
+
+                speed /= _valueScared;
+                maxSpeed /= _valueScared;
+
+                _notScared = false;
+            }
+        }
+        else
+        {
+            if (!_notScared)
+            {
+                //Esconder asustado de este agent
+
+                speed *= _valueScared;
+                maxSpeed *= _valueScared;
+
+                _notScared = true;
+            }
+        }
     }
     public IEnumerable<GridEntity> Query() //IA-P2
     {       

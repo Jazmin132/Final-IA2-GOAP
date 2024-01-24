@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29061,9 +29061,21 @@ PrefabInstance:
       value: Zorro (2)
       objectReference: {fileID: 0}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _notScared
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: targetGrid
       value: 
       objectReference: {fileID: 280139272}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _woodCutter
+      value: 
+      objectReference: {fileID: 1076425519}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _valueScared
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: PatrolWaypoints.Array.size
       value: 4
@@ -70683,12 +70695,24 @@ PrefabInstance:
       value: Zorro (1)
       objectReference: {fileID: 0}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _notScared
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: targetGrid
       value: 
       objectReference: {fileID: 280139272}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _woodCutter
+      value: 
+      objectReference: {fileID: 1076425519}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: pursitSpeed
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _valueScared
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: PatrolWaypoints.Array.size
@@ -133966,9 +133990,21 @@ PrefabInstance:
       value: Zorro
       objectReference: {fileID: 0}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _notScared
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: targetGrid
       value: 
       objectReference: {fileID: 280139272}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _woodCutter
+      value: 
+      objectReference: {fileID: 1076425519}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _valueScared
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: PatrolWaypoints.Array.size
       value: 4

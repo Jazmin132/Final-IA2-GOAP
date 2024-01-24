@@ -757,6 +757,9 @@ MonoBehaviour:
   particleEnojo: {fileID: 227656667509331075}
   _listTransforms: []
   _canChangeToSleepyFace: 0
+  _woodCutter: {fileID: 0}
+  _notScared: 1
+  _valueScared: 2
   _Idle: 0
   _Patrol: 0
   _Pursuit: 0
