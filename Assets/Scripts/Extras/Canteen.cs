@@ -154,6 +154,7 @@ public class Canteen : MonoBehaviour
             }
 
             appleListQuantity.Clear();
+            HMBeans = appleListQuantity.Count();
         }
 
         if (coconutListQuantity.Count > 0)
@@ -164,6 +165,7 @@ public class Canteen : MonoBehaviour
             }
 
             coconutListQuantity.Clear();
+            HMBeans = coconutListQuantity.Count();
         }
 
         if (beanListQuantity.Count > 0)
@@ -174,6 +176,7 @@ public class Canteen : MonoBehaviour
             }
 
             beanListQuantity.Clear();
+            HMBeans = beanListQuantity.Count();
         }
 
         //listNewFoodQuantity.Clear(); //SI CONCAT DESCOMENTADO, DESCOMENTAR ESTO
