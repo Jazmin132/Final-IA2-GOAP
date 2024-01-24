@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
 
     public Agent[] Foxes;
 
+    GameObject fearFox;
+
     int _SheepCount;
     int _BeeCount;
     int biggest = 1;
@@ -92,6 +94,16 @@ public class UIManager : MonoBehaviour
             else 
                 face.gameObject.SetActive(false);
         }
+    }
+
+    public void ShowFear(Agent fox, GameObject fear, bool IsScared)
+    {
+        fearFox = fear;
+
+        if (IsScared) 
+            fearFox.SetActive(true);
+        else 
+            fearFox.SetActive(false);
     }
 
     public void UpdateFoxKillStreak(Agent fox, int value)

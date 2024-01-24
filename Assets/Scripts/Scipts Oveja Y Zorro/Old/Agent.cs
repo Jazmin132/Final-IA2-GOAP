@@ -36,6 +36,7 @@ public class Agent : GridEntity
     [Header("Visual Values")]
     public ParticleSystem particleTired;
     public ParticleSystem particleEnojo;
+    public GameObject Scared;
 
     private EventFSM<AgentStates> _eventFSM;
 
@@ -238,7 +239,8 @@ public class Agent : GridEntity
         {
             if (_notScared)
             {
-                //Mostrar asustado de este agent
+                //Mostrar asustado de este agent/ Scared
+                UIManager.instance.ShowFear(this, Scared, true);
 
                 speed /= _valueScared;
                 maxSpeed /= _valueScared;
@@ -251,6 +253,7 @@ public class Agent : GridEntity
             if (!_notScared)
             {
                 //Esconder asustado de este agent
+                UIManager.instance.ShowFear(this, Scared, false);
 
                 speed *= _valueScared;
                 maxSpeed *= _valueScared;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29060,6 +29060,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zorro (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: Scared
+      value: 
+      objectReference: {fileID: 341087566}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: _notScared
       value: 1
@@ -70695,6 +70699,10 @@ PrefabInstance:
       value: Zorro (1)
       objectReference: {fileID: 0}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: Scared
+      value: 
+      objectReference: {fileID: 1224235315}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: _notScared
       value: 1
       objectReference: {fileID: 0}
@@ -97681,7 +97689,7 @@ RectTransform:
   m_GameObject: {fileID: 1391587352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 2.9084015}
-  m_LocalScale: {x: 1.6629, y: 1.1895278, z: 1.6629}
+  m_LocalScale: {x: 1.6629, y: 0.92128927, z: 1.6629}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1701696305}
@@ -97689,7 +97697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -470.54773, y: 87.33029}
+  m_AnchoredPosition: {x: -470.54773, y: 67.99997}
   m_SizeDelta: {x: 522.7034, y: 148.7153}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1391587354
@@ -99735,7 +99743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -73, y: 525}
+  m_AnchoredPosition: {x: -73, y: 511}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1558925582
@@ -133989,6 +133997,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zorro
       objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: Scared
+      value: 
+      objectReference: {fileID: 207286101}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: _notScared
       value: 1
