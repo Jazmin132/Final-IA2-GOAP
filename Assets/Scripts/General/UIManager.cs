@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameManager _gameManager;
 
-    public int AllFoodValue, AllFruitsValue, AllLegumesValue, AllApplesValue, AllCoconutsValue, AllBeansValue;
+    int AllFoodValue, AllApplesValue, AllCoconutsValue, AllBeansValue;
 
     private void Awake()
     {
