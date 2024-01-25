@@ -70,6 +70,8 @@ public class Chef : MonoBehaviour
 
     [SerializeField] Bee _beeTarget;
 
+    [SerializeField] int _beesNotInRadius;
+
     #region ChefStates
     public enum ChefStates
     {
@@ -336,34 +338,42 @@ public class Chef : MonoBehaviour
             for (int i = 0; i < _flowerManager.BeeTotal.Count; i++)
             {
                 Vector3 dist = _flowerManager.BeeTotal[i].transform.position - transform.position;
-                if (dist.magnitude <= _beeCheckRadius && _beeTarget == null)
+                if (dist.magnitude <= _beeCheckRadius)
                 {
-                    _beeTarget = _flowerManager.BeeTotal[i];
+                    if(_beesNotInRadius > 0)
+                        _beesNotInRadius--;
+
+                    //_beeTarget = _flowerManager.BeeTotal[i];
 
                     if (_notScared)
                     {
-                        //Mostrar asustado de este constructor/ Scared
-                        //UIManager.instance.ShowFear(this, Scared, true);
+                        //Mostrar asustado de este chef/ Scared
 
                         _speed = _speedScared;
 
                         _notScared = false;
                     }
                 }
+                else
+                {
+                    if(_beesNotInRadius < _flowerManager.BeeTotal.Count)
+                        _beesNotInRadius++;
+                }
             }
         }
 
-        if (_beeTarget != null)
+        if (_beesNotInRadius == _flowerManager.BeeTotal.Count)
         {
             if (!_notScared)
             {
-                //Esconder asustado de este constructor
-                //UIManager.instance.ShowFear(this, Scared, false);
+                //Esconder asustado de este chef
 
                 _speed = _speedOriginal;
 
                 _notScared = true;
             }
+
+            _beesNotInRadius = 0;
         }
     }
 
