@@ -116063,6 +116063,11 @@ MonoBehaviour:
   _particleDeathObject: {fileID: 4374937912784042927, guid: 6dfb71ae6d9c32740ae4d53f28db7159, type: 3}
   isReadyToEat: 0
   _goingToEat: 0
+  _flowerManager: {fileID: 1208690694}
+  _notScared: 1
+  _speedScared: 1.5
+  _beeCheckRadius: 7.5
+  _beesNotInRadius: 0
 --- !u!1 &1741503117
 GameObject:
   m_ObjectHideFlags: 0
@@ -139322,7 +139327,6 @@ MonoBehaviour:
   _notScared: 1
   _speedScared: 0
   _beeCheckRadius: 7.5
-  _beeTarget: {fileID: 0}
   _beesNotInRadius: 0
 --- !u!1 &2039743256
 GameObject:

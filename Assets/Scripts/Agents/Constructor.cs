@@ -48,6 +48,17 @@ public class Constructor : MonoBehaviour
 
     [SerializeField] bool _goingToEat;
 
+    [SerializeField] FlowerManager _flowerManager;
+
+    [SerializeField] bool _notScared;
+    [SerializeField] float _speedScared;
+
+    [SerializeField] float _beeCheckRadius;
+
+    //[SerializeField] Bee _beeTarget;
+
+    [SerializeField] int _beesNotInRadius;
+
     #region ConstructorStates
     public enum ConstructorStates
     {
@@ -234,6 +245,49 @@ public class Constructor : MonoBehaviour
         }
         }*/
         #endregion
+
+        if (_flowerManager.BeeTotal.Count > 0)
+        {
+            for (int i = 0; i < _flowerManager.BeeTotal.Count; i++)
+            {
+                Vector3 dist = _flowerManager.BeeTotal[i].transform.position - transform.position;
+                if (dist.magnitude <= _beeCheckRadius)
+                {
+                    if (_beesNotInRadius > 0)
+                        _beesNotInRadius--;
+
+                    //_beeTarget = _flowerManager.BeeTotal[i];
+
+                    if (_notScared)
+                    {
+                        //Mostrar asustado de este chef/ Scared
+
+                        _speed = _speedScared;
+
+                        _notScared = false;
+                    }
+                }
+                else
+                {
+                    if (_beesNotInRadius < _flowerManager.BeeTotal.Count)
+                        _beesNotInRadius++;
+                }
+            }
+        }
+
+        if (_beesNotInRadius == _flowerManager.BeeTotal.Count)
+        {
+            if (!_notScared)
+            {
+                //Esconder asustado de este chef
+
+                _speed = _speedOriginal;
+
+                _notScared = true;
+            }
+
+            _beesNotInRadius = 0;
+        }
     }
 
     #region CountTimer
@@ -554,5 +608,11 @@ public class Constructor : MonoBehaviour
                 _stateConstruct = true;
             SentToFSM(ConstructorStates.Construct);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, _beeCheckRadius);
     }
 }

@@ -68,7 +68,7 @@ public class Chef : MonoBehaviour
 
     [SerializeField] float _beeCheckRadius;
 
-    [SerializeField] Bee _beeTarget;
+    //[SerializeField] Bee _beeTarget;
 
     [SerializeField] int _beesNotInRadius;
 
