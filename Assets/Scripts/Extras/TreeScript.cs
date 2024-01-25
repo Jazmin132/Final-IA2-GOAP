@@ -9,6 +9,9 @@ public class TreeScript : MonoBehaviour
     [SerializeField] LevelManager _levelManager;
     [SerializeField] Bee _Bee;
 
+    [SerializeField] Vector3 _beeSpawnPosition;
+    [SerializeField] Quaternion _beeSpawnRotation;
+
     void Awake()
     {
         if (_levelManager == null)
@@ -33,9 +36,15 @@ public class TreeScript : MonoBehaviour
             {
                 _levelManager.RemoveTree(this);
 
-                if (Random.Range(0, 1) == 0)
+                if (Random.Range(0, 2) == 0)
                 {
-                    Instantiate(_Bee);
+                    //gameObject.SetActive(false);
+
+                    _beeSpawnPosition = transform.position;
+
+                    //Destroy(gameObject);
+
+                    Instantiate(_Bee, _beeSpawnPosition, _beeSpawnRotation);
                     //Debug.Log("CrearAbeja");
                 }
                 
