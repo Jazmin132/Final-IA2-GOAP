@@ -34,6 +34,10 @@ public class Plant : MonoBehaviour
     [SerializeField] GameObject _particleDeathObject;
     [SerializeField] GameObject _InstanciateTree;
 
+    [SerializeField] Vector3 _spawnTreePos;
+
+    [SerializeField] float _TreeSpawnPositionYValueToChange;
+
     //[SerializeField] bool _stateIdle, _stateMoving;
     public enum PlantStates
     {
@@ -92,7 +96,9 @@ public class Plant : MonoBehaviour
         {
             particleDeath.Play();
 
-            Instantiate(_InstanciateTree, transform.position, Quaternion.identity);
+            _spawnTreePos = _myTransform.position;
+
+            Instantiate(_InstanciateTree, new Vector3(_spawnTreePos.x, _TreeSpawnPositionYValueToChange, _spawnTreePos.z), Quaternion.identity);
 
             GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
             Destroy(effect, 3f);
