@@ -66,11 +66,6 @@ public class Boid : GridEntity
     {
         if (_gameManager == null) _gameManager = FindObjectOfType<GameManager>();
 
-        //if(gameObject.transform.parent != _gameManager.gridObject.transform)
-        //{
-        //    gameObject.transform.parent = _gameManager.gridObject.transform;
-        //}
-
         var _Alignment = new State<BoidStates>("Idle");
         var _Evade = new State<BoidStates>("Move");
         var _Arrive = new State<BoidStates>("Arrive");
@@ -105,9 +100,7 @@ public class Boid : GridEntity
                 {
                     if (Vector3.Distance(transform.position, _gameManager.allFoxes[i].transform.position) <= viewRadius)
                     {
-                        //Debug.Log("Allignment to Evade");
-
-                        if (_beeClose)
+                        if (_beeClose) 
                             _beeClose = false;
 
                         _selectedAgent = _gameManager.allFoxes[i];

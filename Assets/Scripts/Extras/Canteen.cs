@@ -31,6 +31,7 @@ public class Canteen : MonoBehaviour
     void Start()
     {
         FoodIngredients();
+        //PrefabDesire.transform.position = transform.position;
     }
 
     public void AddFood(float quantity)
