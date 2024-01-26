@@ -14,16 +14,6 @@ public class FoodPatch : MonoBehaviour
     public List<Coconut> coconutListQuantityFP = new List<Coconut>();
     public List<Bean> beanListQuantityFP = new List<Bean>();
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
     //public void AddFood(int foodNum, NewFood foodToAdd)
     //{
     //    food = foodToAdd;

@@ -213,10 +213,12 @@ public class Constructor : MonoBehaviour
         {
             CountTimerHunger();
         }
+
         //if (_isEating)
         //{
         //    CountTimerEatFood();
         //}
+
         if (_isWorking)
         {
             CountTimerWork();
@@ -260,7 +262,7 @@ public class Constructor : MonoBehaviour
 
                     if (_notScared)
                     {
-                        //Mostrar asustado de este chef/ Scared
+                        //Mostrar asustado de este constructor/ Scared
 
                         _speed = _speedScared;
 
@@ -279,7 +281,7 @@ public class Constructor : MonoBehaviour
         {
             if (!_notScared)
             {
-                //Esconder asustado de este chef
+                //Esconder asustado de este constructor
 
                 _speed = _speedOriginal;
 
@@ -463,6 +465,7 @@ public class Constructor : MonoBehaviour
                 _buildingZoneToBuild.AddMaterials(value);
             }
 
+            #region Old_Code
             //if (_woodToLose > _buildingZoneToBuild.materialsQuantity)
             //{
             //    if (_wood >= 0)
@@ -480,9 +483,11 @@ public class Constructor : MonoBehaviour
             //
             //    _wood = 0;
             //}
+            #endregion
 
             if (_wood <= 0)
             {
+                #region Old_Code_StateCheck
                 //if (_stateConstruct)
                 //    _stateConstruct = false;
                 //
@@ -491,6 +496,8 @@ public class Constructor : MonoBehaviour
                 //
                 //if (_isWorking)
                 //    _isWorking = false;
+                #endregion
+
                 SentToFSM(ConstructorStates.GrabingWood);
             }
 
@@ -499,6 +506,7 @@ public class Constructor : MonoBehaviour
     }
     #endregion
 
+    #region Old_Codes
     //void SetValueRandom(float valueToRandom, float min, float max)
     //{
     //    Debug.Log("SetValueRandom");
@@ -528,6 +536,7 @@ public class Constructor : MonoBehaviour
     //
     //    _doOnce = false;
     //}
+    #endregion
 
     #region States
     //void GrabingWoodForWork() //[STATE 1]
@@ -545,7 +554,7 @@ public class Constructor : MonoBehaviour
     //    _myTransform.LookAt(new Vector3(_buildingZoneToBuild.transform.position.x, 0, _buildingZoneToBuild.transform.position.z));
     //    _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
     //}
-   
+
     //void Eat() //[STATE 3]
     //{
     //    Debug.Log("Eat");

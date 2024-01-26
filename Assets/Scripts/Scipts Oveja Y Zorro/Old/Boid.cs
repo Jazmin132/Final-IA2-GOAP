@@ -231,6 +231,8 @@ public class Boid : GridEntity
     {
         //MoveTest();
         UpdateGrid();
+
+        #region Code_Test_Boid_Death
         //if(_gameManager.allFoxes.Count > 0)
         //{
         //    for (int i = 0; i < _gameManager.allFoxes.Count; i++)
@@ -249,6 +251,8 @@ public class Boid : GridEntity
         //        }
         //    }
         //}
+        #endregion
+
     }//CAMBIO JULI
 
     #region Separation
@@ -342,7 +346,7 @@ public class Boid : GridEntity
             EatFood(food);
 
         return CalculateSteering(desired);
-    #region what
+    #region Old_Code_Food_Check
         //if (GameManager.instance.allFoods == null) return Vector3.zero;
         //var closestFood = GameManager.instance.allFoods.Where(x => (x.gameObject.transform.position - transform.position).magnitude <= arriveRadius)
         //    .OrderBy(x => Vector3.Distance(x.transform.position, transform.position)).Take(1).ToList(); //IA 2 P1

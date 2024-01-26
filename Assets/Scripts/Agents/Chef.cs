@@ -173,6 +173,7 @@ public class Chef : MonoBehaviour
             _stateLoadFood = false; 
         };
 
+        #region Old_Code_Collect
         //_Collect.OnEnter += x => 
         //{
         //    particleHarvest.Play();
@@ -187,6 +188,7 @@ public class Chef : MonoBehaviour
         //    particleHarvest.Stop();
         //    _stateLookingForFood = false;
         //};
+        #endregion
 
         _goToTable.OnEnter += x =>
         {
@@ -587,6 +589,7 @@ public class Chef : MonoBehaviour
     }
     #endregion
 
+    #region Old_Codes
     //void SetValueRandom(float valueToRandom, float min, float max)
     //{
     //    Debug.Log("SetValueRandom");
@@ -616,6 +619,7 @@ public class Chef : MonoBehaviour
     //
     //    _doOnce = false;
     //}
+    #endregion
 
     #region States
     //void LookingForFood() //[STATE 1 - Inicial]
@@ -722,6 +726,7 @@ public class Chef : MonoBehaviour
 
             _foodForCanteenReady = false;
 
+            #region Old_Code
             //SentToFSM(ChefStates.WaitForCompany);
 
             //var canteen = collision.gameObject.GetComponent<Canteen>();
@@ -746,6 +751,7 @@ public class Chef : MonoBehaviour
             //    if (!_isEating)
             //        _isEating = true;
             //}
+            #endregion
         }
     }
 

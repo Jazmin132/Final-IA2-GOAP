@@ -129,6 +129,7 @@ public class Canteen : MonoBehaviour
     {
         //Tema Concat + Aggregate para sumar el valor de food de cada tipo de comida
 
+        #region Code_Test_foodQuantity
         //appleIEnumerableQuantity = appleListQuantity;
         //coconutIEnumerableQuantity = coconutListQuantity;
         //beanIEnumerableQuantity = beanListQuantity;
@@ -142,6 +143,7 @@ public class Canteen : MonoBehaviour
         //NewFoodValue = (FList.Create<NewFood>() + appleIEnumQuantity + coconutIEnumQuantity + beanIEnumQuantity).OfType<NewFood>().Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
 
         //foodQuantity += (FList.Create<NewFood>() + appleListQuantity + coconutListQuantity + beanListQuantity).Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
+        #endregion
 
         foodQuantity += (FList.Create<NewFood>() + appleListQuantity + coconutListQuantity + beanListQuantity).Select(x => x.foodValue).Sum();
 

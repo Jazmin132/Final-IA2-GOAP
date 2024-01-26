@@ -22,17 +22,17 @@ public class CountScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_canActivateAgain)
-        {
-            StartCoroutine(WaitCounter(1, "RandomStuff"));
-
-            _canActivateAgain = false;
-        }
-    }
+        //if (_canActivateAgain)
+        //{
+        //    StartCoroutine(WaitCounter(1, "RandomStuff"));
+        //
+        //    _canActivateAgain = false;
+        //}
+    }   
 
     public IEnumerator WaitCounter(float num, string voidName)
     { 
-        Debug.Log("WaitCounter called");
+        //Debug.Log("WaitCounter called");
         
         yield return new WaitForSeconds(num);
 
@@ -43,6 +43,6 @@ public class CountScript : MonoBehaviour
 
     public void RandomStuff()
     {
-        Debug.Log("RandomStuff called");
+        //Debug.Log("RandomStuff called");
     }
 }

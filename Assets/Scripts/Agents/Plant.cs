@@ -70,6 +70,7 @@ public class Plant : MonoBehaviour
             else
                 SentToFSM(PlantStates.Death);
         };
+
         Moving.OnEnter += x =>
         {     
             DoTransformRotationYWithRandomValue();
@@ -86,6 +87,7 @@ public class Plant : MonoBehaviour
             else
                 SentToFSM(PlantStates.Death);
         };
+
         Death.OnEnter += x =>
         {
             particleDeath.Play();

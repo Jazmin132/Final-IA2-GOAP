@@ -322,19 +322,22 @@ public class Agent : GridEntity
                 }
             }
 
-            //foreach(GridEntity boid in Query().ToList())
-            //{
-            //    if (boid!= this && boid.GetComponent<Boid>())
-            //    {
-            //        Vector3 dist = boid.transform.position - transform.position;
-            //        if(dist.magnitude <= pursuitRadius)
-            //        {
-            //            target = boid.transform;
-            //            SendInputToSFSM(AgentStates.PURSUIT);
-            //        }
-            //    }
-            //}
-            //return;
+        #region Code_Test
+        //foreach(GridEntity boid in Query().ToList())
+        //{
+        //    if (boid!= this && boid.GetComponent<Boid>())
+        //    {
+        //        Vector3 dist = boid.transform.position - transform.position;
+        //        if(dist.magnitude <= pursuitRadius)
+        //        {
+        //            target = boid.transform;
+        //            SendInputToSFSM(AgentStates.PURSUIT);
+        //        }
+        //    }
+        //}
+        //return;
+        #endregion
+
         //}
     }
 
@@ -419,11 +422,13 @@ public class Agent : GridEntity
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, pursuitRadius);
 
+        #region Code_FOV_Test
         //Vector3 LineaA = GetDirFromAngle(-Angle / 2 + transform.eulerAngles.y);
         //Vector3 LineaB = GetDirFromAngle(Angle / 2 + transform.eulerAngles.y);
 
         //Gizmos.color = Color.green;
         //Gizmos.DrawLine(transform.position, transform.position + LineaA * pursuitRadius);
         //Gizmos.DrawLine(transform.position, transform.position + LineaB * pursuitRadius);
+        #endregion
     }
 }

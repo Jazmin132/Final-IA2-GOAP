@@ -60,7 +60,7 @@ public class Bee : MonoBehaviour
 
     void Awake()
     {
-        #region something
+        #region Code_Test_Rotation_Position
         //Agregarlo a una lista antes de que haga algo? -> fijarse si poner código
 
         //_firstPosToFly = _myTransform.position;
@@ -68,7 +68,9 @@ public class Bee : MonoBehaviour
 
 
         //SetValueRandom(_randomValueForAngle, 0, 361);
+        #endregion
 
+        #region Rotation_Force
         _randomValueForAngle = Random.Range(0, 361);
 
         ChangeTransformRotationY(_randomValueForAngle);
@@ -116,6 +118,7 @@ public class Bee : MonoBehaviour
             else
                 SentToFSM(BeeStates.DIE);
         };
+
         SpawnPlant.OnFixedUpdate += () =>
          {//SPAWN PLANT
              if (!_myRgbd.useGravity)
@@ -127,6 +130,7 @@ public class Bee : MonoBehaviour
              if (!_canSpawnObject)
                  _canSpawnObject = true;
          };
+
         GotoPlant.OnEnter += x => 
         {
             Debug.Log("MUST Go To PLANT");
@@ -256,6 +260,7 @@ public class Bee : MonoBehaviour
         }
     }
     #endregion
+
     public void SentToFSM(BeeStates states)
     {
         _MyFSM.SendInput(states);
@@ -273,13 +278,13 @@ public class Bee : MonoBehaviour
         Instantiate(objectToSpawn, _spawnerPos.position, _spawnerPos.rotation);
     }
 
-    void AddForce(Vector3 force)
-    {
-        _velocity += force;
-
-        if (_velocity.magnitude >= speed)
-            _velocity = _velocity.normalized * speed;
-    }
+    //void AddForce(Vector3 force)
+    //{
+    //    _velocity += force;
+    //
+    //    if (_velocity.magnitude >= speed)
+    //        _velocity = _velocity.normalized * speed;
+    //}
 
     public Vector3 GetVelocity()
     {

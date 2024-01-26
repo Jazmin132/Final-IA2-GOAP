@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
     }
+
     private void Start()
     {
         _SheepCount = GameManager.instance.allBoids.Count();

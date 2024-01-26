@@ -63,6 +63,8 @@ public class Woodcutter : MonoBehaviour
         LookTree.OnEnter += x =>
         {
             _LookingForTree = true;
+
+            #region Old_Code
             //_treeList = LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x));
             ////if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())
             //if (_treeList.Any()) //IA2-LINQ
@@ -88,6 +90,7 @@ public class Woodcutter : MonoBehaviour
             //{
             //    Debug.Log("No hay algo en la lista");
             //}
+            #endregion
         };
         LookTree.OnFixedUpdate += () => //IA2-LINQ
         {
@@ -175,6 +178,7 @@ public class Woodcutter : MonoBehaviour
             _restartWoodTime = false;
         }
 
+        #region Code_Test
         //CountScript.instance.WaitCounter(_timerWood);
         //
         //_treeToCut.RemoveWood(_woodToGain);
@@ -187,6 +191,7 @@ public class Woodcutter : MonoBehaviour
         //
         //    SentToFSM(CutterStates.LoadWood);
         //}
+        #endregion
 
         _timeWood += Time.fixedDeltaTime;
         
