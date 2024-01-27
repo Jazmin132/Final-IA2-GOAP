@@ -577,7 +577,9 @@ public class Chef : MonoBehaviour
 
             if (_hunger > _hungerMinCapacity && _hunger < _hungerMaxCapacity)
             {
-                SentToFSM(ChefStates.Eat);
+                //Debug.Log("EAT called through CountTimer");
+
+                //SentToFSM(ChefStates.Eat);
             }
             else if (_hunger >= _hungerMaxCapacity)
             {

@@ -116208,8 +116208,8 @@ MonoBehaviour:
   _myTransform: {fileID: 1739711744}
   _myRgbd: {fileID: 1739711746}
   _canteenToEat: {fileID: 1390915739}
-  _speed: 3
-  _speedOriginal: 3
+  _speed: 4
+  _speedOriginal: 4
   _wood: 100
   _woodMaxCapacity: 100
   _woodToLose: 10
@@ -116245,7 +116245,7 @@ MonoBehaviour:
   _goingToEat: 0
   _flowerManager: {fileID: 1208690694}
   _notScared: 1
-  _speedScared: 1.5
+  _speedScared: 2
   _beeCheckRadius: 7.5
   _beesNotInRadius: 0
 --- !u!1 &1741503117

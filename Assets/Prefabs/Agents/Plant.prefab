@@ -368,7 +368,7 @@ MonoBehaviour:
   _newVector3Rotation: {x: 0, y: 0, z: 0}
   _life: 100
   _lifeOriginal: 100
-  _lifeToLose: 1.75
+  _lifeToLose: 2.5
   _speed: 0.25
   _speedOriginal: 0.25
   _canCountTimeLife: 1
@@ -384,6 +384,8 @@ MonoBehaviour:
   particleDeath: {fileID: 5091190839106595553}
   _particleDeathObject: {fileID: 4374937912784042927, guid: 6dfb71ae6d9c32740ae4d53f28db7159, type: 3}
   _InstanciateTree: {fileID: 5578950265373744936, guid: 23bed1664c341134ebabfc11e8e7d6e9, type: 3}
+  _spawnTreePos: {x: 0, y: 0, z: 0}
+  _TreeSpawnPositionYValueToChange: 0
 --- !u!1 &1129340073818317919
 GameObject:
   m_ObjectHideFlags: 0
