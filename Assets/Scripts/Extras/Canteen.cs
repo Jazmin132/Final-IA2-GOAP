@@ -86,6 +86,7 @@ public class Canteen : MonoBehaviour
 
     public void TransferFoodToCanteen(List<Apple> chefAppleList, List<Coconut> chefCoconutList, List<Bean> chefBeanList)
     {
+        /*
         if (chefAppleList.Count > 0)
         {
             //appleListQuantityFP.Concat(chefAppleList);
@@ -123,6 +124,7 @@ public class Canteen : MonoBehaviour
         }
 
         CalculateFood();
+        */
     }
 
     public void CalculateFood() //IA2-LINQ

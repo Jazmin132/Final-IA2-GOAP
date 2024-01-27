@@ -6,11 +6,7 @@ using UnityEngine.UI;
 public class CanteenFood : MonoBehaviour
 {
     public Text[] HowMuch;
-    Transform MainCamera;
-    Transform Unit;
-    Transform WorldSpaceCanvas;
 
-    public Vector3 Offset;
     /*
     void Start()
     {
