@@ -158,7 +158,7 @@ public class Canteen : MonoBehaviour
             }
 
             appleListQuantity.Clear();
-            HMBeans = appleListQuantity.Count();
+            HMApples = appleListQuantity.Count();
         }
 
         if (coconutListQuantity.Count > 0)
@@ -169,7 +169,7 @@ public class Canteen : MonoBehaviour
             }
 
             coconutListQuantity.Clear();
-            HMBeans = coconutListQuantity.Count();
+            HMCoconuts = coconutListQuantity.Count();
         }
 
         if (beanListQuantity.Count > 0)
