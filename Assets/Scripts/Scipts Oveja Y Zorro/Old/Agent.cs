@@ -240,7 +240,7 @@ public class Agent : GridEntity
             if (_notScared)
             {
                 //Mostrar asustado de este agent/ Scared
-                UIManager.instance.ShowFear(this, Scared, true);
+                UIManager.instance.ShowFear(Scared, true);
 
                 speed /= _valueScared;
                 maxSpeed /= _valueScared;
@@ -253,7 +253,7 @@ public class Agent : GridEntity
             if (!_notScared)
             {
                 //Esconder asustado de este agent
-                UIManager.instance.ShowFear(this, Scared, false);
+                UIManager.instance.ShowFear(Scared, false);
 
                 speed *= _valueScared;
                 maxSpeed *= _valueScared;
@@ -337,8 +337,6 @@ public class Agent : GridEntity
         //}
         //return;
         #endregion
-
-        //}
     }
 
     public void AlertFoxes(Agent fox)

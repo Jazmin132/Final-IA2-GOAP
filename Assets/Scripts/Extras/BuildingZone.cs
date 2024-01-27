@@ -16,11 +16,11 @@ public class BuildingZone : MonoBehaviour
         {
             columns1.SetActive(true);
         }
-        if (materialsQuantity > 1000)
+        else if (materialsQuantity > 1000)
         {
             columns2.SetActive(true);
         }
-        if (materialsQuantity > 2000)
+        else if (materialsQuantity > 2000)
         {
             roof.SetActive(true);
         }

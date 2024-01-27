@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowFear(Agent fox, GameObject fear, bool IsScared)
+    public void ShowFear(GameObject fear, bool IsScared)
     {
         fearFox = fear;
 
