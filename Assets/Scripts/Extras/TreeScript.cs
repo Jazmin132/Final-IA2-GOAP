@@ -38,7 +38,7 @@ public class TreeScript : MonoBehaviour
             {
                 _levelManager.RemoveTree(this);
 
-                if (Random.Range(0, 1) == 0)
+                if (Random.Range(0, 2) == 0)
                 {
                     //gameObject.SetActive(false);
 
