@@ -24,9 +24,11 @@ public class Canteen : MonoBehaviour
 
     int _randomNumFood;
 
-    //public List<NewFood> listNewFoodQuantity = new List<NewFood>(); //SI CONCAT DESCOMENTADO, DESCOMENTAR ESTO
+    public List<NewFood> listNewFoodQuantity = new List<NewFood>();
 
     //public IEnumerable<NewFood> iEnumerableNewFoodQuantity;
+
+    [SerializeField] GeneratorsScript _generatorsScript;
 
     void Start()
     {
@@ -93,10 +95,12 @@ public class Canteen : MonoBehaviour
 
             appleListQuantity.Clear();
 
-            for (int i = 0; i < chefAppleList.Count; i++)
-            {
-                appleListQuantity.Add(chefAppleList[i]);
-            }
+            //for (int i = 0; i < chefAppleList.Count; i++)
+            //{
+            //    appleListQuantity.Add(chefAppleList[i]);
+            //}
+
+            appleListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefAppleList).ToList(); //IA-P2
         }
 
         if (chefCoconutList.Count > 0)
@@ -105,10 +109,12 @@ public class Canteen : MonoBehaviour
 
             coconutListQuantity.Clear();
 
-            for (int i = 0; i < chefCoconutList.Count; i++)
-            {
-                coconutListQuantity.Add(chefCoconutList[i]);
-            }
+            //for (int i = 0; i < chefCoconutList.Count; i++)
+            //{
+            //    coconutListQuantity.Add(chefCoconutList[i]);
+            //}
+
+            coconutListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefCoconutList).ToList(); //IA-P2
         }
 
         if (chefBeanList.Count > 0)
@@ -117,10 +123,12 @@ public class Canteen : MonoBehaviour
 
             beanListQuantity.Clear();
 
-            for (int i = 0; i < chefBeanList.Count; i++)
-            {
-                beanListQuantity.Add(chefBeanList[i]);
-            }
+            //for (int i = 0; i < chefBeanList.Count; i++)
+            //{
+            //    beanListQuantity.Add(chefBeanList[i]);
+            //}
+
+            beanListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList(); //IA-P2
         }
 
         CalculateFood();
@@ -146,9 +154,9 @@ public class Canteen : MonoBehaviour
         //foodQuantity += (FList.Create<NewFood>() + appleListQuantity + coconutListQuantity + beanListQuantity).Select(x => x.foodValue).Aggregate(0f, (x, y) => x + y);
         #endregion
 
-        foodQuantity += (FList.Create<NewFood>() + appleListQuantity + coconutListQuantity + beanListQuantity).Select(x => x.foodValue).Sum();
+        //foodQuantity += (FList.Create<NewFood>() + appleListQuantity + coconutListQuantity + beanListQuantity).Select(x => x.foodValue).Sum(); //FLIST
 
-        //foodQuantity += listNewFoodQuantity.Concat(appleListQuantity).Concat(coconutListQuantity).Concat(beanListQuantity).Select(x => x.foodValue).Sum(); //CONCAT
+        foodQuantity += listNewFoodQuantity.Concat(appleListQuantity).Concat(coconutListQuantity).Concat(beanListQuantity).Select(x => x.foodValue).Sum(); //CONCAT
 
         if (appleListQuantity.Count > 0)
         {
@@ -183,7 +191,7 @@ public class Canteen : MonoBehaviour
             HMBeans = beanListQuantity.Count();
         }
 
-        //listNewFoodQuantity.Clear(); //SI CONCAT DESCOMENTADO, DESCOMENTAR ESTO
+        listNewFoodQuantity.Clear();
 
         FoodIngredients();
     }

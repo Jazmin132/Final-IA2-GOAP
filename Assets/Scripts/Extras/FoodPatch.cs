@@ -15,6 +15,8 @@ public class FoodPatch : MonoBehaviour
     public List<Coconut> coconutListQuantityFP = new List<Coconut>();
     public List<Bean> beanListQuantityFP = new List<Bean>();
 
+    [SerializeField] GeneratorsScript _generatorsScript;
+
     //public void AddFood(int foodNum, NewFood foodToAdd)
     //{
     //    food = foodToAdd;
@@ -28,42 +30,38 @@ public class FoodPatch : MonoBehaviour
         {
             //appleListQuantityFP.Concat(chefAppleList);
 
-            for (int i = 0; i < chefAppleList.Count; i++)
-            {
-                appleListQuantityFP.Add(chefAppleList[i]);
-            }
+            //for (int i = 0; i < chefAppleList.Count; i++)
+            //{
+            //    appleListQuantityFP.Add(chefAppleList[i]);
+            //}
+
+            appleListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefAppleList).ToList(); //IA-P2
         }
 
         if(chefCoconutList.Count > 0)
         {
             //coconutListQuantityFP.Concat(chefCoconutList);
 
-            for (int i = 0; i < chefCoconutList.Count; i++)
-            {
-                coconutListQuantityFP.Add(chefCoconutList[i]);
-            }
+            //for (int i = 0; i < chefCoconutList.Count; i++)
+            //{
+            //    coconutListQuantityFP.Add(chefCoconutList[i]);
+            //}
+
+            coconutListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefCoconutList).ToList(); //IA-P2
         }
 
         if(chefBeanList.Count > 0)
         {
             //beanListQuantityFP.Concat(chefBeanList);
 
-            for (int i = 0; i < chefBeanList.Count; i++)
-            {
-                beanListQuantityFP.Add(chefBeanList[i]);
-            }
+            //for (int i = 0; i < chefBeanList.Count; i++)
+            //{
+            //    beanListQuantityFP.Add(chefBeanList[i]);
+            //}
 
-            //Supongo que sería lo mismo que el for y el Add ??
-            beanListQuantityFP = NewSelect(chefBeanList).ToList();
+            beanListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList(); //IA-P2
         }
         //Debug.Log("Termina TransferFoodToFoodPatch");
     }
 
-    IEnumerable<T>NewSelect<T>(List<T>Coll1)
-    {
-        foreach (var item in Coll1)
-        {
-            yield return item;
-        }
-    }
 }

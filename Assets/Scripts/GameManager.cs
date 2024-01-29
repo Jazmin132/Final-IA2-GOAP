@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
     public void InstaBoid()
     {
         Instantiate(BoidPrefab.gameObject, FoodPoints[0].transform);
-        Debug.Log("Instanciar Oveja");
+        //Debug.Log("Instanciar Oveja");
     }
 
     public void ChangeFoodPos(Food food)

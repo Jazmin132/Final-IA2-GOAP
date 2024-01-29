@@ -72,6 +72,8 @@ public class Chef : MonoBehaviour
 
     [SerializeField] int _beesNotInRadius;
 
+    [SerializeField] GeneratorsScript _generatorsScript;
+
     #region ChefStates
     public enum ChefStates
     {
@@ -385,10 +387,12 @@ public class Chef : MonoBehaviour
         {
             if(_canteenToLoad.appleListQuantity.Count > 0)
             {
-                for (int i = 0; i < _canteenToLoad.appleListQuantity.Count; i++)
-                {
-                    appleQuantity.Add(FPAppleList[i]);
-                }
+                //for (int i = 0; i < _canteenToLoad.appleListQuantity.Count; i++)
+                //{
+                //    appleQuantity.Add(FPAppleList[i]);
+                //}
+
+                appleQuantity = _generatorsScript.IEnumerableCollectionCreator(FPAppleList).ToList(); //IA-P2
             }
         }
 
@@ -396,10 +400,12 @@ public class Chef : MonoBehaviour
         {
             if (_canteenToLoad.coconutListQuantity.Count > 0)
             {
-                for (int i = 0; i < _canteenToLoad.coconutListQuantity.Count; i++)
-                {
-                    coconutQuantity.Add(FPCoconutList[i]);
-                }
+                //for (int i = 0; i < _canteenToLoad.coconutListQuantity.Count; i++)
+                //{
+                //    coconutQuantity.Add(FPCoconutList[i]);
+                //}
+
+                coconutQuantity = _generatorsScript.IEnumerableCollectionCreator(FPCoconutList).ToList(); //IA-P2
             }
         }
 
@@ -407,10 +413,12 @@ public class Chef : MonoBehaviour
         {
             if (_canteenToLoad.beanListQuantity.Count > 0)
             {
-                for (int i = 0; i < _canteenToLoad.beanListQuantity.Count; i++)
-                {
-                    beanQuantity.Add(FPBeanList[i]);
-                }
+                //for (int i = 0; i < _canteenToLoad.beanListQuantity.Count; i++)
+                //{
+                //    beanQuantity.Add(FPBeanList[i]);
+                //}
+
+                beanQuantity = _generatorsScript.IEnumerableCollectionCreator(FPBeanList).ToList(); //IA-P2
             }
         }
     }
