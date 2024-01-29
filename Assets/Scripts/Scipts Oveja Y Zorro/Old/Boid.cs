@@ -49,6 +49,9 @@ public class Boid : GridEntity
 
     [SerializeField] Agent _selectedAgent;
     [SerializeField] Bee _selectedBee;
+    [SerializeField] Vector3 _selectedBeePosition;
+    [SerializeField] Vector3 _selectedBeeVelocity;
+    [SerializeField] float _selectedBeeSpeed;
 
     [SerializeField] bool _beeClose;
 
@@ -120,7 +123,11 @@ public class Boid : GridEntity
                         {
                             _selectedBee = FlowerManager.instance.BeeTotal[i];
 
-                            if(!_beeClose)
+                            _selectedBeePosition = _selectedBee.transform.position;
+                            _selectedBeeVelocity = _selectedBee.GetVelocity();
+                            _selectedBeeSpeed = _selectedBee.speed;
+
+                            if (!_beeClose)
                                 _beeClose = true;
 
                             SentToFSM(BoidStates.EVADE);
@@ -370,11 +377,11 @@ public class Boid : GridEntity
         }
         else
         {
-            Vector3 futurePos = _selectedBee.transform.position + _selectedBee.GetVelocity();
-            Vector3 desired = futurePos + _selectedBee.transform.position;
+            Vector3 futurePos = _selectedBeePosition + _selectedBeeVelocity;
+            Vector3 desired = futurePos + _selectedBeePosition;
             desired.y = 0;
             desired.Normalize();
-            desired *= _selectedBee.speed;
+            desired *= _selectedBeeSpeed;
             return CalculateSteering(desired);
         }
     }
