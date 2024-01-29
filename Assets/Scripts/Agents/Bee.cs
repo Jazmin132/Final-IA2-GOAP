@@ -54,6 +54,8 @@ public class Bee : MonoBehaviour
 
     [SerializeField] GameObject _particleDeathObject;
 
+    [SerializeField] float _minDistForCheckingSheep;
+
     Vector3 _velocity;
 
     //[Header("State")] //Uso 'bool' en vez de 'estados', reemplazar los 'bool' por los estados que va a tener
@@ -134,7 +136,7 @@ public class Bee : MonoBehaviour
 
         GotoPlant.OnEnter += x => 
         {
-            Debug.Log("MUST Go To PLANT");
+            //Debug.Log("MUST Go To PLANT");
 
             particleAnger.Play();
         };
@@ -143,7 +145,7 @@ public class Bee : MonoBehaviour
             Vector3 dir = TargetPlant - transform.position;
             dir.y = 0;
 
-            if (dir.magnitude >= 0.3f)
+            if (dir.magnitude >= _minDistForCheckingSheep)
             {
                 transform.forward = dir;
                 transform.position += transform.forward * (speed + _speedMultiplier) * Time.fixedDeltaTime;
@@ -152,7 +154,7 @@ public class Bee : MonoBehaviour
         };
         GotoPlant.OnExit += x => 
         { 
-            Debug.Log("STOP PROTECTING PLANT");
+            //Debug.Log("STOP PROTECTING PLANT");
             particleAnger.Stop();
         };
 

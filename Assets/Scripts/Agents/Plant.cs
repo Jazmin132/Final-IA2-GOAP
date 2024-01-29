@@ -186,7 +186,7 @@ public class Plant : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, _Boids[i].transform.position) <= _viewRadius)
             {
-                Debug.Log("SHEEP-DETECTED" + this);
+                //Debug.Log("SHEEP-DETECTED" + this);
                 FlowerManager.instance.CallBees(this);
             }
         }

@@ -379,6 +379,8 @@ public class Chef : MonoBehaviour
 
             _beesNotInRadius = 0;
         }
+
+        _myTransform.eulerAngles = new Vector3 (0, transform.eulerAngles.y, 0);
     }
 
     public void TransferFoodToChef(List<Apple> FPAppleList, List<Coconut> FPCoconutList, List<Bean> FPBeanList)

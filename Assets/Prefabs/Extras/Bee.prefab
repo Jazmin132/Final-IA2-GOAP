@@ -10099,6 +10099,7 @@ MonoBehaviour:
   _canSpawnObject: 0
   _spawnerPos: {fileID: 3907819721469457331}
   _objectToSpawn: {fileID: 1129340073728493528, guid: a157336586af15448a5ccdf477f74af5, type: 3}
+  _objectToSpawnTransformParent: {fileID: 0}
   _canCountTimeSpawner: 1
   _restartSpawnerTime: 0
   _timeSpawner: 0
@@ -10111,6 +10112,7 @@ MonoBehaviour:
   particleDeath: {fileID: 3907819721683953073}
   particleAnger: {fileID: 3879952842741415764}
   _particleDeathObject: {fileID: 4374937912784042927, guid: 6dfb71ae6d9c32740ae4d53f28db7159, type: 3}
+  _minDistForCheckingSheep: 2
 --- !u!1 &3907819722753950140
 GameObject:
   m_ObjectHideFlags: 0
