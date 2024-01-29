@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class FoodPatch : MonoBehaviour
 {
@@ -51,13 +52,18 @@ public class FoodPatch : MonoBehaviour
             {
                 beanListQuantityFP.Add(chefBeanList[i]);
             }
-        }
 
+            //Supongo que sería lo mismo que el for y el Add ??
+            beanListQuantityFP = NewSelect(chefBeanList).ToList();
+        }
         //Debug.Log("Termina TransferFoodToFoodPatch");
     }
 
-    //public void TransferFoodToChef()
-    //{
-    //
-    //}
+    IEnumerable<T>NewSelect<T>(List<T>Coll1)
+    {
+        foreach (var item in Coll1)
+        {
+            yield return item;
+        }
+    }
 }
