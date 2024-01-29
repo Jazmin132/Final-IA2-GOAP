@@ -222,11 +222,14 @@ public class Woodcutter : MonoBehaviour
     {
         if (collision.gameObject.layer == 7)
         {
-            if (collision.gameObject.GetComponent<TreeScript>())
+            if(_wood < _woodMaxCapacity)
             {
-                _treeToCut = collision.gameObject.GetComponent<TreeScript>();
+                if (collision.gameObject.GetComponent<TreeScript>())
+                {
+                    _treeToCut = collision.gameObject.GetComponent<TreeScript>();
 
-                SentToFSM(CutterStates.CUT);
+                    SentToFSM(CutterStates.CUT);
+                }
             }
         }
         else if (collision.gameObject.layer == 8)
