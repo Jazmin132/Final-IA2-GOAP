@@ -20,7 +20,9 @@ public class TreeSpawner : MonoBehaviour
 
     //[SerializeField] CountScript _countScript;
 
-    //private void Start()
+    [SerializeField] Transform[] _foodTypeTransformObjects;
+
+    //void Start()
     //{
     //    SpawnTree();
     //}
@@ -71,7 +73,7 @@ public class TreeSpawner : MonoBehaviour
 
         //StartCoroutine(_countScript.WaitCounter(_timerSpawn, "SpawnTree"));
 
-        Instantiate(_AllFood[RN], spawnPoint, spawnRotation);
+        Instantiate(_AllFood[RN], spawnPoint, spawnRotation, _foodTypeTransformObjects[RN]);
         //Instantiate(_treeToSpawn, spawnPoint, spawnRotation);
 
         //Debug.Log("bruh");

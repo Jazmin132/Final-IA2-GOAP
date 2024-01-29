@@ -40,6 +40,7 @@ public class Bee : MonoBehaviour
     [SerializeField] bool _canSpawnObject;
     [SerializeField] Transform _spawnerPos;
     [SerializeField] GameObject _objectToSpawn;
+    [SerializeField] Transform _objectToSpawnTransformParent;
     [SerializeField] bool _canCountTimeSpawner, _restartSpawnerTime;
     [SerializeField] float _timeSpawner, _timerSpawner;
 
@@ -172,6 +173,11 @@ public class Bee : MonoBehaviour
     void Start()
     {
         FlowerManager.instance.AddBee(this);
+
+        if(_objectToSpawnTransformParent == null)
+        {
+            _objectToSpawnTransformParent = GameManager.instance.objectToSpawnTransformParent;
+        }
     }
 
     void FixedUpdate()
@@ -275,7 +281,7 @@ public class Bee : MonoBehaviour
 
     void SpawnObject(GameObject objectToSpawn)
     {
-        Instantiate(objectToSpawn, _spawnerPos.position, _spawnerPos.rotation);
+        Instantiate(objectToSpawn, _spawnerPos.position, _spawnerPos.rotation, _objectToSpawnTransformParent);
     }
 
     //void AddForce(Vector3 force)

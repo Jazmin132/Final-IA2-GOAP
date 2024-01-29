@@ -14,12 +14,28 @@ public class TreeScript : MonoBehaviour
 
     [SerializeField] float _beeSpawnPositionYValueToAdd;
 
+    [SerializeField] float _treeRotationY;
+
+    [SerializeField] Transform _beesTransformObject;
+
     void Awake()
     {
         if (_levelManager == null)
             _levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 
         _levelManager.AddTree(this);
+
+        _treeRotationY = Random.Range(0, 361);
+
+        transform.eulerAngles = new Vector3 (transform.rotation.x, _treeRotationY, transform.rotation.z);
+    }
+
+    void Start()
+    {
+        if(_beesTransformObject == null)
+        {
+            _beesTransformObject = GameManager.instance.beesTransformObject;
+        }
     }
 
     public void RemoveWood(float quantity)
@@ -46,7 +62,7 @@ public class TreeScript : MonoBehaviour
 
                     //Destroy(gameObject);
 
-                    Instantiate(_Bee, _beeSpawnPosition, _beeSpawnRotation);
+                    Instantiate(_Bee, _beeSpawnPosition, _beeSpawnRotation, _beesTransformObject);
                     //Debug.Log("CrearAbeja");
                 }
                 

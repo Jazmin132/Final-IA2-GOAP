@@ -38,6 +38,8 @@ public class Plant : MonoBehaviour
 
     [SerializeField] float _TreeSpawnPositionYValueToChange;
 
+    [SerializeField] Transform _treesTransformObject;
+
     //[SerializeField] bool _stateIdle, _stateMoving;
     public enum PlantStates
     {
@@ -98,7 +100,7 @@ public class Plant : MonoBehaviour
 
             _spawnTreePos = _myTransform.position;
 
-            Instantiate(_InstanciateTree, new Vector3(_spawnTreePos.x, _TreeSpawnPositionYValueToChange, _spawnTreePos.z), Quaternion.identity);
+            Instantiate(_InstanciateTree, new Vector3(_spawnTreePos.x, _TreeSpawnPositionYValueToChange, _spawnTreePos.z), Quaternion.identity, _treesTransformObject);
 
             GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
             Destroy(effect, 3f);
@@ -112,6 +114,11 @@ public class Plant : MonoBehaviour
     void Start()
     {
         FlowerManager.instance.AddFlower(this);
+
+        if(_treesTransformObject == null)
+        {
+            _treesTransformObject = GameManager.instance.treesTransformObject;
+        }
     }
 
     void FixedUpdate()
@@ -184,16 +191,19 @@ public class Plant : MonoBehaviour
             }
         }
     }
+
     void ChangeTransformRotationY(float value)
     {
         _newVector3Rotation = new Vector3(_myTransform.rotation.eulerAngles.x, value, _myTransform.rotation.eulerAngles.z);
         _myTransform.localEulerAngles = _newVector3Rotation;
     }
+
     void DoTransformRotationYWithRandomValue()
     {
         _randomValueForAngle = Random.Range(0, 361);
         ChangeTransformRotationY(_randomValueForAngle);
     }
+
     void SentToFSM(PlantStates states)
     {
         _MyFSM.SendInput(states);

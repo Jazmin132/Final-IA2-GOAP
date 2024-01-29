@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject gridObject;
 
+    public Transform treesTransformObject;
+    public Transform beesTransformObject;
+    public Transform objectToSpawnTransformParent;
+
     private void Awake() 
     { 
         if (instance == null) 
