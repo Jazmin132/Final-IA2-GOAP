@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Constructor : MonoBehaviour
 {
@@ -59,6 +60,8 @@ public class Constructor : MonoBehaviour
 
     [SerializeField] int _beesNotInRadius;
 
+    [SerializeField] Image[] Faces;
+
     #region ConstructorStates
     public enum ConstructorStates
     {
@@ -111,7 +114,11 @@ public class Constructor : MonoBehaviour
 
         StateConfigurer.Create(_stateDeath).Done();
 
-        _GrabingWood.OnEnter += x => { _stateGrabingWood = true; };
+        _GrabingWood.OnEnter += x => 
+        {
+            _stateGrabingWood = true;
+            UIManager.instance.ShowFace("GrabingWood", Faces);
+        };
         _GrabingWood.OnFixedUpdate += () => 
         {
             _myTransform.LookAt(new Vector3(_storeToGrabWood.transform.position.x, 0, _storeToGrabWood.transform.position.z));
@@ -123,6 +130,7 @@ public class Constructor : MonoBehaviour
         {
             _stateConstruct = true;
             particleBuilding.Play();
+            UIManager.instance.ShowFace("Construct", Faces);
         };
         _Construct.OnFixedUpdate += () => 
         {
@@ -139,6 +147,7 @@ public class Constructor : MonoBehaviour
         _goToTable.OnEnter += x =>
         {
             _goingToEat = true;
+            UIManager.instance.ShowFace("GoToTable", Faces);
             //Debug.Log("Entre en GoToTable");
             //Partículas de yendo a la mesa? ON
         };
@@ -156,8 +165,8 @@ public class Constructor : MonoBehaviour
         {
             //Partículas de enojo ON
             //Debug.Log("WaitForFood ON");
+            UIManager.instance.ShowFace("Wait", Faces);
             particleAnger.Play();
-
         };
         _waitForFood.OnFixedUpdate += () =>
         {
@@ -177,6 +186,7 @@ public class Constructor : MonoBehaviour
             _stateEat = true;
             isReadyToEat = true;
             particleHunger.Play();
+            UIManager.instance.ShowFace("EAT", Faces);
         };
         _Eat.OnFixedUpdate += () =>
         {

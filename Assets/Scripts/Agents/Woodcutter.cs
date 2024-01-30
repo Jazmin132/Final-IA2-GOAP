@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
 
@@ -28,6 +29,7 @@ public class Woodcutter : MonoBehaviour
 
     [Header("State")]
     [SerializeField] bool _LookingForTree, _Cut, _LoadWood;
+    [SerializeField] Image[] Faces;
 
     public ParticleSystem particleCutting;
 
@@ -63,7 +65,7 @@ public class Woodcutter : MonoBehaviour
         LookTree.OnEnter += x =>
         {
             _LookingForTree = true;
-
+            UIManager.instance.ShowFace("LookingFor", Faces);
             #region Old_Code
             //_treeList = LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x));
             ////if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())
@@ -132,6 +134,7 @@ public class Woodcutter : MonoBehaviour
 
         CutTree.OnEnter += x => 
         {
+            UIManager.instance.ShowFace("Cutting", Faces);
             particleCutting.Play();
             _Cut = true;
         };
@@ -148,7 +151,11 @@ public class Woodcutter : MonoBehaviour
             particleCutting.Stop();
         };
 
-        LOADWOOD.OnEnter += x => { _Cut = true; };
+        LOADWOOD.OnEnter += x => 
+        {
+            UIManager.instance.ShowFace("LoadWood", Faces);
+            _Cut = true; 
+        };
         LOADWOOD.OnFixedUpdate += () => 
         {
             _myTransform.LookAt(new Vector3(_storeToLoad.transform.position.x, 0, _storeToLoad.transform.position.z));

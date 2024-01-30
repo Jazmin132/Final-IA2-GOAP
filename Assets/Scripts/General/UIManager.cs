@@ -86,9 +86,9 @@ public class UIManager : MonoBehaviour
             ShowFace(name, FacesFoxes3);
     }
 
-    public void ShowFace(string name, Image[] Foxfaces)
+    public void ShowFace(string name, Image[] Faces)
     {
-        foreach (var face in Foxfaces)
+        foreach (var face in Faces)
         {
             if (name == face.name) 
                 face.gameObject.SetActive(true);

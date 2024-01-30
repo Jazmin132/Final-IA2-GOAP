@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
 
@@ -11,6 +12,7 @@ public class Chef : MonoBehaviour
 
     [Header("Values")]
 
+    [SerializeField] Image[] Faces;
     //[SerializeField] float _randomValueForAngle;
     //[SerializeField] Vector3 _newVector3Rotation;
 
@@ -128,7 +130,8 @@ public class Chef : MonoBehaviour
         StateConfigurer.Create(_stateDeath).Done();
 
         _LookingForFood.OnEnter += x => 
-        { 
+        {
+            UIManager.instance.ShowFace("LookingFor", Faces);  
             _stateLoadFood = true;
         }; 
         _LookingForFood.OnFixedUpdate += () => 
@@ -194,7 +197,7 @@ public class Chef : MonoBehaviour
 
         _goToTable.OnEnter += x =>
         {
-
+            UIManager.instance.ShowFace("GoToTable", Faces);
         };
         _goToTable.OnFixedUpdate += () => 
         {
@@ -202,15 +205,12 @@ public class Chef : MonoBehaviour
 
             _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
         };
-        _goToTable.OnExit += x =>
-        {
-
-        };
 
         _LoadFood.OnEnter += x => 
         {
             particleCooking.Play();
-            _stateLoadFood = true; 
+            _stateLoadFood = true;
+            UIManager.instance.ShowFace("LoadFood", Faces);
         };
         _LoadFood.OnFixedUpdate += () => 
         {
@@ -228,7 +228,7 @@ public class Chef : MonoBehaviour
 
         _WaitForCompany.OnEnter += x =>
         {
-            //Partículas de enojo ON
+            UIManager.instance.ShowFace("Wait", Faces);
         };
         _WaitForCompany.OnFixedUpdate += () =>
         {
@@ -248,6 +248,8 @@ public class Chef : MonoBehaviour
 
         _Eat.OnEnter += x =>
         {
+            UIManager.instance.ShowFace("EAT", Faces);
+
             particleHungry.Play();
             _stateEat = true;
 
