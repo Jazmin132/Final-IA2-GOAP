@@ -275,7 +275,11 @@ public class Chef : MonoBehaviour
             _isEating = false;
         };
 
-        _stateDeath.OnEnter += x => { Death.Play(); };
+        _stateDeath.OnEnter += x => 
+        {
+            Death.Play(); 
+            UIManager.instance.ShowFace("DEATH", Faces);
+        };
         _stateDeath.OnFixedUpdate += () => 
         {
             if (_hunger > _hungerMaxCapacity)

@@ -205,6 +205,7 @@ public class Constructor : MonoBehaviour
 
         _stateDeath.OnFixedUpdate += () =>
         {
+            UIManager.instance.ShowFace("DEATH", Faces);
             GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
             Destroy(effect, 3f);
 
