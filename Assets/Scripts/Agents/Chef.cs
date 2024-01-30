@@ -76,6 +76,8 @@ public class Chef : MonoBehaviour
 
     [SerializeField] GeneratorsScript _generatorsScript;
 
+    [SerializeField] UIManager _uIManager;
+
     #region ChefStates
     public enum ChefStates
     {
@@ -131,7 +133,7 @@ public class Chef : MonoBehaviour
 
         _LookingForFood.OnEnter += x => 
         {
-            UIManager.instance.ShowFace("LookingFor", Faces);  
+            _uIManager.ShowFace("LookingFor", Faces);  
             _stateLoadFood = true;
         }; 
         _LookingForFood.OnFixedUpdate += () => 
@@ -197,7 +199,7 @@ public class Chef : MonoBehaviour
 
         _goToTable.OnEnter += x =>
         {
-            UIManager.instance.ShowFace("GoToTable", Faces);
+            _uIManager.ShowFace("GoToTable", Faces);
         };
         _goToTable.OnFixedUpdate += () => 
         {
@@ -228,7 +230,7 @@ public class Chef : MonoBehaviour
 
         _WaitForCompany.OnEnter += x =>
         {
-            UIManager.instance.ShowFace("Wait", Faces);
+            _uIManager.ShowFace("Wait", Faces);
         };
         _WaitForCompany.OnFixedUpdate += () =>
         {
@@ -248,7 +250,7 @@ public class Chef : MonoBehaviour
 
         _Eat.OnEnter += x =>
         {
-            UIManager.instance.ShowFace("EAT", Faces);
+            _uIManager.ShowFace("EAT", Faces);
 
             particleHungry.Play();
             _stateEat = true;
@@ -277,8 +279,8 @@ public class Chef : MonoBehaviour
 
         _stateDeath.OnEnter += x => 
         {
-            Death.Play(); 
-            UIManager.instance.ShowFace("DEATH", Faces);
+            Death.Play();
+            _uIManager.ShowFace("DEATH", Faces);
         };
         _stateDeath.OnFixedUpdate += () => 
         {

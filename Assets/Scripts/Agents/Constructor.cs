@@ -62,6 +62,8 @@ public class Constructor : MonoBehaviour
 
     [SerializeField] Image[] Faces;
 
+    [SerializeField] UIManager _uIManager;
+
     #region ConstructorStates
     public enum ConstructorStates
     {
@@ -117,7 +119,7 @@ public class Constructor : MonoBehaviour
         _GrabingWood.OnEnter += x => 
         {
             _stateGrabingWood = true;
-            UIManager.instance.ShowFace("GrabingWood", Faces);
+            _uIManager.ShowFace("GrabingWood", Faces);
         };
         _GrabingWood.OnFixedUpdate += () => 
         {
@@ -130,7 +132,7 @@ public class Constructor : MonoBehaviour
         {
             _stateConstruct = true;
             particleBuilding.Play();
-            UIManager.instance.ShowFace("Construct", Faces);
+            _uIManager.ShowFace("Construct", Faces);
         };
         _Construct.OnFixedUpdate += () => 
         {
@@ -147,7 +149,7 @@ public class Constructor : MonoBehaviour
         _goToTable.OnEnter += x =>
         {
             _goingToEat = true;
-            UIManager.instance.ShowFace("GoToTable", Faces);
+            _uIManager.ShowFace("GoToTable", Faces);
             //Debug.Log("Entre en GoToTable");
             //Partículas de yendo a la mesa? ON
         };
@@ -165,7 +167,7 @@ public class Constructor : MonoBehaviour
         {
             //Partículas de enojo ON
             //Debug.Log("WaitForFood ON");
-            UIManager.instance.ShowFace("Wait", Faces);
+            _uIManager.ShowFace("Wait", Faces);
             particleAnger.Play();
         };
         _waitForFood.OnFixedUpdate += () =>
@@ -186,7 +188,7 @@ public class Constructor : MonoBehaviour
             _stateEat = true;
             isReadyToEat = true;
             particleHunger.Play();
-            UIManager.instance.ShowFace("EAT", Faces);
+            _uIManager.ShowFace("EAT", Faces);
         };
         _Eat.OnFixedUpdate += () =>
         {
@@ -205,7 +207,7 @@ public class Constructor : MonoBehaviour
 
         _stateDeath.OnFixedUpdate += () =>
         {
-            UIManager.instance.ShowFace("DEATH", Faces);
+            _uIManager.ShowFace("DEATH", Faces);
             GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
             Destroy(effect, 3f);
 

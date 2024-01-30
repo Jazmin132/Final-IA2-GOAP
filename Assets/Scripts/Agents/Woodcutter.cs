@@ -33,6 +33,8 @@ public class Woodcutter : MonoBehaviour
 
     public ParticleSystem particleCutting;
 
+    [SerializeField] UIManager _uIManager;
+
     public enum CutterStates
     {
         LookingForTree,
@@ -65,7 +67,7 @@ public class Woodcutter : MonoBehaviour
         LookTree.OnEnter += x =>
         {
             _LookingForTree = true;
-            UIManager.instance.ShowFace("LookingFor", Faces);
+            _uIManager.ShowFace("LookingFor", Faces);
             #region Old_Code
             //_treeList = LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x));
             ////if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())
@@ -134,7 +136,7 @@ public class Woodcutter : MonoBehaviour
 
         CutTree.OnEnter += x => 
         {
-            UIManager.instance.ShowFace("Cutting", Faces);
+            _uIManager.ShowFace("Cutting", Faces);
             particleCutting.Play();
             _Cut = true;
         };
@@ -153,7 +155,7 @@ public class Woodcutter : MonoBehaviour
 
         LOADWOOD.OnEnter += x => 
         {
-            UIManager.instance.ShowFace("LoadWood", Faces);
+            _uIManager.ShowFace("LoadWood", Faces);
             _Cut = true; 
         };
         LOADWOOD.OnFixedUpdate += () => 

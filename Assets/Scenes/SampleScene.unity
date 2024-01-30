@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -70977,6 +70977,7 @@ MonoBehaviour:
   - {fileID: 604905472}
   - {fileID: 1630519742}
   particleCutting: {fileID: 321464278}
+  _uIManager: {fileID: 1672737917}
 --- !u!1 &1081226005
 GameObject:
   m_ObjectHideFlags: 0
@@ -117660,12 +117661,13 @@ MonoBehaviour:
   _beeCheckRadius: 7.5
   _beesNotInRadius: 0
   Faces:
-  - {fileID: 1087664437}
-  - {fileID: 1610371962}
-  - {fileID: 517425349}
-  - {fileID: 508416178}
-  - {fileID: 258960724}
+  - {fileID: 990279466}
+  - {fileID: 1159587448}
+  - {fileID: 48060862}
+  - {fileID: 486156666}
+  - {fileID: 261572305}
   - {fileID: 855499482}
+  _uIManager: {fileID: 1672737917}
 --- !u!1 &1741503117
 GameObject:
   m_ObjectHideFlags: 0
@@ -141147,11 +141149,11 @@ MonoBehaviour:
   _myTransform: {fileID: 2039341659}
   _myRgbd: {fileID: 2039341661}
   Faces:
-  - {fileID: 990279466}
-  - {fileID: 1159587448}
-  - {fileID: 48060862}
-  - {fileID: 486156666}
-  - {fileID: 261572305}
+  - {fileID: 1087664437}
+  - {fileID: 1610371962}
+  - {fileID: 517425349}
+  - {fileID: 508416178}
+  - {fileID: 258960724}
   - {fileID: 821408763}
   _canteenToLoad: {fileID: 1390915739}
   _speed: 5
@@ -141198,6 +141200,7 @@ MonoBehaviour:
   _beeCheckRadius: 7.5
   _beesNotInRadius: 0
   _generatorsScript: {fileID: 653100343}
+  _uIManager: {fileID: 1672737917}
 --- !u!1 &2039743256
 GameObject:
   m_ObjectHideFlags: 0
