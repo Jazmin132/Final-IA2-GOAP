@@ -103,7 +103,7 @@ public class Agent : GridEntity
                 SendInputToSFSM(AgentStates.PATROL);
             return;
         };
-        Idle.OnExit += x => { particleTired.Stop(); _Idle = false; _canChangeToSleepyFace = true; };
+        Idle.OnExit += x => { particleTired.Stop(); _Idle = false; };
 
         #endregion
 
