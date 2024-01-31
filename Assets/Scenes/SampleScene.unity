@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29612,6 +29612,10 @@ PrefabInstance:
       propertyPath: _notScared
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _uIManager
+      value: 
+      objectReference: {fileID: 1672737917}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: targetGrid
       value: 
@@ -72329,6 +72333,10 @@ PrefabInstance:
       propertyPath: _notScared
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _uIManager
+      value: 
+      objectReference: {fileID: 1672737917}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: targetGrid
       value: 
@@ -136349,6 +136357,10 @@ PrefabInstance:
       propertyPath: _notScared
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
+      propertyPath: _uIManager
+      value: 
+      objectReference: {fileID: 1672737917}
     - target: {fileID: 227656666880515938, guid: b17f45c4eee686446a6e78486865c169, type: 3}
       propertyPath: targetGrid
       value: 

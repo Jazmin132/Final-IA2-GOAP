@@ -42,11 +42,11 @@ public class Agent : GridEntity
 
     public List<Transform> _listTransforms;
 
-    [SerializeField] bool _canChangeToSleepyFace;
-
     [SerializeField] Woodcutter _woodCutter;
     [SerializeField] bool _notScared;
     [SerializeField] float _valueScared;
+
+    [SerializeField] UIManager _uIManager;
 
     public bool _Idle, _Patrol, _Pursuit, _GotoDest, _Return;
     void Awake()
@@ -90,8 +90,7 @@ public class Agent : GridEntity
    #region IDLE
         Idle.OnEnter += x => 
         {
-            if(_canChangeToSleepyFace)
-                UIManager.instance.AssignFoxesFaces(this, "Dormido");
+            _uIManager.AssignFoxesFaces(this, "Dormido");
 
             particleTired.Play(); _Idle = true;
 
@@ -111,7 +110,7 @@ public class Agent : GridEntity
    #region GOTODEST
         GotoDest.OnEnter += x =>
         {
-            UIManager.instance.AssignFoxesFaces(this, "Yendo");
+            _uIManager.AssignFoxesFaces(this, "Yendo");
             _GotoDest = true;
             if (_pathToFollow.Count == 0)
             {
@@ -138,7 +137,7 @@ public class Agent : GridEntity
         Return.OnEnter += x => 
         {
             _Return = true;
-            UIManager.instance.AssignFoxesFaces(this, "Yendo");
+            _uIManager.AssignFoxesFaces(this, "Yendo");
             transform.position += new Vector3(3.5f, 0, 2);
             if (_pathToFollow.Count == 0)
             {
@@ -165,8 +164,8 @@ public class Agent : GridEntity
    #region PATROL
         Patrol.OnEnter += x => 
         {
-            _Patrol = true; 
-            UIManager.instance.AssignFoxesFaces(this, "Normal");
+            _Patrol = true;
+            _uIManager.AssignFoxesFaces(this, "Normal");
         };
         Patrol.OnUpdate += () =>//IA2-LINQ
         {
@@ -186,7 +185,7 @@ public class Agent : GridEntity
             _Pursuit = true;
             AlertFoxes(this);
             particleEnojo.Play();
-            UIManager.instance.AssignFoxesFaces(this, "Enojado");
+            _uIManager.AssignFoxesFaces(this, "Enojado");
             var Num = Query()
             .OfType<Boid>()
             .Select(x => x.transform)//Agregué el where
