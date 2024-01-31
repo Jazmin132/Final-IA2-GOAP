@@ -71281,7 +71281,7 @@ MonoBehaviour:
   _woodsObject: {fileID: 2146963939}
   _speed: 4.5
   _speedOriginal: 4.5
-  _shortestDistanceToTree: 1000000
+  _shortestDistanceToTree: 100000
   _treeToGoTo: {fileID: 0}
   _doOnce: 1
   _canCountTimeWood: 1

@@ -102,8 +102,8 @@ public class Woodcutter : MonoBehaviour
             //if (LevelManager.instance.trees.Where(x => LevelManager.instance.trees.Contains(x)).Any())
             if (_treeList.Any()) //IA2-LINQ
             {
-                if (_shortestDistanceToTree != 10000)
-                    _shortestDistanceToTree = 10000;
+                if (_shortestDistanceToTree != 100000)
+                    _shortestDistanceToTree = 100000;
 
                 var FirstTree = _treeList.Where(x => (x.transform.position - _myTransform.position).sqrMagnitude < _shortestDistanceToTree)
                 .OrderBy(x => (x.transform.position - _myTransform.position).sqrMagnitude).First();
