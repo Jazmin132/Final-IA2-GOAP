@@ -53,10 +53,16 @@ public class GameManager : MonoBehaviour
             instance = this; 
     }
 
+    //public List<Nodes> CreatePath(Nodes StartingNode, Nodes GoalNode)
+    //{ //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
+    //    return _pathToFollow = TimeSlicing.AStar(StartingNode,
+    //        (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
+    //}
+
     public List<Nodes> CreatePath(Nodes StartingNode, Nodes GoalNode)
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
         return _pathToFollow = TimeSlicing.AStar(StartingNode,
-            (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).ToList();
+            (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).SelectMany(x => x).ToList();
     }
 
     public Nodes GetNode(Vector3 pos)//IA2-LINQ

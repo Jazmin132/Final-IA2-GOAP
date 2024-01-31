@@ -153,7 +153,7 @@ public class TimeSlicing
 
     //AStar con Linq, pero sin pausas, se ejecuta y devuelde el path al final
     //o una colleccion vacia si no se encontro un path posible
-    public static IEnumerable<T> AStar<T>(T start,
+    public static IEnumerable<IEnumerable<T>> AStar<T>(T start,
                                            Func<T, bool> targetCheck,
                                            Func<T, IEnumerable<Tuple<T, float>>> GetNeighbours,
                                            Func<T, float> GetHeuristic)
@@ -175,7 +175,7 @@ public class TimeSlicing
 
             if (targetCheck(current))
             {
-                return Generate(current, x => previous[x])
+                yield return Generate(current, x => previous[x])
                                 .TakeWhile(x => previous.ContainsKey(x))
                                 .Reverse();
             }
@@ -197,8 +197,59 @@ public class TimeSlicing
                 }
             }
         }
-        return Enumerable.Empty<T>();
+        yield return Enumerable.Empty<T>();
     }
+
+    #region Old_AStar_Code
+    //AStar con Linq, pero sin pausas, se ejecuta y devuelde el path al final
+    //o una colleccion vacia si no se encontro un path posible
+    //public static IEnumerable<T> AStar<T>(T start,
+    //                                       Func<T, bool> targetCheck,
+    //                                       Func<T, IEnumerable<Tuple<T, float>>> GetNeighbours,
+    //                                       Func<T, float> GetHeuristic)
+    //{
+    //    HashSet<T> visited = new HashSet<T>();
+    //    Dictionary<T, T> previous = new Dictionary<T, T>();
+    //    Dictionary<T, float> actualDistances = new Dictionary<T, float>();
+    //    Dictionary<T, float> heuristicDistances = new Dictionary<T, float>();
+    //    List<T> pending = new List<T>();
+    //    pending.Add(start);
+    //    actualDistances.Add(start, 0f);
+    //    heuristicDistances.Add(start, GetHeuristic(start));
+    //
+    //    while (pending.Any())
+    //    {
+    //        var current = pending.OrderBy(x => heuristicDistances[x]).First();
+    //        pending.Remove(current);
+    //        visited.Add(current);
+    //
+    //        if (targetCheck(current))
+    //        {
+    //            return Generate(current, x => previous[x])
+    //                            .TakeWhile(x => previous.ContainsKey(x))
+    //                            .Reverse();
+    //        }
+    //        else
+    //        {
+    //            var n = GetNeighbours(current).Where(x => !visited.Contains(x.Item1));
+    //            foreach (var elem in n)
+    //            {
+    //                var altDist = actualDistances[current] + elem.Item2 + GetHeuristic(elem.Item1);
+    //                var currentDist = heuristicDistances.ContainsKey(elem.Item1) ? heuristicDistances[elem.Item1] : float.MaxValue;
+    //
+    //                if (currentDist > altDist)
+    //                {
+    //                    heuristicDistances[elem.Item1] = altDist;
+    //                    actualDistances[elem.Item1] = actualDistances[current] + elem.Item2;
+    //                    previous[elem.Item1] = current;
+    //                    pending.Add(elem.Item1);
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return Enumerable.Empty<T>();
+    //}
+    #endregion
 
     //En esta funcion NO se esta haciendo time slicing, ya que el AStar que hicimos NO UTILIZA yield,
     //por lo cual al llamar a la funcion, esta se ejecutaria hasta el final
