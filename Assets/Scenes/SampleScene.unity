@@ -99571,7 +99571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodQuantity: 0
   foodView: {fileID: 1234879101}
-  prefabDesireCF: {fileID: 0}
+  prefabDesireCF: {fileID: 4485381409230115085}
   appleListQuantity: []
   coconutListQuantity: []
   beanListQuantity: []
@@ -144644,6 +144644,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+--- !u!114 &4485381409230115085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8454947864582508643, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+  m_PrefabInstance: {fileID: 4485381409230115084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8878f91955aa646800a52d7e2c38a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4485381409904865960
 MonoBehaviour:
   m_ObjectHideFlags: 0
