@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1a63173d5f52a4d8a514a129ab2de8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabDesireFPF: {fileID: 0}
   appleListQuantityFP: []
   coconutListQuantityFP: []
   beanListQuantityFP: []
@@ -24116,7 +24117,6 @@ GameObject:
   - component: {fileID: 354953535}
   - component: {fileID: 354953538}
   - component: {fileID: 354953537}
-  - component: {fileID: 354953536}
   m_Layer: 5
   m_Name: Tought (3)
   m_TagString: Untagged
@@ -24146,22 +24146,6 @@ RectTransform:
   m_AnchoredPosition: {x: 55.1, y: -72.100006}
   m_SizeDelta: {x: 311, y: 311}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &354953536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 354953534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f8878f91955aa646800a52d7e2c38a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HowMuch:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 555706958}
 --- !u!114 &354953537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41507,7 +41491,7 @@ GameObject:
   - component: {fileID: 555706959}
   - component: {fileID: 555706958}
   m_Layer: 5
-  m_Name: HowMuchWood
+  m_Name: HowMuchProcessedWood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73079,6 +73063,7 @@ MonoBehaviour:
   woodQuantity: 500
   wood1: {fileID: 2119713001}
   wood2: {fileID: 1056022346}
+  _woodText: {fileID: 2042453422}
 --- !u!1 &1220418195
 GameObject:
   m_ObjectHideFlags: 0
@@ -99586,7 +99571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodQuantity: 0
   foodView: {fileID: 1234879101}
-  PrefabDesire: {fileID: 4485381409230115085}
+  prefabDesireCF: {fileID: 0}
   appleListQuantity: []
   coconutListQuantity: []
   beanListQuantity: []
@@ -101502,6 +101487,7 @@ MonoBehaviour:
   columns1: {fileID: 1791983009}
   columns2: {fileID: 1055878783}
   roof: {fileID: 634872310}
+  _materialsText: {fileID: 555706958}
 --- !u!1 &1531546325
 GameObject:
   m_ObjectHideFlags: 0
@@ -119008,7 +118994,6 @@ GameObject:
   - component: {fileID: 1792793248}
   - component: {fileID: 1792793251}
   - component: {fileID: 1792793250}
-  - component: {fileID: 1792793249}
   m_Layer: 5
   m_Name: Tought (2)
   m_TagString: Untagged
@@ -119038,22 +119023,6 @@ RectTransform:
   m_AnchoredPosition: {x: 325.3, y: -109.8}
   m_SizeDelta: {x: 311, y: 311}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1792793249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792793247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f8878f91955aa646800a52d7e2c38a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HowMuch:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 2042453422}
 --- !u!114 &1792793250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144675,17 +144644,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
---- !u!114 &4485381409230115085 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8454947864582508643, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
-  m_PrefabInstance: {fileID: 4485381409230115084}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f8878f91955aa646800a52d7e2c38a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4485381409904865960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144735,7 +144693,7 @@ GameObject:
   - component: {fileID: 4485381409904865967}
   - component: {fileID: 4485381409904865961}
   - component: {fileID: 4485381409904865960}
-  - component: {fileID: 8454947864700703347}
+  - component: {fileID: 4485381409904865968}
   m_Layer: 5
   m_Name: Tought (1)
   m_TagString: Untagged
@@ -144769,6 +144727,22 @@ RectTransform:
   m_AnchoredPosition: {x: -496.7, y: 430.2}
   m_SizeDelta: {x: 311, y: 311}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4485381409904865968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4485381409904865966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfdf45aa6a56d8044ab24f30c5c52460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  howMuchFPF:
+  - {fileID: 4317795293355038344}
+  - {fileID: 453892285929777036}
+  - {fileID: 4485381410515224420}
 --- !u!224 &4485381410289310124
 RectTransform:
   m_ObjectHideFlags: 0
@@ -145292,22 +145266,6 @@ RectTransform:
   m_AnchoredPosition: {x: 41.00003, y: 94}
   m_SizeDelta: {x: 125, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8454947864700703347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4485381409904865966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f8878f91955aa646800a52d7e2c38a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HowMuch:
-  - {fileID: 4317795293355038344}
-  - {fileID: 453892285929777036}
-  - {fileID: 4485381410515224420}
 --- !u!224 &8619285270532194390
 RectTransform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,11 @@ public class FoodPatch : MonoBehaviour
     //public List<NewFood> foodListToAdd = new List<NewFood>();
     //public NewFood food;
 
+    public FoodPatchFood prefabDesireFPF;
+    int HMApples;
+    int HMBeans;
+    int HMCoconuts;
+
     public List<Apple> appleListQuantityFP = new List<Apple>();
     public List<Coconut> coconutListQuantityFP = new List<Coconut>();
     public List<Bean> beanListQuantityFP = new List<Bean>();
@@ -62,6 +67,19 @@ public class FoodPatch : MonoBehaviour
             beanListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList(); //IA-P2
         }
         //Debug.Log("Termina TransferFoodToFoodPatch");
+
+        FoodPatchCountUI();
+    }
+
+    public void FoodPatchCountUI()
+    {
+        HMApples = appleListQuantityFP.Count();
+
+        HMCoconuts = coconutListQuantityFP.Count();
+
+        HMBeans = beanListQuantityFP.Count();
+
+        prefabDesireFPF.HowMuchFoodINeedFPF(HMApples, HMBeans, HMCoconuts);
     }
 
 }

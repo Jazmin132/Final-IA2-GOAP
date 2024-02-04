@@ -717,6 +717,8 @@ public class Chef : MonoBehaviour
                     _foodPatch.coconutListQuantityFP.RemoveRange(0, _canteenToLoad.coconutListQuantity.Count);
                     _foodPatch.beanListQuantityFP.RemoveRange(0, _canteenToLoad.beanListQuantity.Count);
 
+                    foodpatch.FoodPatchCountUI();
+
                     _foodForCanteenReady = true;
 
                     SentToFSM(ChefStates.GoToTable);

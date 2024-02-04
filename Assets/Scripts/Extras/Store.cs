@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Store : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Store : MonoBehaviour
 
     public GameObject wood1;
     public GameObject wood2;
+
+    [SerializeField] Text _woodText;
 
     public void AddWood(float quantity)
     {
@@ -21,6 +24,8 @@ public class Store : MonoBehaviour
         {
             wood2.SetActive(true);
         }
+
+        _woodText.text = woodQuantity.ToString();
     }
 
     public void TakeWood(float quantity)
@@ -36,5 +41,7 @@ public class Store : MonoBehaviour
         {
             wood2.SetActive(false);
         }
+
+        _woodText.text = woodQuantity.ToString();
     }
 }

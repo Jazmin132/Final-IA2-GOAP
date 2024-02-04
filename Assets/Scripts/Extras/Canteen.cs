@@ -7,7 +7,7 @@ public class Canteen : MonoBehaviour
 {
     public float foodQuantity;
     public GameObject foodView;
-    public CanteenFood PrefabDesire;
+    public CanteenFood prefabDesireCF;
     int HMApples;
     int HMBeans;
     int HMCoconuts;
@@ -83,7 +83,7 @@ public class Canteen : MonoBehaviour
             }
             //Debug.Log(i);
         }
-        PrefabDesire.HowMuchFoodIneed(HMApples, HMBeans, HMCoconuts);
+        prefabDesireCF.HowMuchFoodINeedCF(HMApples, HMBeans, HMCoconuts);
     }
 
     public void TransferFoodToCanteen(List<Apple> chefAppleList, List<Coconut> chefCoconutList, List<Bean> chefBeanList)

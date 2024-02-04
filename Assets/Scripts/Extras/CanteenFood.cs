@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CanteenFood : MonoBehaviour
 {
-    public Text[] HowMuch;
+    public Text[] howMuchCF;
 
     /*
     void Start()
@@ -20,10 +20,10 @@ public class CanteenFood : MonoBehaviour
         transform.position = Unit.position + Offset;
     }
     */
-    public void HowMuchFoodIneed(int apple, int beam, int cocos)
+    public void HowMuchFoodINeedCF(int apple, int bean, int cocos)
     {
-        HowMuch[0].text = apple.ToString();
-        HowMuch[1].text = beam.ToString();
-        HowMuch[2].text = cocos.ToString();
+        howMuchCF[0].text = apple.ToString();
+        howMuchCF[1].text = bean.ToString();
+        howMuchCF[2].text = cocos.ToString();
     }
 }
