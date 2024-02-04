@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1a63173d5f52a4d8a514a129ab2de8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabDesireFPF: {fileID: 0}
+  prefabDesireFPF: {fileID: 4485381409904865968}
   appleListQuantityFP: []
   coconutListQuantityFP: []
   beanListQuantityFP: []
