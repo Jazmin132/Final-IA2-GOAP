@@ -24313,6 +24313,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radious: 16
   IsRed: 0
+--- !u!114 &363841736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4485381410867840372, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+  m_PrefabInstance: {fileID: 4485381409230115084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &368387584
 GameObject:
   m_ObjectHideFlags: 0
@@ -64072,6 +64083,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 855499480}
   m_CullTransparentMesh: 1
+--- !u!114 &858048878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4317795293774632088, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+  m_PrefabInstance: {fileID: 4485381409230115084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &861262862
 GameObject:
   m_ObjectHideFlags: 0
@@ -69788,6 +69810,17 @@ Transform:
   m_Father: {fileID: 2039341659}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &960809020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 453892286350091676, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+  m_PrefabInstance: {fileID: 4485381409230115084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -144177,7 +144210,7 @@ GameObject:
   - component: {fileID: 3632407027144708249}
   - component: {fileID: 453892285929777036}
   m_Layer: 5
-  m_Name: HowMuchBeams
+  m_Name: HowMuchBeans
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144385,6 +144418,10 @@ PrefabInstance:
     - target: {fileID: 453892286350091676, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 104
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746649453400270283, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+      propertyPath: m_Name
+      value: HowMuchBeans
       objectReference: {fileID: 0}
     - target: {fileID: 4317795293774632088, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -144598,6 +144635,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 94
       objectReference: {fileID: 0}
+    - target: {fileID: 8454947864582508643, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+      propertyPath: howMuchCF.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8454947864582508643, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+      propertyPath: howMuchCF.Array.data[0]
+      value: 
+      objectReference: {fileID: 858048878}
+    - target: {fileID: 8454947864582508643, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+      propertyPath: howMuchCF.Array.data[1]
+      value: 
+      objectReference: {fileID: 960809020}
+    - target: {fileID: 8454947864582508643, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
+      propertyPath: howMuchCF.Array.data[2]
+      value: 
+      objectReference: {fileID: 363841736}
     - target: {fileID: 8619285270616441414, guid: 2bb43bc2f54a8aa4fb361bb1342a9e0f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
