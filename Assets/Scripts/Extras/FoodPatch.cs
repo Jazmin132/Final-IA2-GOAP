@@ -40,7 +40,9 @@ public class FoodPatch : MonoBehaviour
             //    appleListQuantityFP.Add(chefAppleList[i]);
             //}
 
-            appleListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefAppleList).ToList(); //IA-P2
+            //appleListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefAppleList).ToList();
+
+            appleListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefAppleList)); //IA-P2
         }
 
         if(chefCoconutList.Count > 0)
@@ -52,7 +54,9 @@ public class FoodPatch : MonoBehaviour
             //    coconutListQuantityFP.Add(chefCoconutList[i]);
             //}
 
-            coconutListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefCoconutList).ToList(); //IA-P2
+            //coconutListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefCoconutList).ToList();
+
+            coconutListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefCoconutList)); //IA-P2
         }
 
         if(chefBeanList.Count > 0)
@@ -64,7 +68,9 @@ public class FoodPatch : MonoBehaviour
             //    beanListQuantityFP.Add(chefBeanList[i]);
             //}
 
-            beanListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList(); //IA-P2
+            //beanListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList();
+
+            beanListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefBeanList)); //IA-P2
         }
         //Debug.Log("Termina TransferFoodToFoodPatch");
 
