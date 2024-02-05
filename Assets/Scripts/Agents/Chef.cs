@@ -171,11 +171,13 @@ public class Chef : MonoBehaviour
                 _myTransform.LookAt(new Vector3(finalDest.x, 0, finalDest.z));
 
                 _myRgbd.MovePosition(_myTransform.position + _myTransform.forward * _speed * Time.fixedDeltaTime);
+
+                finalDest = Vector3.zero;
             }
         };
         _LookingForFood.OnExit += x => 
         {
-            finalDest = Vector3.zero;
+            //finalDest = Vector3.zero;
 
             _stateLoadFood = false; 
         };
