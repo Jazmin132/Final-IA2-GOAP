@@ -15,15 +15,15 @@ public class BuildingZone : MonoBehaviour
     public void AddMaterials(float quantity)
     {
         materialsQuantity += quantity;
-        if (materialsQuantity > 500)
+        if (materialsQuantity > 250)
         {
             columns1.SetActive(true);
         }
-        else if (materialsQuantity > 1000)
+        else if (materialsQuantity > 500)
         {
             columns2.SetActive(true);
         }
-        else if (materialsQuantity > 2000)
+        else if (materialsQuantity > 1000)
         {
             roof.SetActive(true);
         }
