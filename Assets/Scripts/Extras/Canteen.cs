@@ -100,7 +100,9 @@ public class Canteen : MonoBehaviour
             //    appleListQuantity.Add(chefAppleList[i]);
             //}
 
-            appleListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefAppleList).ToList(); //IA-P2
+            //appleListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefAppleList).ToList();
+
+            appleListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefAppleList)); //IA-P2
         }
 
         if (chefCoconutList.Count > 0)
@@ -114,7 +116,9 @@ public class Canteen : MonoBehaviour
             //    coconutListQuantity.Add(chefCoconutList[i]);
             //}
 
-            coconutListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefCoconutList).ToList(); //IA-P2
+            //coconutListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefCoconutList).ToList();
+
+            coconutListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefCoconutList)); //IA-P2
         }
 
         if (chefBeanList.Count > 0)
@@ -128,7 +132,9 @@ public class Canteen : MonoBehaviour
             //    beanListQuantity.Add(chefBeanList[i]);
             //}
 
-            beanListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList(); //IA-P2
+            //beanListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList();
+
+            beanListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefBeanList)); //IA-P2
         }
 
         CalculateFood();

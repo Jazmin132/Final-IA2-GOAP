@@ -395,16 +395,19 @@ public class Chef : MonoBehaviour
 
     public void TransferFoodToChef(List<Apple> FPAppleList, List<Coconut> FPCoconutList, List<Bean> FPBeanList)
     {
-        if(FPAppleList.Count > 0)
+
+        if (FPAppleList.Count > 0)
         {
             if(_canteenToLoad.appleListQuantity.Count > 0)
             {
-                //for (int i = 0; i < _canteenToLoad.appleListQuantity.Count; i++)
-                //{
-                //    appleQuantity.Add(FPAppleList[i]);
-                //}
+                for (int i = 0; i < _canteenToLoad.appleListQuantity.Count; i++)
+                {
+                    appleQuantity.Add(FPAppleList[i]);
+                }
 
-                appleQuantity = _generatorsScript.IEnumerableCollectionCreator(FPAppleList).ToList(); //IA-P2
+                //appleQuantity = _generatorsScript.IEnumerableCollectionCreator(FPAppleList).ToList();
+
+                //appleQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(FPAppleList));
             }
         }
 
@@ -412,12 +415,14 @@ public class Chef : MonoBehaviour
         {
             if (_canteenToLoad.coconutListQuantity.Count > 0)
             {
-                //for (int i = 0; i < _canteenToLoad.coconutListQuantity.Count; i++)
-                //{
-                //    coconutQuantity.Add(FPCoconutList[i]);
-                //}
+                for (int i = 0; i < _canteenToLoad.coconutListQuantity.Count; i++)
+                {
+                    coconutQuantity.Add(FPCoconutList[i]);
+                }
 
-                coconutQuantity = _generatorsScript.IEnumerableCollectionCreator(FPCoconutList).ToList(); //IA-P2
+                //coconutQuantity = _generatorsScript.IEnumerableCollectionCreator(FPCoconutList).ToList();
+
+                //coconutQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(FPCoconutList));
             }
         }
 
@@ -425,12 +430,14 @@ public class Chef : MonoBehaviour
         {
             if (_canteenToLoad.beanListQuantity.Count > 0)
             {
-                //for (int i = 0; i < _canteenToLoad.beanListQuantity.Count; i++)
-                //{
-                //    beanQuantity.Add(FPBeanList[i]);
-                //}
+                for (int i = 0; i < _canteenToLoad.beanListQuantity.Count; i++)
+                {
+                    beanQuantity.Add(FPBeanList[i]);
+                }
 
-                beanQuantity = _generatorsScript.IEnumerableCollectionCreator(FPBeanList).ToList(); //IA-P2
+                //beanQuantity = _generatorsScript.IEnumerableCollectionCreator(FPBeanList).ToList();
+
+                //beanQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(FPBeanList));
             }
         }
     }
