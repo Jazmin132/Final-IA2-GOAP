@@ -38,35 +38,43 @@ public class BuildingZone : MonoBehaviour
         {
             _columns[0].SetActive(true);
         }
-        else if (materialsQuantity >= 100)
+        
+        if (materialsQuantity >= 100)
         {
             _walls[0].SetActive(true);
         }
-        else if (materialsQuantity >= 150)
+        
+        if (materialsQuantity >= 150)
         {
             _columns[1].SetActive(true);
         }
-        else if (materialsQuantity >= 200)
+        
+        if (materialsQuantity >= 200)
         {
             _walls[1].SetActive(true);
         }
-        else if (materialsQuantity >= 250)
+        
+        if (materialsQuantity >= 250)
         {
             _columns[2].SetActive(true);
         }
-        else if (materialsQuantity >= 300)
+        
+        if (materialsQuantity >= 300)
         {
             _walls[2].SetActive(true);
         }
-        else if (materialsQuantity >= 350)
+
+        if (materialsQuantity >= 350)
         {
             _columns[3].SetActive(true);
         }
-        else if (materialsQuantity >= 400)
+
+        if (materialsQuantity >= 400)
         {
             _entrance.SetActive(true);
         }
-        else if (materialsQuantity >= 500)
+
+        if (materialsQuantity >= 500)
         {
             _roof.SetActive(true);
         }
