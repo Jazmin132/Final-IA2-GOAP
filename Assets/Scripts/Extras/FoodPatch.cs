@@ -20,6 +20,9 @@ public class FoodPatch : MonoBehaviour
     public List<Coconut> coconutListQuantityFP = new List<Coconut>();
     public List<Bean> beanListQuantityFP = new List<Bean>();
 
+    [SerializeField] GameObject[] _applesView, _coconutsView, _beansView;
+    [SerializeField] int _numToView1, _numToView2, _numToView3;
+
     [SerializeField] GeneratorsScript _generatorsScript;
 
     //public void AddFood(int foodNum, NewFood foodToAdd)
@@ -75,6 +78,8 @@ public class FoodPatch : MonoBehaviour
         //Debug.Log("Termina TransferFoodToFoodPatch");
 
         FoodPatchCountUI();
+
+        FoodPatchViewFood();
     }
 
     public void FoodPatchCountUI()
@@ -88,4 +93,111 @@ public class FoodPatch : MonoBehaviour
         prefabDesireFPF.HowMuchFoodINeedFPF(HMApples, HMBeans, HMCoconuts);
     }
 
+    public void FoodPatchViewFood()
+    {
+        #region ApplesView
+        if (appleListQuantityFP.Count >= _numToView1)
+        {
+            if (!_applesView[0].activeSelf)
+                _applesView[0].SetActive(true);
+        }
+        else
+        {
+            if (_applesView[0].activeSelf)
+                _applesView[0].SetActive(false);
+        }
+
+        if (appleListQuantityFP.Count >= _numToView2)
+        {
+            if (!_applesView[1].activeSelf)
+                _applesView[1].SetActive(true);
+        }
+        else
+        {
+            if (_applesView[1].activeSelf)
+                _applesView[1].SetActive(false);
+        }
+
+        if (appleListQuantityFP.Count >= _numToView3)
+        {
+            if (!_applesView[2].activeSelf)
+                _applesView[2].SetActive(true);
+        }
+        else
+        {
+            if (_applesView[2].activeSelf)
+                _applesView[2].SetActive(false);
+        }
+        #endregion
+
+        #region CoconutsView
+        if (coconutListQuantityFP.Count >= _numToView1)
+        {
+            if (!_coconutsView[0].activeSelf)
+                _coconutsView[0].SetActive(true);
+        }
+        else
+        {
+            if (_coconutsView[0].activeSelf)
+                _coconutsView[0].SetActive(false);
+        }
+
+        if (coconutListQuantityFP.Count >= _numToView2)
+        {
+            if (!_coconutsView[1].activeSelf)
+                _coconutsView[1].SetActive(true);
+        }
+        else
+        {
+            if (_coconutsView[1].activeSelf)
+                _coconutsView[1].SetActive(false);
+        }
+
+        if (coconutListQuantityFP.Count >= _numToView3)
+        {
+            if (!_coconutsView[2].activeSelf)
+                _coconutsView[2].SetActive(true);
+        }
+        else
+        {
+            if (_coconutsView[2].activeSelf)
+                _coconutsView[2].SetActive(false);
+        }
+        #endregion
+
+        #region BeansView
+        if (beanListQuantityFP.Count >= _numToView1)
+        {
+            if (!_beansView[0].activeSelf)
+                _beansView[0].SetActive(true);
+        }
+        else
+        {
+            if (_beansView[0].activeSelf)
+                _beansView[0].SetActive(false);
+        }
+
+        if (beanListQuantityFP.Count >= _numToView2)
+        {
+            if (!_beansView[1].activeSelf)
+                _beansView[1].SetActive(true);
+        }
+        else
+        {
+            if (_beansView[1].activeSelf)
+                _beansView[1].SetActive(false);
+        }
+
+        if (beanListQuantityFP.Count >= _numToView3)
+        {
+            if (!_beansView[2].activeSelf)
+                _beansView[2].SetActive(true);
+        }
+        else
+        {
+            if (_beansView[2].activeSelf)
+                _beansView[2].SetActive(false);
+        }
+        #endregion
+    }
 }

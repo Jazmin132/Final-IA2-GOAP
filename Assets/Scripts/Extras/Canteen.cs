@@ -6,7 +6,14 @@ using System.Linq;
 public class Canteen : MonoBehaviour
 {
     public float foodQuantity;
-    public GameObject foodView;
+    //public GameObject foodView;
+    [SerializeField] bool _appleAsked, _coconutAsked, _beanAsked;
+    [SerializeField] GameObject[] _applesView, _coconutsView, _beansView;
+
+    [SerializeField] Chef _chef;
+
+    [SerializeField] Constructor _constructor;
+
     public CanteenFood prefabDesireCF;
     int HMApples;
     int HMBeans;
@@ -36,21 +43,60 @@ public class Canteen : MonoBehaviour
         //PrefabDesire.transform.position = transform.position;
     }
 
+    void FixedUpdate()
+    {
+        if(_chef != null && !_chef.chefAboutToEat)
+        {
+            if(_applesView[0].activeSelf)
+            {
+                _applesView[0].SetActive(false);
+            }
+
+            if (_coconutsView[0].activeSelf)
+            {
+                _coconutsView[0].SetActive(false);
+            }
+
+            if (_beansView[0].activeSelf)
+            {
+                _beansView[0].SetActive(false);
+            }
+        }
+
+        if(_constructor != null && !_constructor.constructorEating)
+        {
+            if (_applesView[1].activeSelf)
+            {
+                _applesView[1].SetActive(false);
+            }
+
+            if (_coconutsView[1].activeSelf)
+            {
+                _coconutsView[1].SetActive(false);
+            }
+
+            if (_beansView[1].activeSelf)
+            {
+                _beansView[1].SetActive(false);
+            }
+        }
+    }
+
     public void AddFood(float quantity)
     {
-        if (foodQuantity > 0)
-        {
-            foodView.SetActive(true);
-        }
+        //if (foodQuantity > 0)
+        //{
+        //    foodView.SetActive(true);
+        //}
         foodQuantity += quantity;
     }
 
     public void TakeFood(float quantity)
     {
-        if (foodQuantity >= 0)
-        {
-            foodView.SetActive(false);
-        }
+        //if (foodQuantity >= 0)
+        //{
+        //    foodView.SetActive(false);
+        //}
         foodQuantity -= quantity;
     }
 
@@ -66,16 +112,22 @@ public class Canteen : MonoBehaviour
                     //Debug.Log("appleListQuantity Capacity+");
                     appleListQuantity.Add(null);
                     HMApples = appleListQuantity.Count();
+                    if (!_appleAsked)
+                        _appleAsked = true;
                     break;
                 case 1:
                     //Debug.Log("coconutListQuantity Capacity+");
                     coconutListQuantity.Add(null);
                     HMCoconuts = coconutListQuantity.Count();
+                    if (!_coconutAsked)
+                        _coconutAsked = true;
                     break;
                 case 2:
                     //Debug.Log("beanListQuantity Capacity+");
                     beanListQuantity.Add(null);
                     HMBeans = beanListQuantity.Count();
+                    if (!_beanAsked)
+                        _beanAsked = true;
                     break;
                 default:
                     //Debug.Log("ERROR, no se encuentra una comida de el número " + _randomNumFood);
@@ -198,6 +250,41 @@ public class Canteen : MonoBehaviour
         }
 
         listNewFoodQuantity.Clear();
+
+        #region FoodAsked
+        if (_appleAsked)
+        {
+            if (!_applesView[0].activeSelf && !_applesView[1].activeSelf)
+            {
+                _applesView[0].SetActive(true);
+                _applesView[1].SetActive(true);
+            }
+
+            _appleAsked = false;
+        }
+
+        if (_coconutAsked)
+        {
+            if (!_coconutsView[0].activeSelf && !_coconutsView[1].activeSelf)
+            {
+                _coconutsView[0].SetActive(true);
+                _coconutsView[1].SetActive(true);
+            }
+
+            _coconutAsked = false;
+        }
+
+        if (_beanAsked)
+        {
+            if (!_beansView[0].activeSelf && !_beansView[1].activeSelf)
+            {
+                _beansView[0].SetActive(true);
+                _beansView[1].SetActive(true);
+            }
+
+            _beanAsked = false;
+        }
+        #endregion
 
         FoodIngredients();
     }

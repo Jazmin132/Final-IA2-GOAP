@@ -78,6 +78,8 @@ public class Chef : MonoBehaviour
 
     [SerializeField] UIManager _uIManager;
 
+    public bool chefAboutToEat;
+
     #region ChefStates
     public enum ChefStates
     {
@@ -277,6 +279,8 @@ public class Chef : MonoBehaviour
             particleHungry.Stop();
             _stateEat = false;
             _isEating = false;
+
+            chefAboutToEat = false;
         };
 
         _stateDeath.OnEnter += x => 
@@ -728,6 +732,8 @@ public class Chef : MonoBehaviour
 
                     foodpatch.FoodPatchCountUI();
 
+                    foodpatch.FoodPatchViewFood();
+
                     _foodForCanteenReady = true;
 
                     SentToFSM(ChefStates.GoToTable);
@@ -746,6 +752,8 @@ public class Chef : MonoBehaviour
 
             if(canteen != null)
             {
+                chefAboutToEat = true;
+
                 canteen.TransferFoodToCanteen(appleQuantity, coconutQuantity, beanQuantity);
 
                 appleQuantity.Clear();

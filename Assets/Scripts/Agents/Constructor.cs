@@ -64,6 +64,8 @@ public class Constructor : MonoBehaviour
 
     [SerializeField] UIManager _uIManager;
 
+    public bool constructorEating;
+
     #region ConstructorStates
     public enum ConstructorStates
     {
@@ -203,6 +205,8 @@ public class Constructor : MonoBehaviour
             isReadyToEat = false;
             _goingToEat = false;
             particleHunger.Stop();
+
+            constructorEating = false;
         };
 
         _stateDeath.OnFixedUpdate += () =>
@@ -606,6 +610,8 @@ public class Constructor : MonoBehaviour
                 if (!_isEating)
                     _isEating = true;
             }
+
+            constructorEating = true;
 
             SentToFSM(ConstructorStates.WaitForFood);
         }
