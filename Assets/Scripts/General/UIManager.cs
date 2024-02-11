@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
 
         TextCount[1].text = _BeeCount.ToString();
 
-        foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray(); //IA-P2
+        foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray(); //IA2-LINQ
 
         for (int i = 0; i < Foxes.Length; i++)
         {
@@ -122,7 +122,7 @@ public class UIManager : MonoBehaviour
                 Actualizo el texto del zorro
                 textFoxKills[i].text = "X " + tupla.Item2[i];
                 */
-                foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray(); //IA-P2
+                foxesNamesAndKills = FoxesNames.Zip(foxKillsNum, (FN, FA) => FN + " " + FA).ToArray(); //IA2-LINQ
                 textFoxKills[i].text = foxesNamesAndKills[i];
             }
 
