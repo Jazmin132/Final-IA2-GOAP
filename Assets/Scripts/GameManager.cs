@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     //}
     #endregion
 
-    public List<Nodes> CreatePath(Nodes StartingNode, Nodes GoalNode)
+    public List<Nodes> CreatePath(Nodes StartingNode, Nodes GoalNode) //IA2
     { //x.GetNeighbours tiene que ser una tupla de nodos con sus distancias
         return _pathToFollow = TimeSlicing.AStar(StartingNode,
             (x) => x == GoalNode, x => x.GetNeighbours(), _StartingNode => 0).SelectMany(x => x).ToList();
