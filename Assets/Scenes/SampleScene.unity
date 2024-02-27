@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -66944,9 +66944,9 @@ MonoBehaviour:
   appleListQuantity: []
   coconutListQuantity: []
   beanListQuantity: []
+  listNewFoodQuantity: []
   maxQuantityOfFood: 5
   maxTypesOfFood: 3
-  listNewFoodQuantity: []
   _generatorsScript: {fileID: 653100343}
 --- !u!1001 &921547076
 PrefabInstance:
@@ -102780,9 +102780,9 @@ MonoBehaviour:
   appleListQuantity: []
   coconutListQuantity: []
   beanListQuantity: []
+  listNewFoodQuantity: []
   maxQuantityOfFood: 5
   maxTypesOfFood: 3
-  listNewFoodQuantity: []
   _generatorsScript: {fileID: 653100343}
 --- !u!1 &1391587352
 GameObject:
@@ -148111,7 +148111,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097101582}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.312618}
+  m_LocalPosition: {x: 0, y: 0, z: -4.3126183}
   m_LocalScale: {x: 0.284375, y: 0.284375, z: 0.284375}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -148120,7 +148120,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 4.105591, y: 4.3712616}
+  m_AnchoredPosition: {x: -5.620613, y: 4.371277}
   m_SizeDelta: {x: 86, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2097101584

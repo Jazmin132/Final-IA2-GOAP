@@ -23,6 +23,8 @@ public class Canteen : MonoBehaviour
     public List<Coconut> coconutListQuantity = new List<Coconut>();
     public List<Bean> beanListQuantity = new List<Bean>();
 
+    public List<NewFood> listNewFoodQuantity = new List<NewFood>();
+
     //public IEnumerable<Apple> appleIEnumerableQuantity;
     //public IEnumerable<Coconut> coconutIEnumerableQuantity;
     //public IEnumerable<Bean> beanIEnumerableQuantity;
@@ -30,8 +32,6 @@ public class Canteen : MonoBehaviour
     public int maxQuantityOfFood, maxTypesOfFood;
 
     int _randomNumFood;
-
-    public List<NewFood> listNewFoodQuantity = new List<NewFood>();
 
     //public IEnumerable<NewFood> iEnumerableNewFoodQuantity;
 
