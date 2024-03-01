@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class GeneratorsScript : MonoBehaviour
 {
-    public IEnumerable<T> IEnumerableCollectionCreator<T>(List<T> Coll1) //IA2-LINQ
+    public IEnumerable<T> IEnumerableCollectionCreator<T>(List<T> Coll1, int maxNumNewCollection) //IA2-LINQ
     {
-        foreach (var item in Coll1)
+        //foreach (var item in Coll1)
+        //{
+        //    yield return item;
+        //}
+
+        for (int i = 0; i < maxNumNewCollection; i++)
         {
-            yield return item;
+            //Debug.Log(Coll1[i]);
+
+            yield return Coll1[i];
         }
+
+        //Debug.Log("Generator Activated");
     }
 }

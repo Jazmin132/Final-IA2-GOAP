@@ -154,7 +154,7 @@ public class Canteen : MonoBehaviour
 
             //appleListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefAppleList).ToList();
 
-            appleListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefAppleList)); //IA2-LINQ
+            appleListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefAppleList, chefAppleList.Count)); //IA2-LINQ
         }
 
         if (chefCoconutList.Count > 0)
@@ -170,7 +170,7 @@ public class Canteen : MonoBehaviour
 
             //coconutListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefCoconutList).ToList();
 
-            coconutListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefCoconutList)); //IA2-LINQ
+            coconutListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefCoconutList, chefCoconutList.Count)); //IA2-LINQ
         }
 
         if (chefBeanList.Count > 0)
@@ -186,7 +186,7 @@ public class Canteen : MonoBehaviour
 
             //beanListQuantity = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList();
 
-            beanListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefBeanList)); //IA2-LINQ
+            beanListQuantity.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefBeanList, chefBeanList.Count)); //IA2-LINQ
         }
 
         CalculateFood();

@@ -45,7 +45,7 @@ public class FoodPatch : MonoBehaviour
 
             //appleListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefAppleList).ToList();
 
-            appleListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefAppleList)); //IA2-LINQ
+            appleListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefAppleList, chefAppleList.Count)); //IA2-LINQ
         }
 
         if(chefCoconutList.Count > 0)
@@ -59,7 +59,7 @@ public class FoodPatch : MonoBehaviour
 
             //coconutListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefCoconutList).ToList();
 
-            coconutListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefCoconutList)); //IA2-LINQ
+            coconutListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefCoconutList, chefCoconutList.Count)); //IA2-LINQ
         }
 
         if(chefBeanList.Count > 0)
@@ -73,7 +73,7 @@ public class FoodPatch : MonoBehaviour
 
             //beanListQuantityFP = _generatorsScript.IEnumerableCollectionCreator(chefBeanList).ToList();
 
-            beanListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefBeanList)); //IA2-LINQ
+            beanListQuantityFP.AddRange(_generatorsScript.IEnumerableCollectionCreator(chefBeanList, chefBeanList.Count)); //IA2-LINQ
         }
         //Debug.Log("Termina TransferFoodToFoodPatch");
 
