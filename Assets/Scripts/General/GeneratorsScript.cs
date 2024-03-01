@@ -15,7 +15,10 @@ public class GeneratorsScript : MonoBehaviour
         {
             //Debug.Log(Coll1[i]);
 
-            yield return Coll1[i];
+            if (Coll1.Count > i)
+            {
+                yield return Coll1[i];
+            }
         }
 
         //Debug.Log("Generator Activated");
