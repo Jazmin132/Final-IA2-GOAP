@@ -188,6 +188,9 @@ public class GameManager : MonoBehaviour
         if (IndeX >= FoodPoints.Length) IndeX = 0;
     }
 
+    //CallFoxes es llamado por un Agent (Zorro) cuando detecta la entidad Boid (Oveja) el cual alerta a los demás Agent exceptuándose a sí mismo (ya que él mismo detectó al boid).
+    //Ordena los Agent en la lista allFoxes poniendo a quien llamó CallFoxes último (.OrderBy). Luego, se toma la cantidad de Agent en allFoxes excepto quien los llamó (.TakeWhile) y esa cantidad va a ser Foxes.
+    //A partir de la cantidad que tiene Foxes, va a ir Agent por Agent y les va a pasar su target como el Agent quien detectó Boid excepto este mismo Agent y también les va a cambiar su estado a GOTODEST.
     public void CallFoxes(Agent fox)//IA2 LINQ
     {
         //var Foxes = allFoxes.Where(x => x != fox).ToList(); // Original

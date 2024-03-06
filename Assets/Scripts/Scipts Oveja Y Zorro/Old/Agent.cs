@@ -361,6 +361,7 @@ public class Agent : GridEntity
         var boid = Query().OfType<Boid>();
         if (boid != null) return new Vector3();
 
+        //y = boid | x = Vector3
         Vector3 Steering = boid.Aggregate(new Vector3(), (x, y) =>
         {
             Vector3 futurePos = y.transform.position + y.GetVelocity();

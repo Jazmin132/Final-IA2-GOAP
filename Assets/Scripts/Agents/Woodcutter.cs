@@ -156,7 +156,7 @@ public class Woodcutter : MonoBehaviour
         LOADWOOD.OnEnter += x => 
         {
             _uIManager.ShowFace("LoadWood", Faces);
-            _Cut = true; 
+            _Cut = true;
         };
         LOADWOOD.OnFixedUpdate += () => 
         {

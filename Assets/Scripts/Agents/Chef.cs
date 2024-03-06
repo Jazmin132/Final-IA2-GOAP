@@ -290,13 +290,10 @@ public class Chef : MonoBehaviour
         };
         _stateDeath.OnFixedUpdate += () => 
         {
-            if (_hunger > _hungerMaxCapacity)
-            {
-                GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
-                Destroy(effect, 3f);
+            GameObject effect = Instantiate(_particleDeathObject, transform.position, Quaternion.identity);
+            Destroy(effect, 3f);
 
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         };
 
         _MyFSM = new EventFSM<ChefStates>(_LookingForFood);
@@ -319,6 +316,9 @@ public class Chef : MonoBehaviour
 
             SentToFSM(ChefStates.LoadFood);
         }
+
+        if(_hunger > _hungerMaxCapacity)
+            SentToFSM(ChefStates.stateDeath);
 
         #region Before
         /*
